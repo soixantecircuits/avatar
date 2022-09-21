@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply rounded-md font-medium text-white text-lg;
+  }
+
+  .hover-gray{
+    @apply hover:bg-gray-900 hover:text-white;
+  }
+
+  .btn-large{
+    @apply text-xl font-medium text-center w-full p-4 rounded-md ;
+  }
+
+  .screen{
+    @apply h-screen grid place-items-center p-60 container mx-auto;
+  }
+
+  .camera-box{
+    @apply grid place-items-center p-60 container mx-auto bg-gray-200;
+  }
+}
