@@ -1,22 +1,18 @@
 <template>
-  <div class='screen'>
+  <div class="h-screen grid place-items-center p-60 container mx-auto">
     <router-link to='takeorpick'>
-      <outline-chevron-double-left-icon class='w-8 h-8' />
+      <outline-chevron-double-left-icon class='w-10 h-10' />
     </router-link>
-    <vue-web-cam autoplay />
-    <button type="button" class="btn bg-emerald-500 text-white hover-gray" >
-      Start Camera
-    </button>
-    <button class="btn bg-emerald-500 text-white hover-gray">
-      Stop Camera
-    </button>
+    <CameraStream />
     </div>
 </template>
 
 <script>
+import CameraStream from '../components/CameraStream.vue'
 
 export default {
   name: 'WebcamPage',
-  layout: 'defaultLayout'
+  layout: 'defaultLayout',
+  Components: { CameraStream }
 }
 </script>
