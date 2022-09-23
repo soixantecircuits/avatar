@@ -1,17 +1,20 @@
 <template>
-  <div class ="w-full grid">
-      <div class="flex items-center justify-center">
-        <video ref="video" class="bg-emerald-500" />
+      <div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
+      <div class="h-5/6">
+        <video ref="video" class="h-full"/>
       </div>
-      <div class="flex items-center justify-center justify-around p-4">
-        <button type="button" class="btn bg-emerald-500 text-white hover-gray" @click="startCamera">
+      <div class="w-2/4 flex flex-row items-center justify-around">
+        <button class="btn hover-gray" @click="startCamera">
           Start Camera
         </button>
-        <button class="btn bg-emerald-500 text-white hover-gray" @click="stopCamera">
+        <button>
+          <outline-camera-icon class="w-10 h-10" />
+        </button>
+        <button class="btn-white hover-gray" @click="stopCamera">
           Stop Camera
         </button>
       </div>
-    </div>
+      </div>
 </template>
 
 <script>
@@ -20,13 +23,15 @@ export default {
 
   data () {
     return {
-      stream: null
+      stream: null,
+      cameraOpen: false
     }
   },
   methods: {
     startCamera () {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
+          this.cameraOpen = true
           this.$refs.video.srcObject = stream
           this.$refs.video.play()
           this.stream = stream
@@ -36,6 +41,17 @@ export default {
       if (this.stream) {
         this.stream.getTracks().forEach(track => track.stop())
       }
+    },
+    captureImage () {
+      const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
+      const imageCapture = new window.ImageCapture(mediaStreamTrack)
+      const reader = new FileReader()
+      return imageCapture.takePhoto().then(blob => {
+        reader.readAsDataURL(blob)
+        reader.onload = () => {
+          this.imageData.image = reader.result
+        }
+      })
     }
   }
 }

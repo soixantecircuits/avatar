@@ -4,22 +4,19 @@
 
 @layer components {
   .btn {
-    @apply rounded-md font-medium text-white text-lg;
+    @apply rounded-md font-medium text-white text-xl bg-emerald-500 p-4;
+  }
+
+  .btn-white {
+    @apply rounded-md font-medium text-gray-900 text-xl bg-white p-4;
   }
 
   .hover-gray{
     @apply hover:bg-gray-900 hover:text-white;
   }
 
-  .btn-large{
-    @apply text-xl font-medium text-center w-full p-4 rounded-md ;
+  video {
+    @apply rounded-md shadow-lg ;
   }
-
-  .screen{
-    @apply h-screen grid place-items-center p-60 container mx-auto;
-  }
-
-  .camera-box{
-    @apply grid place-items-center p-60 container mx-auto bg-gray-200;
-  }
+  
 }
