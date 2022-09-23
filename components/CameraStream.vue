@@ -10,7 +10,7 @@
         <button>
           <outline-camera-icon class="w-10 h-10" />
         </button>
-        <button class="btn-white hover-gray" @click="stopCamera">
+        <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
           Stop Camera
         </button>
       </div>
@@ -41,17 +41,6 @@ export default {
       if (this.stream) {
         this.stream.getTracks().forEach(track => track.stop())
       }
-    },
-    captureImage () {
-      const mediaStreamTrack = this.mediaStream.getVideoTracks()[0]
-      const imageCapture = new window.ImageCapture(mediaStreamTrack)
-      const reader = new FileReader()
-      return imageCapture.takePhoto().then(blob => {
-        reader.readAsDataURL(blob)
-        reader.onload = () => {
-          this.imageData.image = reader.result
-        }
-      })
     }
   }
 }

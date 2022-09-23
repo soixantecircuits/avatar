@@ -11,6 +11,10 @@
     @apply rounded-md font-medium text-gray-900 text-xl bg-white p-4;
   }
 
+  .btn-cancel{
+    @apply bg-gray-200;
+  }
+
   .hover-gray{
     @apply hover:bg-gray-900 hover:text-white;
   }
