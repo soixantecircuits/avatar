@@ -1,24 +1,20 @@
 <template>
-      <div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
-      <div class="h-5/6">
+<div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
+    <div class="h-5/6">
         <video ref="video" class="h-full"/>
-      </div>
-      <div class="w-2/4 flex flex-row items-center justify-around">
-        <button class="btn hover-gray" @click="startCamera">
-          Start Camera
-        </button>
-        <button @click="capture">
-          <outline-camera-icon class="w-10 h-10" />
-        </button>
-        <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
-          Stop Camera
-        </button>
-      </div>
-      <h2>Captured Image</h2>
-                <figure class="figure">
-                    <img :src="img" class="img-responsive" />
-                </figure>
-      </div>
+    </div>
+    <div class="w-2/4 flex flex-row items-center justify-around">
+      <button class="btn hover-gray" @click="startCamera">
+        Start Camera
+      </button>
+      <button @click="capture">
+        <outline-camera-icon class="w-10 h-10" />
+      </button>
+      <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
+        Stop Camera
+      </button>
+    </div>
+</div>
 </template>
 
 <script>
@@ -40,7 +36,7 @@ export default {
       })
         .then(stream => {
           this.cameraOpen = true
-          console.log(this.cameraOpen)
+          // console.log(this.cameraOpen)
           // we initialise the stream of the camera to the video
           this.$refs.video.srcObject = stream
           // since we're not using autoplay, we need to manually play the video
@@ -54,7 +50,7 @@ export default {
     stopCamera () {
       if (this.stream) {
         this.cameraOpen = false
-        console.log(this.cameraOpen)
+        // console.log(this.cameraOpen)
         // we stop the stream of the camera
         this.stream.getTracks().forEach(track => track.stop())
       }
@@ -82,6 +78,11 @@ export default {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
       return canvas
     }
+  },
+
+  beforeUnmount () {
+    this.stopCamera()
   }
+
 }
 </script>

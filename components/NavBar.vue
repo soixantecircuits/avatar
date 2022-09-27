@@ -3,7 +3,7 @@
     <nav class="flex flex-row justify-between py-3 px-6 shadow sticky top-0">
       <router-link to="/" class="flex flex-row">
         <div class="h-10 w-10  mr-2">
-          <img class="h-10 w-10" src="/logo.webp">
+          <img class="h-10 w-10" src="../static/logo.webp">
         </div>
         <p class="text-2xl no-underline font-bold">
           Avatar
