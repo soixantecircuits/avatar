@@ -9,24 +9,36 @@
     </button>
     </div>
     <CameraStream v-if="startCam" />
+    <CameraCapture v-if="store.captureImg" />
     </div>
 </template>
 
 <script>
 import CameraStream from '../components/CameraStream.vue'
+import CameraCapture from '../components/CameraCapture.vue'
+
+import { useCameraStore } from '~~/store'
+
+import { ref } from 'vue'
 
 export default {
   name: 'WebcamPage',
   layout: 'defaultLayout',
-  Components: { CameraStream },
-  data () {
-    return {
-      startCam: false
+  Components: { CameraStream, CameraCapture },
+
+  setup () {
+    const startCam = ref(false)
+
+    const store = useCameraStore()
+    console.log(store.captureImg)
+
+    function startAvatar () {
+      startCam.value = true
     }
-  },
-  methods: {
-    startAvatar () {
-      this.startCam = true
+    return {
+      startCam,
+      startAvatar,
+      store
     }
   }
 }

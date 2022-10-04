@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   meta: {
     title: 'Avatar',
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '../static/logo.webp' }
+      { rel: 'icon', type: 'image/x-icon', href: '../static/logo.jpg' }
     ]
   },
   build: {
@@ -16,8 +16,21 @@ export default defineNuxtConfig({
       }
     }
   },
-  css: ['~/assets/css/tailwind.css'],
+  css: [
+    '~/assets/css/tailwind.css'
+  ],
   buildModules: [
     '@nuxt-hero-icons/outline/nuxt'
+  ],
+  modules: [
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          'defineStore',
+          ['defineStore', 'definePiniaStore']
+        ]
+      }
+    ]
   ]
 })
