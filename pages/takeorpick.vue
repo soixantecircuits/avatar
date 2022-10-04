@@ -7,7 +7,7 @@
         </p>
       </div>
       <div class="flex flex-col justify-center items-center space-y-5">
-        <router-link class="btn hover-gray" to="webcam">
+        <router-link class="btn hover-gray" to="webcam" @click="camStore.initializeCamera()">
           Take a photo !
         </router-link>
         <router-link class="btn-white hover-gray" to="takeorpick">
@@ -19,9 +19,18 @@
 </template>
 
 <script>
+import { useCameraStore } from '~~/store'
 
 export default {
   name: 'TakePickPage',
-  layout: 'defaultLayout'
+  layout: 'defaultLayout',
+
+  setup () {
+    const camStore = useCameraStore()
+
+    return {
+      camStore
+    }
+  }
 }
 </script>

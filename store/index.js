@@ -1,10 +1,20 @@
 import { defineStore } from 'pinia'
 
 export const useCameraStore = defineStore('camera', {
-  state: () => ({ captureImg: false }),
+
+  // state it's the data i have on my component
+  state: () => ({
+    isStartCam: true,
+    imgStored: null
+  }),
+
+  getters: {
+  },
+
   actions: {
-    toggleCapture () {
-      this.captureImg = !this.captureImg
+    initializeCamera () {
+      this.isStartCam = true
     }
   }
+
 })

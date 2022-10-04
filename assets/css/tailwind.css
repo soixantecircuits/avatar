@@ -22,5 +22,9 @@
   video {
     @apply rounded-md shadow-lg ;
   }
+
+  .image {
+    @apply rounded-md shadow-lg ;
+  }
   
 }
