@@ -21,10 +21,13 @@
 
   video {
     @apply rounded-md shadow-lg ;
+
   }
 
   .image {
     @apply rounded-md shadow-lg ;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
   }
   
 }

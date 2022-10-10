@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     title: 'Avatar',
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '../static/logo.jpg' }
+      // make the icon rounded
     ]
   },
   build: {

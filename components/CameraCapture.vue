@@ -4,14 +4,17 @@
     <img :src="img" class="image h-full" />
     </div>
     <div class="w-2/4 flex flex-row items-center justify-around">
-      <h2>Look how beautiful you are !</h2>
-      <button @click="cancelImage">
+      <button class="flex flex-col justify-center items-center" @click="cancelImage">
         <p> Retake </p>
         <outline-x-circle-icon class="w-10 h-10" />
       </button>
-      <button @click="saveImage">
-        <p> Save </p>
+      <button class="flex flex-col justify-center items-center" @click="saveImage">
+        <p> Save to device </p>
         <outline-check-circle-icon class="w-10 h-10" />
+      </button>
+      <button class="flex flex-col justify-center items-center">
+        Create the avatar
+        <outline-pencil-icon class="w-10 h-10" />
       </button>
     </div>
 </div>
@@ -32,6 +35,30 @@ export default {
       camStore.isStartCam = true
     }
 
+    function saveImage () {
+      // save the image to the device and flip it
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+
+      const img = document.querySelector('.image')
+
+      canvas.width = img.width
+      canvas.height = img.height
+
+      // flip the image
+      ctx.translate(img.width, 0)
+      ctx.scale(-1, 1)
+      ctx.drawImage(img, 0, 0, img.width, img.height)
+
+      const data = canvas.toDataURL('image/png')
+
+      const link = document.createElement('a')
+      link.download = 'your-picture.png'
+      link.href = data
+      link.click()
+    
+    }
+
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
     })
@@ -39,7 +66,8 @@ export default {
     return {
       camStore,
       img,
-      cancelImage
+      cancelImage,
+      saveImage
     }
   }
 

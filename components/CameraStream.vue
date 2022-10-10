@@ -33,10 +33,10 @@ export default {
     const camStore = useCameraStore()
 
     function startCamera () {
-      navigator.mediaDevices.getUserMedia({
+      if (!cameraOpen.value) {
+        navigator.mediaDevices.getUserMedia({
         audio: false,
-        video: true
-      })
+        video: true})
         .then(stream => {
           cameraOpen.value = true
           // console.log(this.cameraOpen)
@@ -45,10 +45,14 @@ export default {
           // since we're not using autoplay, we need to manually play the video
           video.value.play()
           stream.value = stream
+          // flip the camera
+          video.value.style.transform = 'scaleX(-1)'
+        
         })
         .catch(err => {
           console.log(err)
         })
+      }
     }
 
     function stopCamera () {
@@ -74,9 +78,12 @@ export default {
         const canvas = getCanvas()
         // to get the image as a data url
         const img = document.createElement('img')
+        
         img.src = canvas.toDataURL('image/png')
+
         // display the image in img div
         camStore.imgStored = img.src
+
       }
     }
 
