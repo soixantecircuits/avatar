@@ -5,8 +5,8 @@
 ## Description
 
 Avatar is an app that allows you to create an vatar of yourself.
-Nuxt 3 app that uses Three.js library
-In progress 🚧
+  Nuxt 3 app that uses Three.js library
+  In progress 🚧
 
 ## Setup
 
