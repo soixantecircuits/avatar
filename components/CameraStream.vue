@@ -1,5 +1,8 @@
 <template>
 <div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
+  <router-link to='takeorpick'>
+      <outline-chevron-double-left-icon class='w-10 h-10' />
+  </router-link>
     <div class="h-5/6">
         <video ref="video" class="h-full"/>
     </div>
@@ -19,7 +22,7 @@
 
 <script>
 
-import { ref, onBeforeUnmount } from 'vue'
+import { ref, onBeforeUnmount, onBeforeMount } from 'vue'
 import { useCameraStore } from '~~/store'
 
 export default {
@@ -86,12 +89,16 @@ export default {
 
       }
     }
-
+    
     function goToPicture () {
       if (cameraOpen.value) {
         camStore.isStartCam = false
       }
     }
+
+    onBeforeMount(() => {
+      startCamera()
+    })
 
     onBeforeUnmount(() => {
       stopCamera()

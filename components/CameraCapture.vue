@@ -1,5 +1,8 @@
 <template>
 <div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
+  <button @click="goToCamera">
+      <outline-chevron-double-left-icon class='w-10 h-10' />
+  </button>
   <div class="h-5/6">
     <img :src="img" class="image h-full" />
     </div>
@@ -12,7 +15,7 @@
         <p> Save to device </p>
         <outline-check-circle-icon class="w-10 h-10" />
       </button>
-      <button class="flex flex-col justify-center items-center">
+        <button class="flex flex-col justify-center items-center" @click="goToEdit">
         Create the avatar
         <outline-pencil-icon class="w-10 h-10" />
       </button>
@@ -40,11 +43,11 @@ export default {
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
 
-      const img = document.querySelector('.image')
+      const img = document.querySelector('.image')  
 
       canvas.width = img.width
       canvas.height = img.height
-
+  
       // flip the image
       ctx.translate(img.width, 0)
       ctx.scale(-1, 1)
@@ -59,6 +62,18 @@ export default {
     
     }
 
+    function goToEdit () {
+      if (img.value !== '') {
+        camStore.isStartEdit = true
+        camStore.isStartCam = false
+      }
+    }
+
+    function goToCamera () {
+      camStore.isStartCam = true
+      camStore.isStartEdit = false
+    }
+
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
     })
@@ -67,10 +82,11 @@ export default {
       camStore,
       img,
       cancelImage,
-      saveImage
+      saveImage,
+      goToEdit,
+      goToCamera
     }
   }
 
 }
-
 </script>
