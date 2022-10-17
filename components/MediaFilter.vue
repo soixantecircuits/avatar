@@ -1,8 +1,8 @@
 <template>
-<div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
-  <router-link to='takeorpick'>
+<div class="h-screen w-full flex flex-col items-center justify-center space-y-10">
+  <button @click="camStore.initializeMediaUI()">
       <outline-chevron-double-left-icon class='w-10 h-10' />
-  </router-link>
+  </button>
     <div class="h-5/6">
         <video ref="video" class="h-full"/>
     </div>
@@ -105,6 +105,7 @@ export default {
     })
 
     return {
+      camStore,
       video,
       stream,
       img,

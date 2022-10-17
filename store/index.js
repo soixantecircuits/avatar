@@ -6,18 +6,27 @@ export const useCameraStore = defineStore('CameraStore', {
   state: () => ({
     // state prop returns an object 
     // this object is a state object
-    isStartCam: true,
+    isTakeorPick: true,
+
+    isStartCam: false,
+
     imgStored: null,
 
-    isStartEdit: false,
   }),
 
   getters: {
   },
 
   actions: {
+
+    initializeMediaUI () {
+      this.isStartCam = false
+      this.isTakeorPick = true
+    },
+
     initializeCamera () {
       this.isStartCam = true
+      this.isTakeorPick = false
     }
   }
 

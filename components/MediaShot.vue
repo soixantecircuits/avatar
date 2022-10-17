@@ -1,5 +1,5 @@
 <template>
-<div class="h-3/4 w-full flex flex-col items-center justify-center space-y-10">
+<div class="h-screen w-full flex flex-col items-center justify-center space-y-10">
   <button @click="goToCamera">
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
@@ -14,10 +14,6 @@
       <button class="flex flex-col justify-center items-center" @click="saveImage">
         <p> Save to device </p>
         <outline-check-circle-icon class="w-10 h-10" />
-      </button>
-        <button class="flex flex-col justify-center items-center" @click="goToEdit">
-        Create the avatar
-        <outline-pencil-icon class="w-10 h-10" />
       </button>
     </div>
 </div>
@@ -77,6 +73,7 @@ export default {
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
     })
+
 
     return {
       camStore,

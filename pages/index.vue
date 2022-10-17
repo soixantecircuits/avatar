@@ -4,7 +4,7 @@
         <p class="text-6xl text-center">
           Create your own avatar character to express yourself
         </p>
-        <router-link class="btn hover-gray" to="takeorpick">
+        <router-link class="btn hover-gray" to="media">
           Create Your Avatar
         </router-link>
     </div>

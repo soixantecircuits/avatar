@@ -32,6 +32,7 @@ export default defineNuxtConfig({
           ['defineStore', 'definePiniaStore']
         ]
       }
+
     ]
   ]
 })

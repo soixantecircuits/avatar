@@ -15,7 +15,7 @@
         </div>
       </router-link>
       <div class="self-center">
-        <router-link class="bg-emerald-500 hover:bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium text-lg" to="takeorpick">
+        <router-link class="bg-emerald-500 hover:bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium text-lg" to="media">
           Try Avatar
         </router-link>
       </div>
