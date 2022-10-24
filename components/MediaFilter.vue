@@ -114,7 +114,7 @@
         stopCamera,
         getCanvas,
         captureImg,
-        goToPicture,
+        goToPicture
       }
     }
   }
