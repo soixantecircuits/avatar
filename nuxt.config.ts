@@ -1,5 +1,10 @@
 // eslint-disable-next-line no-undef
+import glsl from 'vite-plugin-glsl';
+
 export default defineNuxtConfig({
+  vite: {
+    plugins: [glsl()]
+  },
   meta: {
     title: 'Avatar',
     link: [

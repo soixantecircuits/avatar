@@ -24,6 +24,7 @@
     "@nuxt-hero-icons/outline": "^1.0.1",
     "@pinia/nuxt": "^0.4.2",
     "pinia": "^2.0.22",
-    "three": "^0.145.0"
+    "three": "^0.145.0",
+    "vite-plugin-glsl": "^0.5.3"
   }
 }
