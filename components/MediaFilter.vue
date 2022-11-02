@@ -3,10 +3,13 @@
   <button @click="camStore.initializeMediaUI()">
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
-      <div class="h-full flex items-center justify-center" ref="cvsContainer">
+  <div class="h-5/6 containerMedia">
+    <div class="h-full flex items-center justify-center" ref="cvsContainer">
 
-      </div>
-        <!-- <video ref="video" class="h-full"/> -->
+    </div>
+    <!-- <video ref="video" class="h-full"/> -->
+  </div>
+
     <div class="w-2/4 flex flex-row items-center justify-around">
       <button class="btn hover-gray" @click="startCamera">
         Start Camera
@@ -23,13 +26,16 @@
 
 <script>
 
-import { ref, onBeforeUnmount, onBeforeMount } from 'vue'
 import { useCameraStore } from '~~/store'
 
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
 import * as THREE from 'three'
+
+import * as tf from '@tensorflow/tfjs'
+import * as facemesh from '@tensorflow-models/facemesh'
+// didnt work with this 
 
 export default {
   name: 'CameraStream',
@@ -55,11 +61,10 @@ export default {
             // console.log(this.cameraOpen)
             // we initialise the stream of the camera to the video
             video.srcObject = stream
-            video.style.transform = 'scaleX(-1)'
+            //video.style.transform = 'scaleX(-1)'
             // since we're not using autoplay, we need to manually play the video
             video.play()
-            //stream.value = stream
-            // flip the camera
+            stream.value = stream
           })
           .catch(err => {
             console.log(err)
@@ -69,20 +74,21 @@ export default {
 
     function stopCamera () {
       if (cameraOpen.value) {
-        const tracks = video.value.srcObject.getTracks()
+        const tracks = video.srcObject.getTracks()
         tracks.forEach(track => track.stop())
-        video.value.srcObject = null
+        video.srcObject = null
         cameraOpen.value = false
       }
     }
 
     function getCanvas () {
       const canvas = document.createElement('canvas')
-      canvas.width = video.value.videoWidth
-      canvas.height = video.value.videoHeight
-      canvas.getContext('2d').drawImage(video.value, 0, 0, canvas.width, canvas.height)
-      // console.log(canvas)
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+      
       return canvas
+
     }
 
     function captureImg () {
@@ -123,17 +129,16 @@ export default {
       // scene
       scene = new THREE.Scene()
 
-      cameraShader = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+      cameraShader = new THREE.PerspectiveCamera(75, 480/640, 0.1, 1000)
       // renderer
       renderer = new THREE.WebGLRenderer()
       renderer.setSize(640, 480)
       cvsContainer.value.appendChild(renderer.domElement)
-      console.log(cvsContainer)
       
       // video plane using texture
-      const geometry = new THREE.PlaneGeometry(40, 45) // fiz the size
+      const geometry = new THREE.PlaneGeometry(30, 40) // fix the size
       // const geometry = new THREE.PlaneGeometry(2, 2)
-      //const material = new THREE.MeshBasicMaterial({map: tex })
+      // const material = new THREE.MeshBasicMaterial({map: tex })
       
       const material = new THREE.ShaderMaterial({
         uniforms: {
@@ -150,26 +155,85 @@ export default {
 
       plane.position.z = -1
 
+      // flip the plane
+      plane.scale.x = -1
+
       scene.add(plane)
 
-      cameraShader.position.z = 20
-
-      startCamera()
+      cameraShader.position.z = 20 
+      
     }
 
     function animate () {
       raf = requestAnimationFrame(animate)
-
       renderer.render(scene, cameraShader)
     }
 
-    // doesnt work with onbeforemount (the element doesnet existe )
-    // good to use the ref 
-    
-    onMounted(() => {
+    function onWindowResize () {
+      cameraShader.aspect = video.videoWidth / video.videoHeight
+      cameraShader.updateProjectionMatrix()
+      renderer.setSize(video.videoWidth, video.videoHeight)
+    }
+
+    function startShader () {
       init()
       animate()
+      window.addEventListener('resize', onWindowResize, false)
+    }
+
+    //load face mesh model
+    async function loadModel () {
+      const model = await facemesh.load({
+        inputResolution: { width: 640, height: 480 },
+        scale: 0.8
+      })
+      setTimeout(() => {
+        detectFaces(model)
+      }, 100)
+    }
+
+    // detect face
+    async function detectFaces (model) {
+      const face = await model.estimateFaces(video)
+      // console.log(face)
+      const canvas = getCanvas().getContext('2d')
+      requestAnimationFrame(() => detectFaces(model))
+
+      // draw mesh
+      requestAnimationFrame(() => drawMesh(face, canvas))
+    }
+
+    async function drawMesh (predictions, ctx) {
+      if (predictions.length > 0) {
+       predictions.forEach(prediction => {
+         const keypoints = prediction.scaledMesh
+         // draw mesh
+         for (let i = 0; i < keypoints.length; i++) {
+           const x = keypoints[i][0]
+           const y = keypoints[i][1]
+           ctx.beginPath()
+           ctx.arc(x, y, 1, 0, 3 * Math.PI)
+           ctx.fillStyle = 'aqua'
+           ctx.fill()
+         }
+       })
+    }
+  }
+
+    // doesnt work with onbeforemount (the element doesnet existe )
+    // good to use the ref 
+    onBeforeMount(() => {
+      startCamera()
+
     })
+
+    onMounted(() => {
+      video.addEventListener('loadeddata', async () => {
+        startShader()
+        loadModel()
+      })
+    })
+
 
     onBeforeUnmount(() => {
       stopCamera()
@@ -193,7 +257,12 @@ export default {
       renderer,
       raf,
       plane,
-      cvsContainer
+      cvsContainer,
+      startShader,
+      detectFaces,
+      loadModel,
+      drawMesh
+      
     }
   }
 }

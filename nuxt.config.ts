@@ -27,6 +27,7 @@ export default defineNuxtConfig({
   ],
   buildModules: [
     '@nuxt-hero-icons/outline/nuxt'
+
   ],
   modules: [
     [

@@ -19,7 +19,7 @@
     @apply hover:bg-gray-900 hover:text-white;
   }
 
-  video {
+  canvas {
     @apply rounded-md shadow-lg ;
 
   }
