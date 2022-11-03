@@ -58,13 +58,6 @@ export default {
     
     }
 
-    function goToEdit () {
-      if (img.value !== '') {
-        camStore.isStartEdit = true
-        camStore.isStartCam = false
-      }
-    }
-
     function goToCamera () {
       camStore.isStartCam = true
       camStore.isStartEdit = false
@@ -80,7 +73,6 @@ export default {
       img,
       cancelImage,
       saveImage,
-      goToEdit,
       goToCamera
     }
   }

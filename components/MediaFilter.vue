@@ -26,7 +26,7 @@
 
 <script>
 
-import { useCameraStore } from '~~/store'
+import { useCameraStore } from '~~/store'    
 
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
@@ -35,19 +35,17 @@ import * as THREE from 'three'
 
 import * as tf from '@tensorflow/tfjs'
 import * as facemesh from '@tensorflow-models/facemesh'
-// didnt work with this 
 
 export default {
   name: 'CameraStream',
   setup () {
-    //const video = ref(null)
     const stream = ref(null)
     const cameraOpen = ref(false)
     const img = ref(null)
     const video = document.createElement('video')
-    // document.body.appendChild(video)
-    const cvsContainer = ref(null) // query selector and refs to fix 
+    let canvashader = document.createElement('canvashader')
 
+    const cvsContainer = ref(null) // query selector and refs to fix 
 
     const camStore = useCameraStore()
 
@@ -58,10 +56,9 @@ export default {
           video: true
         }).then(stream => {
             cameraOpen.value = true
-            // console.log(this.cameraOpen)
             // we initialise the stream of the camera to the video
             video.srcObject = stream
-            //video.style.transform = 'scaleX(-1)'
+
             // since we're not using autoplay, we need to manually play the video
             video.play()
             stream.value = stream
@@ -83,20 +80,27 @@ export default {
 
     function getCanvas () {
       const canvas = document.createElement('canvas')
+
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
-      canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
-      
-      return canvas
 
+      const canvashader = document.getElementById('canvashader')
+      // canvas.getContext('2d').drawImage(canvashader, 0, 0, canvas.width, canvas.height)
+      const canvashaderpixels = canvashader.getContext('2d')
+      // I was here
+      // console.log(canvas.getContext('2d'))
+      //console.log(canvashader.getContext('2d'))
+      return canvas
     }
 
     function captureImg () {
       if (cameraOpen.value) {
         const canvas = getCanvas()
-        // to get the image as a data url
-        const img = document.createElement('img')
 
+        img.width = canvas.width
+        img.height = canvas.height
+
+        // set the image src to the canvas data url
         img.src = canvas.toDataURL('image/png')
 
         // display the image in img div
@@ -135,6 +139,8 @@ export default {
       renderer.setSize(640, 480)
       cvsContainer.value.appendChild(renderer.domElement)
       
+      renderer.domElement.setAttribute('id', 'canvashader')
+
       // video plane using texture
       const geometry = new THREE.PlaneGeometry(30, 40) // fix the size
       // const geometry = new THREE.PlaneGeometry(2, 2)
@@ -160,8 +166,8 @@ export default {
 
       scene.add(plane)
 
-      cameraShader.position.z = 20 
-      
+      cameraShader.position.z = 20
+
     }
 
     function animate () {
@@ -181,7 +187,7 @@ export default {
       window.addEventListener('resize', onWindowResize, false)
     }
 
-    //load face mesh model
+    //Load the face mesh model
     async function loadModel () {
       const model = await facemesh.load({
         inputResolution: { width: 640, height: 480 },
@@ -192,22 +198,25 @@ export default {
       }, 100)
     }
 
-    // detect face
+    // Detect the faces
     async function detectFaces (model) {
-      const face = await model.estimateFaces(video)
-      // console.log(face)
+      const faces = await model.estimateFaces(video)
       const canvas = getCanvas().getContext('2d')
+
       requestAnimationFrame(() => detectFaces(model))
 
-      // draw mesh
-      requestAnimationFrame(() => drawMesh(face, canvas))
+      // Draw the mesh by calling the drawMesh function
+      requestAnimationFrame(() => drawMesh(faces, canvas))
     }
 
+    // Draw the mesh
     async function drawMesh (predictions, ctx) {
       if (predictions.length > 0) {
+
        predictions.forEach(prediction => {
+
          const keypoints = prediction.scaledMesh
-         // draw mesh
+         
          for (let i = 0; i < keypoints.length; i++) {
            const x = keypoints[i][0]
            const y = keypoints[i][1]
@@ -215,16 +224,17 @@ export default {
            ctx.arc(x, y, 1, 0, 3 * Math.PI)
            ctx.fillStyle = 'aqua'
            ctx.fill()
-         }
+           // log the keypoints x and y
+           // console.log(x, y)
+           // console.log(ctx)
+        }
        })
+      }
     }
-  }
 
     // doesnt work with onbeforemount (the element doesnet existe )
-    // good to use the ref 
     onBeforeMount(() => {
       startCamera()
-
     })
 
     onMounted(() => {
