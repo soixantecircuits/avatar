@@ -4,7 +4,7 @@
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
   <div class="h-5/6">
-    <img :src="img" class="image h-full" />
+    <img :src="img" class="image h-full" width="640" height="480" />
     </div>
     <div class="w-2/4 flex flex-row items-center justify-around">
       <button class="flex flex-col justify-center items-center" @click="cancelImage">

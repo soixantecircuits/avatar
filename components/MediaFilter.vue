@@ -14,7 +14,7 @@
       <button class="btn hover-gray" @click="startCamera">
         Start Camera
       </button>
-      <button @click="captureImg(); goToPicture()">
+      <button @click="captureImg(), goToPicture()">
         <outline-camera-icon class="w-10 h-10" />
       </button>
       <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
@@ -85,26 +85,37 @@ export default {
       canvas.height = video.videoHeight
 
       const canvashader = document.getElementById('canvashader')
-      // canvas.getContext('2d').drawImage(canvashader, 0, 0, canvas.width, canvas.height)
-      const canvashaderpixels = canvashader.getContext('2d')
-      // I was here
-      // console.log(canvas.getContext('2d'))
-      //console.log(canvashader.getContext('2d'))
+
+      canvas.getContext('2d').drawImage(canvashader, 0, 0, canvas.width, canvas.height)
+
       return canvas
     }
+
+    function getCanvasVideo () {
+        const canvas = document.createElement('canvas')
+        canvas.width = video.videoWidth
+        canvas.height = video.videoHeight
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height)
+        //console.log(canvas)
+        return canvas
+      }
 
     function captureImg () {
       if (cameraOpen.value) {
         const canvas = getCanvas()
 
+        const img = document.createElement('img')
+
         img.width = canvas.width
         img.height = canvas.height
 
         // set the image src to the canvas data url
+        
         img.src = canvas.toDataURL('image/png')
 
         // display the image in img div
         camStore.imgStored = img.src
+
       }
     }
 
@@ -123,6 +134,7 @@ export default {
     let tex = null
 
     let plane = null
+    
 
     function init () {
       // const video = document.getElementById('video')
@@ -201,8 +213,8 @@ export default {
     // Detect the faces
     async function detectFaces (model) {
       const faces = await model.estimateFaces(video)
-      const canvas = getCanvas().getContext('2d')
-
+      const canvas = getCanvasVideo().getContext('2d')
+      
       requestAnimationFrame(() => detectFaces(model))
 
       // Draw the mesh by calling the drawMesh function
