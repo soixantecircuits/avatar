@@ -19,6 +19,11 @@ void main() {
   // gl_FragColor = texColor;
 
   // red and blue color swap
+  // vec4 texColor = texture(tex, vUv.xy);
+  // gl_FragColor = vec4(texColor.b, texColor.g, texColor.r, texColor.a);
+
+  // negative effect
   vec4 texColor = texture(tex, vUv.xy);
-  gl_FragColor = vec4(texColor.b, texColor.g, texColor.r, texColor.a);
+  gl_FragColor = vec4(1. - texColor.r, 1. - texColor.g, 1. - texColor.b, texColor.a);
+
 }

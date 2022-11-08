@@ -4,7 +4,7 @@
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
   <div class="h-5/6">
-    <img :src="img" class="image h-full" width="640" height="480" />
+    <img :src="img" class="image h-full" />
     </div>
     <div class="w-2/4 flex flex-row items-center justify-around">
       <button class="flex flex-col justify-center items-center" @click="cancelImage">
@@ -39,11 +39,11 @@ export default {
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
 
-      const img = document.querySelector('.image')  
+      const img = document.querySelector('.image')
 
       canvas.width = img.width
       canvas.height = img.height
-  
+
       // flip the image
       ctx.translate(img.width, 0)
       ctx.scale(-1, 1)
@@ -55,7 +55,6 @@ export default {
       link.download = 'your-picture.png'
       link.href = data
       link.click()
-    
     }
 
     function goToCamera () {
@@ -66,7 +65,6 @@ export default {
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
     })
-
 
     return {
       camStore,

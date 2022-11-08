@@ -4,13 +4,13 @@ export const useCameraStore = defineStore('CameraStore', {
 
   // state it's the data i have on my component
   state: () => ({
-    // state prop returns an object 
+    // state prop returns an object
     // this object is a state object
     isTakeorPick: true,
 
     isStartCam: false,
 
-    imgStored: null,
+    imgStored: null
 
   }),
 
