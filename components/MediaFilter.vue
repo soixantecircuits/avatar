@@ -143,7 +143,7 @@ export default {
 
       cameraShader = new THREE.PerspectiveCamera(75, video.videoHeight / video.videoWidth, 0.1, 1000)
 
-      // renderer
+      // render only on the face mesh
       renderer = new THREE.WebGLRenderer()
       renderer.setSize(video.videoWidth, video.videoHeight)
 
@@ -191,7 +191,13 @@ export default {
       cameraShader.aspect = video.videoWidth / video.videoHeight
       cameraShader.updateProjectionMatrix()
       renderer.setSize(video.videoWidth, video.videoHeight)
+      // resize the plane to occupy the whole scene
+      plane.scale.x = video.videoWidth / video.videoHeight
+      // flip
+      plane.scale.x = -1
     }
+
+    let gl = null
 
     function startShader () {
       init()
@@ -205,21 +211,60 @@ export default {
         inputResolution: { width: video.videoWidth, height: video.videoHeight },
         scale: 0.8
       })
-      setTimeout(() => {
-        if (cameraOpen.value) {
-          detectFaces(model)
-        }
-      }, 1000)
+      detectFaces(model)
     }
 
     // Detect the faces
     async function detectFaces (model) {
       if (cameraOpen.value && video.readyState === video.HAVE_ENOUGH_DATA) {
         const faces = await model.estimateFaces(video)
-        const canvas = getCanvas().getContext('2d')
+
         requestAnimationFrame(() => detectFaces(model))
+
         // Draw the mesh by calling the drawMesh function
-        requestAnimationFrame(() => drawMesh(faces, canvas))
+        // requestAnimationFrame(() => drawMesh(faces, canvas))
+
+        // face landamrks array
+        const faceLandmarks = faces.map(face => face.scaledMesh)
+        // console.log(faceLandmarks)
+
+        gl = renderer.getContext()
+
+        const program = gl.createProgram()
+
+        // convert the vertex shader to webglshader
+        const vertexShaderWebGL = gl.createShader(gl.VERTEX_SHADER)
+        gl.shaderSource(vertexShaderWebGL, vertexShader)
+        gl.compileShader(vertexShaderWebGL)
+
+        // check if the vertex shader compiled
+        // if (!gl.getShaderParameter(vertexShaderWebGL, gl.COMPILE_STATUS)) {
+        //   console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShaderWebGL))
+        //   return
+        // }
+
+        const fragmentShaderWebGL = gl.createShader(gl.FRAGMENT_SHADER)
+        gl.shaderSource(fragmentShaderWebGL, fragmentShader)
+        gl.compileShader(fragmentShaderWebGL)
+
+        // check if the fragment shader compiled
+        if (!gl.getShaderParameter(fragmentShaderWebGL, gl.COMPILE_STATUS)) {
+          console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShaderWebGL))
+          return
+        }
+
+        gl.attachShader(program, vertexShaderWebGL)
+        gl.attachShader(program, fragmentShaderWebGL)
+        gl.linkProgram(program)
+
+        gl.useProgram(program)
+
+        const locationFaceLandmarks = gl.getUniformLocation(program, 'faceLandmarks')
+
+        // export the face landmarks to the shader
+        gl.uniform1fv(locationFaceLandmarks, faceLandmarks)
+
+        return faces
       }
     }
 
@@ -243,7 +288,6 @@ export default {
     }
 
     // doesnt work with onbeforemount (the element doesnet existe )
-
     onBeforeMount(() => {
       startCamera()
     })
@@ -251,7 +295,8 @@ export default {
     onMounted(() => {
       video.addEventListener('loadeddata', async () => {
         startShader()
-        loadModel()
+        // owait for the shader to be loaded before loading the model
+        await loadModel()
       })
     })
 

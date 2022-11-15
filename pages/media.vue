@@ -8,20 +8,21 @@
 
 <script>
 import { useCameraStore } from '~~/store'
+import { onBeforeUnmount } from 'vue'
 
 export default {
-    name: "WebcamPage",
-    layout: "defaultLayout",
-    setup() {
-        const camStore = useCameraStore();
+  name: 'WebcamPage',
+  layout: 'defaultLayout',
+  setup () {
+    const camStore = useCameraStore()
 
-        onBeforeUnmount(() => {
-            camStore.initializeMediaUI();
-        });
+    onBeforeUnmount(() => {
+      camStore.initializeMediaUI()
+    })
 
-        return {
-            camStore
-        };
-    },
+    return {
+      camStore
+    }
+  }
 }
 </script>
