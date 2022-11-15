@@ -21,7 +21,6 @@
     "tailwindcss": "^3.1.8"
   },
   "dependencies": {
-    "@mediapipe/face_mesh": "^0.4.1633559619",
     "@nuxt-hero-icons/outline": "^1.0.1",
     "@pinia/nuxt": "^0.4.2",
     "@tensorflow-models/facemesh": "^0.0.5",
