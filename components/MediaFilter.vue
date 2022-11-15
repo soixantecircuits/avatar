@@ -7,19 +7,18 @@
     <div class="h-full flex items-center justify-center" ref="cvsContainer">
 
     </div>
-    <!-- <video ref="video" class="h-full"/> -->
   </div>
 
     <div class="w-2/4 flex flex-row items-center justify-around">
-      <button class="btn hover-gray" @click="startCamera">
+      <!-- <button class="btn hover-gray" @click="startCamera">
         Start Camera
-      </button>
+      </button> -->
       <button @click="captureImg(), goToPicture()">
         <outline-camera-icon class="w-10 h-10" />
       </button>
-      <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
+      <!-- <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
         Stop Camera
-      </button>
+      </button> -->
     </div>
 </div>
 </template>
@@ -56,6 +55,7 @@ export default {
           video: true
         }).then(stream => {
           cameraOpen.value = true
+
           // we initialise the stream of the camera to the video
           video.srcObject = stream
 
@@ -130,6 +130,7 @@ export default {
     let raf = null
     let tex = null
     let material = null
+
     let faceLandmarks = []
 
     let plane = null
@@ -156,7 +157,6 @@ export default {
       // video plane using texture
       // size of the plane = size of the renderer
       const geometry = new THREE.PlaneGeometry(video.videoWidth / 20, video.videoHeight / 12, 1, 1)
-      // fix the size
 
       // const geometry = new THREE.PlaneGeometry(2, 2)
       // const material = new THREE.MeshBasicMaterial({map: tex })
@@ -166,7 +166,7 @@ export default {
           time: { value: 1.0 },
           // color: { value: new THREE.Color(0x00FF00) },
           resolution: { value: new THREE.Vector2() },
-          face: { value: new Array() },
+          face: { value: new Array(468 * 3) },
           tex: { value: tex }
         },
         vertexShader,
@@ -195,15 +195,16 @@ export default {
     function onWindowResize () {
       cameraShader.aspect = video.videoWidth / video.videoHeight
       cameraShader.updateProjectionMatrix()
+
       renderer.setSize(video.videoWidth, video.videoHeight)
-      // resize the plane to occupy the whole scene
-      plane.scale.x = video.videoWidth / video.videoHeight
-      material.uniforms.resolution.value = new THREE.Vector2(video.videoWidth, video.videoHeight)
+
+      // reset the material size
+      this.material.uniforms.resolution.value.x = 640
+      this.material.uniforms.resolution.value.y = 480
+
       // flip
       plane.scale.x = -1
     }
-
-    let gl = null
 
     function startShader () {
       init()
@@ -234,42 +235,6 @@ export default {
         faceLandmarks = faces.map(face => face.scaledMesh)
         // console.log(faceLandmarks)
 
-        // gl = renderer.getContext()
-
-        // const program = gl.createProgram()
-
-        // // convert the vertex shader to webglshader
-        // const vertexShaderWebGL = gl.createShader(gl.VERTEX_SHADER)
-        // gl.shaderSource(vertexShaderWebGL, vertexShader)
-        // gl.compileShader(vertexShaderWebGL)
-
-        // // check if the vertex shader compiled
-        // // if (!gl.getShaderParameter(vertexShaderWebGL, gl.COMPILE_STATUS)) {
-        // //   console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShaderWebGL))
-        // //   return
-        // // }
-
-        // const fragmentShaderWebGL = gl.createShader(gl.FRAGMENT_SHADER)
-        // gl.shaderSource(fragmentShaderWebGL, fragmentShader)
-        // gl.compileShader(fragmentShaderWebGL)
-
-        // // check if the fragment shader compiled
-        // if (!gl.getShaderParameter(fragmentShaderWebGL, gl.COMPILE_STATUS)) {
-        //   console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShaderWebGL))
-        //   return
-        // }
-
-        // gl.attachShader(program, vertexShaderWebGL)
-        // gl.attachShader(program, fragmentShaderWebGL)
-        // gl.linkProgram(program)
-
-        // gl.useProgram(program)
-
-        // const locationFaceLandmarks = gl.getUniformLocation(program, 'faceLandmarks')
-
-        // // export the face landmarks to the shader
-        // gl.uniform1fv(locationFaceLandmarks, faceLandmarks)
-
         return faceLandmarks
       }
     }
@@ -286,14 +251,11 @@ export default {
             ctx.arc(x, y, 1, 0, 3 * Math.PI)
             ctx.fillStyle = 'aqua'
             ctx.fill()
-            // log the keypoints x and y
-            // console.log(x, y)
           }
         })
       }
     }
 
-    // doesnt work with onbeforemount (the element doesnet existe )
     onBeforeMount(() => {
       startCamera()
     })
@@ -301,7 +263,7 @@ export default {
     onMounted(() => {
       video.addEventListener('loadeddata', async () => {
         startShader()
-        // owait for the shader to be loaded before loading the model
+        // await for the shader to be loaded before loading the model
         await loadModel()
       })
     })
