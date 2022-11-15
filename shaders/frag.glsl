@@ -4,7 +4,7 @@ uniform vec3 color;
 
 uniform sampler2D tex;
 
-uniform vec3 faceLandmarks;
+uniform mat3 faceLandmarks;
 
 varying vec2 vUv;
 
@@ -26,12 +26,14 @@ void main() {
 
   // negative effect
 
+  vec4 texColor = texture(tex, vUv.xy);
+
+  // texColor.rgb *= faceLandmarks;
+
   if (vUv.x < 0.5) {
-    vec4 texColor = texture(tex, vUv.xy);
     gl_FragColor = vec4(texColor.r, texColor.g, texColor.b, texColor.a);
   } else {
     // apply negative effect to the half of the screen
-    vec4 texColor = texture(tex, vUv.xy);
     gl_FragColor = vec4(1. - texColor.r, 1. - texColor.g, 1. - texColor.b, texColor.a);
   }
 }

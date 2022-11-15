@@ -129,6 +129,8 @@ export default {
     let renderer = null
     let raf = null
     let tex = null
+    let material = null
+    let faceLandmarks = []
 
     let plane = null
 
@@ -159,11 +161,12 @@ export default {
       // const geometry = new THREE.PlaneGeometry(2, 2)
       // const material = new THREE.MeshBasicMaterial({map: tex })
 
-      const material = new THREE.ShaderMaterial({
+      material = new THREE.ShaderMaterial({
         uniforms: {
           time: { value: 1.0 },
           // color: { value: new THREE.Color(0x00FF00) },
           resolution: { value: new THREE.Vector2() },
+          face: { value: new Array() },
           tex: { value: tex }
         },
         vertexShader,
@@ -185,6 +188,8 @@ export default {
     function animate () {
       raf = requestAnimationFrame(animate)
       renderer.render(scene, cameraShader)
+      material.uniforms.face.value = faceLandmarks
+      material.uniforms.time.value += 1
     }
 
     function onWindowResize () {
@@ -193,6 +198,7 @@ export default {
       renderer.setSize(video.videoWidth, video.videoHeight)
       // resize the plane to occupy the whole scene
       plane.scale.x = video.videoWidth / video.videoHeight
+      material.uniforms.resolution.value = new THREE.Vector2(video.videoWidth, video.videoHeight)
       // flip
       plane.scale.x = -1
     }
@@ -225,46 +231,46 @@ export default {
         // requestAnimationFrame(() => drawMesh(faces, canvas))
 
         // face landamrks array
-        const faceLandmarks = faces.map(face => face.scaledMesh)
+        faceLandmarks = faces.map(face => face.scaledMesh)
         // console.log(faceLandmarks)
 
-        gl = renderer.getContext()
+        // gl = renderer.getContext()
 
-        const program = gl.createProgram()
+        // const program = gl.createProgram()
 
-        // convert the vertex shader to webglshader
-        const vertexShaderWebGL = gl.createShader(gl.VERTEX_SHADER)
-        gl.shaderSource(vertexShaderWebGL, vertexShader)
-        gl.compileShader(vertexShaderWebGL)
+        // // convert the vertex shader to webglshader
+        // const vertexShaderWebGL = gl.createShader(gl.VERTEX_SHADER)
+        // gl.shaderSource(vertexShaderWebGL, vertexShader)
+        // gl.compileShader(vertexShaderWebGL)
 
-        // check if the vertex shader compiled
-        // if (!gl.getShaderParameter(vertexShaderWebGL, gl.COMPILE_STATUS)) {
-        //   console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShaderWebGL))
+        // // check if the vertex shader compiled
+        // // if (!gl.getShaderParameter(vertexShaderWebGL, gl.COMPILE_STATUS)) {
+        // //   console.error('ERROR compiling vertex shader!', gl.getShaderInfoLog(vertexShaderWebGL))
+        // //   return
+        // // }
+
+        // const fragmentShaderWebGL = gl.createShader(gl.FRAGMENT_SHADER)
+        // gl.shaderSource(fragmentShaderWebGL, fragmentShader)
+        // gl.compileShader(fragmentShaderWebGL)
+
+        // // check if the fragment shader compiled
+        // if (!gl.getShaderParameter(fragmentShaderWebGL, gl.COMPILE_STATUS)) {
+        //   console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShaderWebGL))
         //   return
         // }
 
-        const fragmentShaderWebGL = gl.createShader(gl.FRAGMENT_SHADER)
-        gl.shaderSource(fragmentShaderWebGL, fragmentShader)
-        gl.compileShader(fragmentShaderWebGL)
+        // gl.attachShader(program, vertexShaderWebGL)
+        // gl.attachShader(program, fragmentShaderWebGL)
+        // gl.linkProgram(program)
 
-        // check if the fragment shader compiled
-        if (!gl.getShaderParameter(fragmentShaderWebGL, gl.COMPILE_STATUS)) {
-          console.error('ERROR compiling fragment shader!', gl.getShaderInfoLog(fragmentShaderWebGL))
-          return
-        }
+        // gl.useProgram(program)
 
-        gl.attachShader(program, vertexShaderWebGL)
-        gl.attachShader(program, fragmentShaderWebGL)
-        gl.linkProgram(program)
+        // const locationFaceLandmarks = gl.getUniformLocation(program, 'faceLandmarks')
 
-        gl.useProgram(program)
+        // // export the face landmarks to the shader
+        // gl.uniform1fv(locationFaceLandmarks, faceLandmarks)
 
-        const locationFaceLandmarks = gl.getUniformLocation(program, 'faceLandmarks')
-
-        // export the face landmarks to the shader
-        gl.uniform1fv(locationFaceLandmarks, faceLandmarks)
-
-        return faces
+        return faceLandmarks
       }
     }
 
