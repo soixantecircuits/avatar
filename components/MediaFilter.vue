@@ -1,5 +1,5 @@
 <template>
-<div class="h-screen w-full flex flex-col items-center justify-center space-y-10">
+<div class="h-screen w-full flex flex-col items-center justify-center">
   <button @click="camStore.initializeMediaUI()">
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
