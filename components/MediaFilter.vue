@@ -1,24 +1,17 @@
 <template>
-<div class="h-screen w-full flex flex-col items-center justify-center">
-  <button @click="camStore.initializeMediaUI()">
+<div class='h-screen w-full flex flex-col items-center justify-center space-y-10'>
+  <button @click='camStore.initializeMediaUI()'>
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>
-  <div class="h-5/6 containerMedia">
-    <div class="h-full flex items-center justify-center" ref="cvsContainer">
-
+  <div class='h-5/6 containerMedia'>
+    <div class='h-full w-full flex items-center justify-center' ref='cvsContainer'>
     </div>
   </div>
 
-    <div class="w-2/4 flex flex-row items-center justify-around">
-      <!-- <button class="btn hover-gray" @click="startCamera">
-        Start Camera
-      </button> -->
-      <button @click="captureImg(), goToPicture()">
-        <outline-camera-icon class="w-10 h-10" />
+    <div class='w-2/4 flex flex-row items-center justify-around'>
+      <button @click='captureImg(), goToPicture()'>
+        <outline-camera-icon class='w-10 h-10' />
       </button>
-      <!-- <button class="btn-cancel btn-white hover-gray" @click="stopCamera">
-        Stop Camera
-      </button> -->
     </div>
 </div>
 </template>
@@ -35,6 +28,8 @@ import * as THREE from 'three'
 
 import * as tf from '@tensorflow/tfjs'
 import * as facemesh from '@tensorflow-models/facemesh'
+
+import { FaceMeshFaceGeometry } from '../tools/face.js'
 
 export default {
   name: 'CameraStream',
@@ -55,6 +50,7 @@ export default {
           video: true
         }).then(stream => {
           cameraOpen.value = true
+          video.style.transform = 'scaleX(-1)'
 
           // we initialise the stream of the camera to the video
           video.srcObject = stream
@@ -108,7 +104,6 @@ export default {
         img.height = canvas.height
 
         // set the image src to the canvas data url
-
         img.src = canvas.toDataURL('image/png')
 
         // store the image in the pinia store
@@ -123,48 +118,59 @@ export default {
     }
 
     // THE SHADER //
+    let renderer = null
 
+    let tex = null
     let scene = null
     let cameraShader = null
-    let renderer = null
-    let raf = null
-    let tex = null
+
+    let videoSprite = null
+    let nose = null
+    let mask = null
+
+    let videoMaterial = null
     let material = null
+    let noseMaterial = null
 
-    let faceLandmarks = []
+    let raf = null
 
-    let plane = null
+    let faces = []
+
+    let wireframe = null
+    let wireframeMaterial = null
+
+    const faceGeometry = new FaceMeshFaceGeometry({
+      useViodeTexture: true
+    })
 
     function init () {
-      // const video = document.getElementById('video')
+      // render
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+      renderer.setSize(video.videoWidth, video.videoHeight)
+      cvsContainer.value.appendChild(renderer.domElement)
+      renderer.domElement.setAttribute('id', 'canvashader')
+      // set th canvasshader to the full size of the  screen
+      renderer.domElement.style.width = '100%'
+      renderer.domElement.style.height = '100%'
 
-      // initislise the video texture
-      tex = new THREE.VideoTexture(video)
+      renderer.setPixelRatio(window.devicePixelRatio)
+      renderer.shadowMap.enabled = true
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap
+      renderer.outputEncoding = THREE.sRGBEncoding
 
       // scene
       scene = new THREE.Scene()
+      const width = 1
+      const height = 1
+      cameraShader = new THREE.OrthographicCamera((width / -2), (width / 2), (height / 2), (height / -2), 1, 1000)
 
-      cameraShader = new THREE.PerspectiveCamera(75, video.videoHeight / video.videoWidth, 0.1, 1000)
+      // the video texture
+      tex = new THREE.VideoTexture(video)
+      tex.minFilter = THREE.LinearFilter
 
-      // render only on the face mesh
-      renderer = new THREE.WebGLRenderer()
-      renderer.setSize(video.videoWidth, video.videoHeight)
-
-      cvsContainer.value.appendChild(renderer.domElement)
-
-      renderer.domElement.setAttribute('id', 'canvashader')
-
-      // video plane using texture
-      // size of the plane = size of the renderer
-      const geometry = new THREE.PlaneGeometry(video.videoWidth / 20, video.videoHeight / 12, 1, 1)
-
-      // const geometry = new THREE.PlaneGeometry(2, 2)
-      // const material = new THREE.MeshBasicMaterial({map: tex })
-
-      material = new THREE.ShaderMaterial({
+      videoMaterial = new THREE.ShaderMaterial({
         uniforms: {
           time: { value: 1.0 },
-          // color: { value: new THREE.Color(0x00FF00) },
           resolution: { value: new THREE.Vector2() },
           face: { value: new Array(468 * 3) },
           tex: { value: tex }
@@ -172,41 +178,115 @@ export default {
         vertexShader,
         fragmentShader
       })
+      videoSprite = new THREE.Sprite(videoMaterial)
+      videoSprite.scale.set(1, 1, 1)
+      scene.add(videoSprite)
 
-      plane = new THREE.Mesh(geometry, material)
+      // Add lights.
+      const spotLight = new THREE.SpotLight(0xffffbb, 1)
+      spotLight.position.set(0.5, 0.5, 1)
+      spotLight.position.multiplyScalar(400)
+      scene.add(spotLight)
 
-      plane.position.z = -1
+      spotLight.castShadow = true
 
-      // flip the plane
-      plane.scale.x = -1
+      spotLight.shadow.mapSize.width = 1024
+      spotLight.shadow.mapSize.height = 1024
 
-      scene.add(plane)
+      spotLight.shadow.camera.near = 200
+      spotLight.shadow.camera.far = 800
+
+      spotLight.shadow.camera.fov = 40
+
+      spotLight.shadow.bias = -0.001125
+
+      scene.add(spotLight)
+
+      const hemiLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.25)
+      scene.add(hemiLight)
+
+      const ambientLight = new THREE.AmbientLight(0x404040, 0.25)
+      scene.add(ambientLight)
+
+      // Load textures for mask material.
+      const colorTexture = new THREE.TextureLoader().load('../assets/mesh_map.jpg')
+      const aoTexture = new THREE.TextureLoader().load('../assets/ao.jpg')
+      const alphaTexture = new THREE.TextureLoader().load('../assets/mask.png')
+
+      // Create wireframe material
+      wireframeMaterial = new THREE.MeshBasicMaterial({
+        color: 0xff00ff,
+        wireframe: true
+      })
+
+      wireframe = true
+
+      // Create material for mask.
+      material = new THREE.MeshStandardMaterial({
+        color: 0x808080,
+        roughness: 0.8,
+        metalness: 0.1,
+        alphaMap: alphaTexture,
+        aoMap: aoTexture,
+        map: colorTexture,
+        roughnessMap: colorTexture,
+        transparent: true,
+        side: THREE.DoubleSide
+      })
+      // Create mask mesh.
+      mask = new THREE.Mesh(faceGeometry, material)
+      scene.add(mask)
+      mask.receiveShadow = mask.castShadow = true
+
+      // Create a red material for the nose.
+      noseMaterial = new THREE.MeshStandardMaterial({
+        color: 0xff0000,
+        roughness: 0.5,
+        metalness: 0.5
+      })
+      nose = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), noseMaterial)
+      nose.castShadow = nose.receiveShadow = true
+      scene.add(nose)
+      nose.scale.setScalar(40)
 
       cameraShader.position.z = 20
     }
 
-    function animate () {
+    async function animate () {
+      if (faces.length > 0) {
+        faceGeometry.update(faces[0])
+        const track = faceGeometry.track(5, 45, 275)
+        nose.position.copy(track.position)
+        // nose.rotation.setFromRotationMatrix(track.rotation)
+        // position of the nose to 0,0,0,
+        // nose.position.set(0, 0.5, 0)
+      }
+
+      if (wireframe) {
+        renderer.render(scene, cameraShader)
+        renderer.autoClear = false
+        renderer.clear(false, true, false)
+        renderer.render(scene, cameraShader)
+        mask.material = wireframeMaterial
+        renderer.render(scene, cameraShader)
+        mask.material = material
+        renderer.autoClear = true
+      } else {
+        renderer.render(scene, cameraShader)
+      }
       raf = requestAnimationFrame(animate)
-      renderer.render(scene, cameraShader)
-      material.uniforms.face.value = faceLandmarks
-      material.uniforms.time.value += 1
     }
 
     function onWindowResize () {
       cameraShader.aspect = video.videoWidth / video.videoHeight
       cameraShader.updateProjectionMatrix()
-
       renderer.setSize(video.videoWidth, video.videoHeight)
 
-      // reset the material size
-      this.material.uniforms.resolution.value.x = 640
-      this.material.uniforms.resolution.value.y = 480
-
       // flip
-      plane.scale.x = -1
+      videoSprite.scale.x = -1
     }
 
-    function startShader () {
+    async function startShader () {
       init()
       animate()
       window.addEventListener('resize', onWindowResize, false)
@@ -224,35 +304,9 @@ export default {
     // Detect the faces
     async function detectFaces (model) {
       if (cameraOpen.value && video.readyState === video.HAVE_ENOUGH_DATA) {
-        const faces = await model.estimateFaces(video)
-
+        faces = await model.estimateFaces(video)
         requestAnimationFrame(() => detectFaces(model))
-
-        // Draw the mesh by calling the drawMesh function
-        // requestAnimationFrame(() => drawMesh(faces, canvas))
-
-        // face landamrks array
-        faceLandmarks = faces.map(face => face.scaledMesh)
-        // console.log(faceLandmarks)
-
-        return faceLandmarks
-      }
-    }
-
-    // Draw the mesh
-    async function drawMesh (predictions, ctx) {
-      if (predictions.length > 0) {
-        predictions.forEach(prediction => {
-          const keypoints = prediction.scaledMesh
-          for (let i = 0; i < keypoints.length; i++) {
-            const x = keypoints[i][0]
-            const y = keypoints[i][1]
-            ctx.beginPath()
-            ctx.arc(x, y, 1, 0, 3 * Math.PI)
-            ctx.fillStyle = 'aqua'
-            ctx.fill()
-          }
-        })
+        return faces
       }
     }
 
@@ -262,9 +316,8 @@ export default {
 
     onMounted(() => {
       video.addEventListener('loadeddata', async () => {
+        loadModel()
         startShader()
-        // await for the shader to be loaded before loading the model
-        await loadModel()
       })
     })
 
@@ -289,12 +342,11 @@ export default {
       cameraShader,
       renderer,
       raf,
-      plane,
+      videoSprite,
       cvsContainer,
       startShader,
       detectFaces,
-      loadModel,
-      drawMesh
+      loadModel
     }
   }
 }

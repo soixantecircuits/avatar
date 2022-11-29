@@ -1,19 +1,27 @@
 <template>
-  <div>
-    <div class="h-screen flex flex-col justify-center items-center space-y-20">
-        <p class="text-6xl text-center">
-          Create your own avatar character to express yourself
-        </p>
-        <router-link class="btn hover-gray" to="media">
-          Create Your Avatar
-        </router-link>
-    </div>
-  </div>
+<div class="h-screen flex flex-col items-center space-y-10 p-20">
+    <MediaUI v-if="camStore.isTakeorPick && !camStore.isStartCam "/>
+    <MediaFilter v-if="camStore.isStartCam && !camStore.isTakeorPick " />
+    <MediaShot v-if="!camStore.isStartCam && !camStore.isTakeorPick " />
+</div>
 </template>
 
 <script>
+import { useCameraStore } from '~~/store'
+import { onBeforeUnmount } from 'vue'
+
 export default {
   name: 'IndexPage',
-  layout: 'defaultLayout'
+  setup () {
+    const camStore = useCameraStore()
+
+    onBeforeUnmount(() => {
+      camStore.initializeMediaUI()
+    })
+
+    return {
+      camStore
+    }
+  }
 }
 </script>

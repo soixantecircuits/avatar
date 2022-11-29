@@ -15,6 +15,10 @@
         <p> Save to device </p>
         <outline-check-circle-icon class="w-10 h-10" />
       </button>
+      <button class="flex flex-col justify-center items-center" @click="cancelImage">
+        <p> Share </p>
+        <outline-heart-icon class="w-10 h-10" />
+      </button>
     </div>
 </div>
 </template>

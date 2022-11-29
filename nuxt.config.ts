@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-import glsl from 'vite-plugin-glsl';
+import glsl from 'vite-plugin-glsl'
 
 export default defineNuxtConfig({
   vite: {
@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   meta: {
     title: 'Avatar',
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '../static/logo.jpg' }
+      { rel: 'icon', type: 'image/x-icon', href: '../static/1024.png' }
       // make the icon rounded
     ]
   },
