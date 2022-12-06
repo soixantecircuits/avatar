@@ -5,9 +5,9 @@
   </button>
   <div class='h-5/6 containerMedia'>
     <div class='h-full w-full flex items-center justify-center' ref='cvsContainer'>
+
     </div>
   </div>
-
     <div class='w-2/4 flex flex-row items-center justify-around'>
       <button @click='captureImg(), goToPicture()'>
         <outline-camera-icon class='w-10 h-10' />
@@ -50,7 +50,6 @@ export default {
           video: true
         }).then(stream => {
           cameraOpen.value = true
-          video.style.transform = 'scaleX(-1)'
 
           // we initialise the stream of the camera to the video
           video.srcObject = stream
@@ -136,12 +135,7 @@ export default {
 
     let faces = []
 
-    let wireframe = null
-    let wireframeMaterial = null
-
-    const faceGeometry = new FaceMeshFaceGeometry({
-      useViodeTexture: true
-    })
+    const faceGeometry = new FaceMeshFaceGeometry()
 
     function init () {
       // render
@@ -149,20 +143,24 @@ export default {
       renderer.setSize(video.videoWidth, video.videoHeight)
       cvsContainer.value.appendChild(renderer.domElement)
       renderer.domElement.setAttribute('id', 'canvashader')
+
       // set th canvasshader to the full size of the  screen
-      renderer.domElement.style.width = '100%'
-      renderer.domElement.style.height = '100%'
+      // renderer.domElement.style.width = '100%'
+      // renderer.domElement.style.height = '100%'
 
       renderer.setPixelRatio(window.devicePixelRatio)
       renderer.shadowMap.enabled = true
       renderer.shadowMap.type = THREE.PCFSoftShadowMap
       renderer.outputEncoding = THREE.sRGBEncoding
 
+      let width = 1
+      let height = 1
+
       // scene
       scene = new THREE.Scene()
-      const width = 1
-      const height = 1
       cameraShader = new THREE.OrthographicCamera((width / -2), (width / 2), (height / 2), (height / -2), 1, 1000)
+
+      renderer.render(scene, cameraShader)
 
       // the video texture
       tex = new THREE.VideoTexture(video)
@@ -179,6 +177,7 @@ export default {
         fragmentShader
       })
       videoSprite = new THREE.Sprite(videoMaterial)
+      videoSprite.position.z = -25
       videoSprite.scale.set(1, 1, 1)
       scene.add(videoSprite)
 
@@ -213,14 +212,6 @@ export default {
       const aoTexture = new THREE.TextureLoader().load('../assets/ao.jpg')
       const alphaTexture = new THREE.TextureLoader().load('../assets/mask.png')
 
-      // Create wireframe material
-      wireframeMaterial = new THREE.MeshBasicMaterial({
-        color: 0xff00ff,
-        wireframe: true
-      })
-
-      wireframe = true
-
       // Create material for mask.
       material = new THREE.MeshStandardMaterial({
         color: 0x808080,
@@ -230,60 +221,73 @@ export default {
         aoMap: aoTexture,
         map: colorTexture,
         roughnessMap: colorTexture,
-        transparent: true,
+        transparent: false,
         side: THREE.DoubleSide
       })
+
       // Create mask mesh.
       mask = new THREE.Mesh(faceGeometry, material)
       scene.add(mask)
+      mask.position.z = 5
       mask.receiveShadow = mask.castShadow = true
 
       // Create a red material for the nose.
       noseMaterial = new THREE.MeshStandardMaterial({
-        color: 0xff0000,
-        roughness: 0.5,
-        metalness: 0.5
+        color: 0xff2010,
+        roughness: 0.4,
+        metalness: 0.1,
+        transparent: true
       })
       nose = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), noseMaterial)
       nose.castShadow = nose.receiveShadow = true
       scene.add(nose)
-      nose.scale.setScalar(40)
+      nose.scale.set(40, 40, 40)
 
       cameraShader.position.z = 20
     }
 
     async function animate () {
+      // set the size facegeometry to the video sprite
+      faceGeometry.setSize(1, 1)
+      // console.log(nose.position)
+
       if (faces.length > 0) {
-        faceGeometry.update(faces[0])
+        faceGeometry.update(faces[0], true)
         const track = faceGeometry.track(5, 45, 275)
         nose.position.copy(track.position)
-        // nose.rotation.setFromRotationMatrix(track.rotation)
-        // position of the nose to 0,0,0,
+        nose.rotation.setFromRotationMatrix(track.rotation)
+
+        // size width and height of the video sprite
+        // console.log(videoSprite.scale.x, videoSprite.scale.y)
+
+        // testing the position of the nose
         // nose.position.set(0, 0.5, 0)
       }
 
-      if (wireframe) {
-        renderer.render(scene, cameraShader)
-        renderer.autoClear = false
-        renderer.clear(false, true, false)
-        renderer.render(scene, cameraShader)
-        mask.material = wireframeMaterial
-        renderer.render(scene, cameraShader)
-        mask.material = material
-        renderer.autoClear = true
-      } else {
-        renderer.render(scene, cameraShader)
-      }
+      // if (wireframe) {
+      //   renderer.render(scene, cameraShader)
+      //   renderer.autoClear = false
+      //   renderer.clear(false, true, false)
+      //   renderer.render(scene, cameraShader)
+      //   mask.material = wireframeMaterial
+      //   renderer.render(scene, cameraShader)
+      //   mask.material = material
+      //   renderer.autoClear = true
+      // } else {
+      //   renderer.render(scene, cameraShader)
+      // }
+
+      renderer.render(scene, cameraShader)
       raf = requestAnimationFrame(animate)
     }
 
     function onWindowResize () {
-      cameraShader.aspect = video.videoWidth / video.videoHeight
+      cameraShader.aspect = window.innerWidth / window.innerHeight
       cameraShader.updateProjectionMatrix()
-      renderer.setSize(video.videoWidth, video.videoHeight)
+      renderer.setSize(window.innerWidth, window.innerHeight)
 
-      // flip
-      videoSprite.scale.x = -1
+      videoMaterial.uniforms.resolution.value.x = renderer.domElement.width
+      videoMaterial.uniforms.resolution.value.y = renderer.domElement.height
     }
 
     async function startShader () {
@@ -336,6 +340,7 @@ export default {
       getCanvas,
       captureImg,
       goToPicture,
+
       init,
       animate,
       scene,
@@ -345,6 +350,7 @@ export default {
       videoSprite,
       cvsContainer,
       startShader,
+
       detectFaces,
       loadModel
     }

@@ -64,6 +64,7 @@ class FaceMeshFaceGeometry extends BufferGeometry {
       ptr += 3
     }
     if (this.useVideoTexture) {
+      console.log('set video uvs')
       this.setVideoUvs()
       if (this.normalizeCoords) {
         let ptr = 0

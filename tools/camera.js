@@ -1,5 +1,4 @@
 import { ref } from 'vue'
-import { useCameraStore } from '~~/store'
 
 const stream = ref(null)
 const cameraOpen = ref(false)
@@ -8,7 +7,6 @@ const video = null
 
 const cvsContainer = ref(null) // query selector and refs to fix
 
-const camStore = useCameraStore()
 // Starting the camera
 
 function startCamera () {
@@ -62,33 +60,14 @@ function getCanvas () {
   }
 }
 
-function captureImg () {
-  if (cameraOpen.value) {
-    const canvas = getCanvas()
-
-    const img = document.createElement('img')
-
-    img.width = canvas.width
-    img.height = canvas.height
-
-    // set the image src to the canvas data url
-
-    img.src = canvas.toDataURL('image/png')
-
-    // store the image in the pinia store
-    camStore.imgStored = img.src
-  }
-}
-
 // export the functions and the ref
-export default function useCamera () {
-  return {
-    startCamera,
-    stopCamera,
-    captureImg,
-    cameraOpen,
-    img,
-    video,
-    cvsContainer
-  }
+export {
+  stream,
+  cameraOpen,
+  img,
+  video,
+  cvsContainer,
+  startCamera,
+  stopCamera,
+  getCanvas
 }
