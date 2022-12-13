@@ -33,6 +33,9 @@ function init (video) {
   cvsContainer.value.appendChild(renderer.domElement)
   renderer.domElement.setAttribute('id', 'canvashader')
 
+  // flip the image
+  renderer.domElement.style.transform = 'scaleX(-1)'
+
   canvashader = document.getElementById('canvashader')
 
   renderer.setPixelRatio(window.devicePixelRatio)
