@@ -1,5 +1,5 @@
 <template>
-<div class="h-screen w-full flex flex-col items-center justify-center space-y-7">
+<div class="h-fit w-full flex flex-col items-center justify-center space-y-7">
   <button @click="goToCamera">
       <outline-chevron-double-left-icon class='w-10 h-10' />
   </button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-full flex justify-center">
+  <div class="h-full w-full flex justify-center">
       <p class="backgrdound-container text-7xl font-extrabold text-center">
         CREATE <br>
         YOUR OWN <br>
