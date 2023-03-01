@@ -1,15 +1,8 @@
 <template>
   <div class="h-full w-full flex justify-center">
-      <p class="backgrdound-container text-7xl font-extrabold text-center">
-        CREATE <br>
-        YOUR OWN <br>
-        AVATAR
-        </p>
-      <div class="flex flex-col justify-center space-y-5">
-        <button class="btn hover-gray" @click="camStore.initializeCamera()">
-          START EXPERIENCE
+        <button class="text-6xl font-extrabold text-center" @click="camStore.initializeCamera()">
+          LET'S GO
         </button>
-      </div>
   </div>
 </template>
 

@@ -35,11 +35,4 @@
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
   }
-
-  .backgrdound-container {
-    @apply bg-white;
-    z-index: -1;
-    position: absolute;
-  }
-  
 }
