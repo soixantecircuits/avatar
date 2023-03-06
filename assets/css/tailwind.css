@@ -2,13 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    color: white;
+    font-family: 'Rubik', sans-serif;
+  }
+}
+
 @layer components {
-  .btn {
-    @apply rounded-xl	font-medium text-black text-2xl bg-mygray p-4;
+
+  .low-highlight {
+    background: linear-gradient(to bottom, transparent 50%, #5C64EC 50%);
   }
 
-  .hover-gray{
-    @apply hover:bg-gray-900 hover:text-white;
+  .title {
+    @apply text-6xl font-black;
+    
   }
 
   canvas {

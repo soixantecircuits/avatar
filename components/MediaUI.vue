@@ -1,6 +1,6 @@
 <template>
-  <div class="h-full w-full flex justify-center">
-        <button class="text-6xl font-extrabold text-center" @click="camStore.initializeCamera()">
+  <div class="h-full w-full flex justify-center items-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000]">
+        <button class=" title text-center low-highlight" @click="camStore.initializeCamera()">
           LET'S GO
         </button>
   </div>
