@@ -3,10 +3,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mygray: '#D9D9D9'
-      },
-      fontSize: {
-        '7xl': '12rem'
+        darkviolet: '#4c1d95',
+        violet: '#5C64EC'
       }
     }
   },
