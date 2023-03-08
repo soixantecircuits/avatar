@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-row p-4 space-x-5">
+  <div class="flex flex-row items-center p-4 space-x-5">
     <img src="../static/1024.png" alt="logo" class="w-20 h-10">
-    <label class="relative inline-flex items-center mb-5 cursor-pointer">
+    <label class="relative cursor-pointer">
     <input type="checkbox" value="" class="sr-only peer">
       <div class="w-11 h-6 bg-gray-600
         peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800
