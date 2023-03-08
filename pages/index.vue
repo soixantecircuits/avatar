@@ -1,8 +1,9 @@
 <template>
 <div class="h-screen flex flex-col items-center space-y-10">
-    <MediaUI v-if="camStore.isTakeorPick && !camStore.isStartCam "/>
-    <MediaFilter v-if="camStore.isStartCam && !camStore.isTakeorPick " />
-    <MediaShot v-if="!camStore.isStartCam && !camStore.isTakeorPick " />
+    <MediaUI v-if="camStore.isTakeorPick && !camStore.isStartPage && !camStore.isStartCam" />
+    <MediaStart v-if="!camStore.isTakeorPick && camStore.isStartPage && !camStore.isStartCam" />
+    <MediaFilter v-if="!camStore.isTakeorPick && !camStore.isStartPage && camStore.isStartCam " />
+    <MediaShot v-if="!camStore.isTakeorPick && !camStore.isStartPage && !camStore.isStartCam " />
 </div>
 </template>
 

@@ -15,7 +15,7 @@
     background: linear-gradient(to bottom, transparent 50%, #5C64EC 50%);
   }
   .title {
-    @apply text-6xl font-black;
+    @apply text-8xl font-black;
     
   }
 
