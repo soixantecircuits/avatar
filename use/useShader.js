@@ -38,6 +38,12 @@ function init (video) {
 
   canvashader = document.getElementById('canvashader')
 
+  const canvasWidth = window.innerWidth
+  const canvasHeight = window.innerHeight * 0.90
+
+  canvashader.style.width = canvasWidth + 'px'
+  canvashader.style.height = canvasHeight + 'px'
+
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -171,12 +177,12 @@ async function animate (faces) {
 }
 
 function onWindowResize () {
-  cameraShader.aspect = window.innerWidth / window.innerHeight
-  cameraShader.updateProjectionMatrix()
-  renderer.setSize(window.innerWidth, window.innerHeight)
+  // calculate the canvas size based on the current window size
+  const width = window.innerWidth
+  const height = window.innerHeight * 0.90
 
-  videoMaterial.uniforms.resolution.value.x = renderer.domElement.width
-  videoMaterial.uniforms.resolution.value.y = renderer.domElement.height
+  canvashader.style.width = width + 'px'
+  canvashader.style.height = height + 'px'
 }
 
 export {

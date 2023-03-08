@@ -13,12 +13,12 @@
       </svg>
     </div>
     <div v-if="cameraOpen">
-      <button @click='camStore.initializeMediaUI()'>
+      <button class="icon" @click='camStore.initializeMediaUI()'>
         <outline-chevron-double-left-icon class='w-10 h-10' />
     </button>
-      <div class='h-5/6 w-full flex flex-row justify-center items-center' ref='cvsContainer'>
+      <div class='w-full flex flex-row justify-center items-center' ref='cvsContainer'>
     </div>
-      <div class='w-2/4 flex flex-row items-center justify-around'>
+      <div class='w-2/4 flex flex-row items-center justify-around icon'>
         <button @click='captureImg(video), goToPicture()'>
           <outline-camera-icon class='w-10 h-10' />
         </button>
