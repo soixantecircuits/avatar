@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full w-full flex flex-col items-center justify-center space-y-20">
+  <div class="flex flex-col items-center justify-center space-y-20">
     <button class="title text-center low-highlight" @click="camStore.initializeCamera()">
       START
     </button>

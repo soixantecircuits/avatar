@@ -39,7 +39,7 @@ function init (video) {
   canvashader = document.getElementById('canvashader')
 
   const canvasWidth = window.innerWidth
-  const canvasHeight = window.innerHeight * 0.90
+  const canvasHeight = window.innerHeight * 0.85
 
   canvashader.style.width = canvasWidth + 'px'
   canvashader.style.height = canvasHeight + 'px'

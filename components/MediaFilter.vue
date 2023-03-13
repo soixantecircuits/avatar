@@ -1,6 +1,6 @@
 <template>
-  <div class='w-full h-full flex flex-col justify-center space-y-10'>
-    <div class="w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center" v-if="!cameraOpen">
+  <div class='h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000]'>
+    <div class="absolute bottom-0 w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center" v-if="!cameraOpen">
     <div class=" flex flex-row  justify-center items-center space-x-4">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="7" cy="7" r="7" fill="#D21E3E"/>
@@ -12,15 +12,32 @@
         <path fill-rule="evenodd" clip-rule="evenodd" d="M281.938 3.10161C285.053 6.78796 284.586 12.2978 280.894 15.4081L14.3865 239.941C10.6947 243.052 5.17669 242.585 2.06173 238.898C-1.05323 235.212 -0.585601 229.702 3.1062 226.592L269.614 2.05868C273.305 -1.05167 278.823 -0.584738 281.938 3.10161Z" fill="white"/>
       </svg>
     </div>
-    <div v-if="cameraOpen">
-      <button class="icon" @click='camStore.initializeMediaUI()'>
-        <outline-chevron-double-left-icon class='w-10 h-10' />
-    </button>
-      <div class='w-full flex flex-row justify-center items-center' ref='cvsContainer'>
-    </div>
-      <div class='w-2/4 flex flex-row items-center justify-around icon'>
+
+    <div v-if="cameraOpen" class="flex flex-row justify-center items-center">
+
+      <div class='w-full absolute bottom-0' ref='cvsContainer'>
+      </div>
+
+      <div class='w-full absolute bottom-0 flex justify-center'>
         <button @click='captureImg(video), goToPicture()'>
-          <outline-camera-icon class='w-10 h-10' />
+          <svg width="127" height="127" viewBox="0 0 127 127" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_210_796)">
+            <path d="M63.4998 113.018C93.0569 113.018 117.018 89.0571 117.018 59.5C117.018 29.9429 93.0569 5.98218 63.4998 5.98218C33.9427 5.98218 9.98193 29.9429 9.98193 59.5C9.98193 89.0571 33.9427 113.018 63.4998 113.018Z" stroke="white" stroke-width="2.5"/>
+            <path opacity="0.63" d="M63.4998 102.314C87.1455 102.314 106.314 83.1458 106.314 59.5001C106.314 35.8544 87.1455 16.6858 63.4998 16.6858C39.8542 16.6858 20.6855 35.8544 20.6855 59.5001C20.6855 83.1458 39.8542 102.314 63.4998 102.314Z" fill="white"/>
+            </g>
+            <defs>
+            <filter id="filter0_d_210_796" x="0" y="0" width="127" height="127" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+            <feOffset dy="4"/>
+            <feGaussianBlur stdDeviation="4"/>
+            <feComposite in2="hardAlpha" operator="out"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_210_796"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_210_796" result="shape"/>
+            </filter>
+            </defs>
+          </svg>
         </button>
       </div>
     </div>

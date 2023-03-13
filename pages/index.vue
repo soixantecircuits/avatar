@@ -1,5 +1,5 @@
 <template>
-<div class="h-screen flex flex-col items-center space-y-10">
+<div class="flex flex-col">
     <MediaUI v-if="camStore.isTakeorPick && !camStore.isStartPage && !camStore.isStartCam" />
     <MediaStart v-if="!camStore.isTakeorPick && camStore.isStartPage && !camStore.isStartCam" />
     <MediaFilter v-if="!camStore.isTakeorPick && !camStore.isStartPage && camStore.isStartCam " />
