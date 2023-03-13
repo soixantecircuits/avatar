@@ -19,6 +19,10 @@
     
   }
 
+  .filter-names {
+    @apply text-xl font-bold;
+  }
+
   .image {
     @apply rounded-md shadow-lg ;
     -webkit-transform: scaleX(-1);
