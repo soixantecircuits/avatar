@@ -26,38 +26,6 @@ export default {
     const camStore = useCameraStore()
     const img = camStore.imgStored
 
-    function cancelImage () {
-      document.querySelector('.image').src = ''
-      camStore.isStartPage = false
-      camStore.isStartXp = false
-      camStore.isStartShoot = true
-      camStore.isStartVerif = false
-      camStore.isStartShare = false
-    }
-
-    function saveImage () {
-      // save the image to the device and flip it
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-
-      const img = document.querySelector('.image')
-
-      canvas.width = img.width
-      canvas.height = img.height
-
-      // flip the image
-      ctx.translate(img.width, 0)
-      ctx.scale(-1, 1)
-      ctx.drawImage(img, 0, 0, img.width, img.height)
-
-      const data = canvas.toDataURL('image/png')
-
-      const link = document.createElement('a')
-      link.download = 'your-picture.png'
-      link.href = data
-      link.click()
-    }
-
     function goToShare () {
       camStore.isStartShoot = false
       camStore.isStartPage = false
@@ -73,7 +41,6 @@ export default {
     return {
       camStore,
       img,
-      cancelImage,
       goToShare
     }
   }

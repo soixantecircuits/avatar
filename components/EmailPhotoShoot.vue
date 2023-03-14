@@ -3,7 +3,24 @@
     <div class="h-5/6 flex flex-row justify-center space-x-7 ">
     <div class="flex flex-col space-y-7">
       <div>
-        <img :src="img" class="image rounded-md" />
+        <form>
+          <form>
+            <div class="flex flex-row space-x-4">
+              <div class="flex flex-col w-1/2">
+                <label for="firstName" class="font-semibold">First Name</label>
+                <input type="text" id="firstName" name="firstName" class="border rounded-lg p-2">
+              </div>
+              <div class="flex flex-col w-1/2">
+                <label for="lastName" class="font-semibold">Last Name</label>
+                <input type="text" id="lastName" name="lastName" class="border rounded-lg p-2">
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <label for="email" class="font-semibold">Email</label>
+              <input type="email" id="email" name="email" class="border rounded-lg p-2">
+            </div>
+          </form>
+        </form>
       </div>
       <div class="flex justify-center text-3xl font-semibold">
         Terminé
