@@ -81,6 +81,8 @@ function goToVerif () {
     camStore.isStartShoot = false
     camStore.isStartXp = false
     camStore.isStartVerif = true
+    camStore.isStartShare = false
+    camStore.isStartMail = false
   }
 }
 

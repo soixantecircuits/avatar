@@ -12,7 +12,7 @@
 
     <div class=" flex flex-col space-y-2">
 
-        <button @click="cancelImage">
+        <button @click="goToMail">
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="50" height="50" rx="15" fill="#543BED"/>
             <g clip-path="url(#clip0_210_919)">
@@ -85,6 +85,15 @@ export default {
       link.click()
     }
 
+    function goToMail () {
+      camStore.isStartMail = true
+      camStore.isStartShoot = false
+      camStore.isStartXp = false
+      camStore.isStartVerif = false
+      camStore.isStartPage = false
+      camStore.isStartShare = false
+    }
+
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
     })
@@ -92,7 +101,8 @@ export default {
     return {
       camStore,
       img,
-      saveImage
+      saveImage,
+      goToMail
     }
   }
 

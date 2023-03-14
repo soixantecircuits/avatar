@@ -32,6 +32,7 @@ export default {
       camStore.isStartXp = false
       camStore.isStartVerif = false
       camStore.isStartShare = true
+      camStore.isStartMail = false
     }
 
     onMounted(() => {

@@ -1,35 +1,29 @@
 <template>
-  <div>
-    <div class="h-5/6 flex flex-row justify-center space-x-7 ">
-    <div class="flex flex-col space-y-7">
-      <div>
-        <form>
-          <form>
-            <div class="flex flex-row space-x-4">
-              <div class="flex flex-col w-1/2">
-                <label for="firstName" class="font-semibold">First Name</label>
-                <input type="text" id="firstName" name="firstName" class="border rounded-lg p-2">
-              </div>
-              <div class="flex flex-col w-1/2">
-                <label for="lastName" class="font-semibold">Last Name</label>
-                <input type="text" id="lastName" name="lastName" class="border rounded-lg p-2">
-              </div>
+  <div class="h-5/6 w-screen">
+    <div class="h-full w-full flex flex-row justify-center items-center space-x-7 ">
+    <div class="flex flex-col flex-grow space-y-7">
+
+        <form id="form" class=" h-full flex flex-col space-y-4">
+          <div class="flex flex-row space-x-4">
+            <div class="flex flex-col w-1/2">
+              <input type="text" id="firstName" name="firstName" placeholder="Prenom" class="rounded-lg p-2 bg-gray-800">
             </div>
-            <div class="flex flex-col">
-              <label for="email" class="font-semibold">Email</label>
-              <input type="email" id="email" name="email" class="border rounded-lg p-2">
+            <div class="flex flex-col w-1/2">
+              <input type="text" id="lastName" name="lastName" placeholder="Nom" class="rounded-lg p-2 bg-gray-800">
             </div>
-          </form>
+          </div>
+          <div class="flex flex-col">
+            <input type="email" id="email" name="email" placeholder="Email" class="rounded-lg p-2 bg-gray-800">
+          </div>
         </form>
-      </div>
+
       <div class="flex justify-center text-3xl font-semibold">
         Terminé
       </div>
     </div>
 
     <div class=" flex flex-col space-y-2">
-
-        <button @click="cancelImage">
+        <button>
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="50" height="50" rx="15" fill="#543BED"/>
             <g clip-path="url(#clip0_210_919)">
@@ -103,7 +97,8 @@ export default {
     }
 
     onMounted(() => {
-      document.querySelector('.image').src = camStore.imgStored
+      const form = document.getElementById('form')
+      form.style.backgroundImage = `url(${camStore.imgStored})`
     })
 
     return {
