@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <div class="h-5/6 flex flex-row justify-center space-x-7 ">
-    <div class="flex flex-col space-y-7">
-      <div>
-        <img :src="img" class="image rounded-md" />
-      </div>
+  <div class="h-5/6 flex flex-col items-center justify-center">
+    <div class="flex flex-row justify-center space-x-7 ">
+    <div class="h-full flex flex-col space-y-7">
+      <img :src="img" class="h-480 w-640 image rounded-lg" />
       <div class="flex justify-center text-3xl font-semibold">
         Terminé
       </div>

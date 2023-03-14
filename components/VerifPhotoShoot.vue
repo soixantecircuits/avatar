@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="h-5/6">
+    <div class="h-screen">
       <img :src="img" class="image absolute bottom-0 w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center" />
       </div>
       <div class="w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar">
@@ -26,6 +26,16 @@ export default {
     const camStore = useCameraStore()
     const img = camStore.imgStored
 
+    function cancelImage () {
+      document.querySelector('.image').src = ''
+      camStore.isStartShoot = true
+      camStore.isStartPage = false
+      camStore.isStartXp = false
+      camStore.isStartVerif = false
+      camStore.isStartShare = false
+      camStore.isStartMail = false
+    }
+
     function goToShare () {
       camStore.isStartShoot = false
       camStore.isStartPage = false
@@ -42,6 +52,7 @@ export default {
     return {
       camStore,
       img,
+      cancelImage,
       goToShare
     }
   }
