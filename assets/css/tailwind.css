@@ -20,7 +20,7 @@
   }
 
   .filter-names {
-    @apply text-xl font-bold;
+    @apply text-xl;
   }
 
   .filter-bar {
@@ -28,8 +28,6 @@
   }
 
   .image {
-    @apply rounded-md shadow-lg ;
-    -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
   }
 }

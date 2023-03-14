@@ -1,27 +1,20 @@
 <template>
-<div class="w-full flex flex-col items-center justify-center space-y-7">
-  <button @click="goToCamera">
-      <outline-chevron-double-left-icon class='w-10 h-10' />
-  </button>
-  <div class="h-5/6">
-    <img :src="img" class="image h-full" />
-    </div>
-    <div class="w-2/4 flex flex-row items-center justify-around">
-      <button class="flex flex-col justify-center items-center" @click="cancelImage">
-        <p> Retake </p>
-        <outline-x-circle-icon class="w-10 h-10" />
-      </button>
-      <button class="flex flex-col justify-center items-center" @click="saveImage">
-        <p> Save to device </p>
-        <outline-check-circle-icon class="w-10 h-10" />
-      </button>
-      <button class="flex flex-col justify-center items-center" @click="cancelImage">
-        <p> Share </p>
-        <outline-heart-icon class="w-10 h-10" />
-      </button>
-    </div>
-</div>
-</template>
+  <div >
+    <div class="h-5/6">
+      <img :src="img" class="image absolute bottom-0 w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center" />
+      </div>
+      <div class="w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar">
+        <button class="flex flex-col justify-center items-center" @click="goToShare()">
+          <div class="title low-highlight">
+            SUIVANT
+          </div>
+        </button>
+        <button class="flex flex-col justify-center items-center" @click="cancelImage()">
+          <div class="underline filter-names"> Recommencer </div>
+        </button>
+      </div>
+  </div>
+  </template>
 
 <script>
 import { useCameraStore } from '~~/store'
@@ -35,7 +28,11 @@ export default {
 
     function cancelImage () {
       document.querySelector('.image').src = ''
-      camStore.isStartCam = true
+      camStore.isStartPage = false
+      camStore.isStartXp = false
+      camStore.isStartShoot = true
+      camStore.isStartVerif = false
+      camStore.isStartShare = false
     }
 
     function saveImage () {
@@ -61,9 +58,12 @@ export default {
       link.click()
     }
 
-    function goToCamera () {
-      camStore.isStartCam = true
-      camStore.isStartEdit = false
+    function goToShare () {
+      camStore.isStartShoot = false
+      camStore.isStartPage = false
+      camStore.isStartXp = false
+      camStore.isStartVerif = false
+      camStore.isStartShare = true
     }
 
     onMounted(() => {
@@ -74,8 +74,7 @@ export default {
       camStore,
       img,
       cancelImage,
-      saveImage,
-      goToCamera
+      goToShare
     }
   }
 

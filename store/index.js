@@ -6,11 +6,15 @@ export const useCameraStore = defineStore('CameraStore', {
   state: () => ({
     // state prop returns an object
     // this object is a state object
-    isTakeorPick: true,
+    isStartPage: true,
 
-    isStartPage : false,
+    isStartXp: false,
 
-    isStartCam: false,
+    isStartShoot: false,
+
+    isStartVerif: false,
+
+    isStartShare: false,
 
     imgStored: null
 
@@ -22,21 +26,24 @@ export const useCameraStore = defineStore('CameraStore', {
   actions: {
 
     initializeMediaUI () {
-      this.isStartCam = false
-      this.isStartPage = false
-      this.isTakeorPick = true
-    },
-
-    initializeStartPage () {
-      this.isStartCam = false
-      this.isTakeorPick = false
+      this.isStartShoot = false
+      this.isStartXp = false
+      this.isStartVerif = false
       this.isStartPage = true
     },
 
-    initializeCamera () {
-      this.isStartCam = true
-      this.isTakeorPick = false
+    initializeStartPage () {
+      this.isStartShoot = false
       this.isStartPage = false
+      this.isStartVerif = false
+      this.isStartXp = true
+    },
+
+    initializeCamera () {
+      this.isStartPage = false
+      this.isStartXp = false
+      this.isStartVerif = false
+      this.isStartShoot = true
     }
   }
 

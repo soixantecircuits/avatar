@@ -27,7 +27,7 @@
         <div class="filter-names">Glitch</div>
         </div>
 
-        <button class="flex-grow" @click='captureImg(video), goToPicture()'>
+        <button class="flex-grow" @click='captureImg(video), goToVerif()'>
           <svg width="127" height="127" viewBox="0 0 127 127" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_210_796)">
             <path d="M63.4998 113.018C93.0569 113.018 117.018 89.0571 117.018 59.5C117.018 29.9429 93.0569 5.98218 63.4998 5.98218C33.9427 5.98218 9.98193 29.9429 9.98193 59.5C9.98193 89.0571 33.9427 113.018 63.4998 113.018Z" stroke="white" stroke-width="2.5"/>
@@ -63,7 +63,7 @@ import { onBeforeMount, onMounted, onBeforeUnmount, ref } from 'vue'
 import * as tf from '@tensorflow/tfjs'
 import * as facemesh from '@tensorflow-models/facemesh'
 
-import { stream, cameraOpen, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg, goToPicture } from '../use/useMedia.js'
+import { stream, cameraOpen, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg, goToVerif } from '../use/useMedia.js'
 
 import { init, animate, onWindowResize, videoMaterial, videoSprite, mask, nose, noseMaterial, scene, cameraShader, renderer } from '../use/useShader.js'
 
@@ -125,7 +125,7 @@ export default {
       stopCamera,
       getCanvas,
       captureImg,
-      goToPicture,
+      goToVerif,
 
       init,
       animate,

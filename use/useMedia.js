@@ -73,11 +73,14 @@ function captureImg (video) {
   }
 }
 
-function goToPicture () {
+function goToVerif () {
   const camStore = useCameraStore()
 
   if (cameraOpen.value) {
     camStore.isStartCam = false
+    camStore.isStartShoot = false
+    camStore.isStartXp = false
+    camStore.isStartVerif = true
   }
 }
 
@@ -92,5 +95,5 @@ export {
   stopCamera,
   getCanvas,
   captureImg,
-  goToPicture
+  goToVerif
 }

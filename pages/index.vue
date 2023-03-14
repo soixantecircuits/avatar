@@ -1,17 +1,24 @@
 <template>
 <div class="flex flex-col">
-    <MediaUI v-if="camStore.isTakeorPick && !camStore.isStartPage && !camStore.isStartCam" />
-    <MediaStart v-if="!camStore.isTakeorPick && camStore.isStartPage && !camStore.isStartCam" />
-    <MediaFilter v-if="!camStore.isTakeorPick && !camStore.isStartPage && camStore.isStartCam " />
-    <MediaShot v-if="!camStore.isTakeorPick && !camStore.isStartPage && !camStore.isStartCam " />
+    <start-page v-if="camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare" />
+    <start-x-p v-if="!camStore.isStartPage && camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare" />
+    <photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare" />
+    <verif-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && camStore.isStartVerif && !camStore.isStartShare" />
+    <share-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& camStore.isStartShare" />
 </div>
 </template>
 
 <script>
 import { useCameraStore } from '~~/store'
 import { onBeforeUnmount } from 'vue'
+import StartPage from '~~/components/StartPage.vue'
+import StartXP from '~~/components/StartXP.vue'
+import PhotoShoot from '~~/components/PhotoShoot.vue'
+import VerifPhotoShoot from '~~/components/VerifPhotoShoot.vue'
+import SharePhotoShoot from '~~/components/SharePhotoShoot.vue'
 
 export default {
+  components: { StartPage, StartXP, PhotoShoot, VerifPhotoShoot, SharePhotoShoot },
   name: 'IndexPage',
   setup () {
     const camStore = useCameraStore()
