@@ -19,6 +19,10 @@
     
   }
 
+  .logo-title{
+    font-size: 10px;
+  }
+
   .filter-names {
     @apply text-xl;
   }
