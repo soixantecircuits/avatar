@@ -30,4 +30,21 @@
   .image {
     transform: scaleX(-1);
   }
+
+  .bg-principal {
+    height: 80%;
+    width: 60%;
+  }
+
+  .bg-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(3px);
+  }
+
+  .form, .button {
+    z-index: 1;
+  }
+
 }
