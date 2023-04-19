@@ -35,6 +35,14 @@
     transform: scaleX(-1);
   }
 
+  .button-color {
+    background-color: #5C64EC;
+  }
+
+  .button-color:hover {
+    background-color: #2e3275;
+  }
+
   .bg-principal {
     height: 80%;
     width: 60%;
