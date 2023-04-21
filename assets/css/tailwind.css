@@ -11,12 +11,15 @@
 
 @layer components {
 
+  .height-85 {
+    height: 85vh;
+  }
+
   .low-highlight {
     background: linear-gradient(to bottom, transparent 50%, #5C64EC 50%);
   }
   .title {
     @apply text-8xl font-black;
-    
   }
 
   .logo-title{

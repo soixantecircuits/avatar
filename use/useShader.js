@@ -179,7 +179,7 @@ async function animate (faces) {
 function onWindowResize () {
   // calculate the canvas size based on the current window size
   const width = window.innerWidth
-  const height = window.innerHeight * 0.90
+  const height = window.innerHeight * 0.85
 
   canvashader.style.width = width + 'px'
   canvashader.style.height = height + 'px'

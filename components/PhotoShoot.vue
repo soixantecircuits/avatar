@@ -13,12 +13,11 @@
       </svg>
     </div>
 
-    <div v-if="cameraOpen" class="flex flex-row justify-center items-center">
+    <div v-if="cameraOpen" class="h-5/6">
 
-      <div class='w-full absolute bottom-0' ref='cvsContainer'>
-      </div>
+      <div class='w-full absolute bottom-0' ref='cvsContainer'> </div>
 
-      <div class='w-full h-1/5 space-x-5 absolute bottom-0 flex justify-center items-center filter-bar'>
+      <div class='w-full h-1/5 absolute bottom-0 flex justify-center items-center filter-bar'>
         <div class="flex flex-row flex-grow justify-end space-x-5">
         <div class="filter-names">RGB</div>
         <div class="filter-names">PixelArt</div>
