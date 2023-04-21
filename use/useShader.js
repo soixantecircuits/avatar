@@ -41,6 +41,9 @@ function init (video) {
   const canvasWidth = window.innerWidth
   const canvasHeight = window.innerHeight * 0.85
 
+  // object fit
+  canvashader.style.objectFit = 'cover'
+
   canvashader.style.width = canvasWidth + 'px'
   canvashader.style.height = canvasHeight + 'px'
 

@@ -47,6 +47,7 @@ export default {
 
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
+      document.querySelector('.image').style.objectFit = 'cover'
     })
 
     return {
