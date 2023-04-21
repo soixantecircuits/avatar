@@ -1,7 +1,7 @@
 <template>
   <div class='h-5/6 w-full flex flex-col absolute bottom-0'>
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
-    <div class='h-4/5 w-7/12 flex flex-col items-center space-y-7'>
+    <div class='height-70 w-7/12 flex flex-col items-center space-y-7'>
       <div class='relative h-full w-full relative flex flex-col justify-center items-center space-y-4'>
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex' />
         <button class='absolute button top-0 left-0' @click='goToShare'>

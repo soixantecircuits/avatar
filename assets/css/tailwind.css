@@ -11,6 +11,10 @@
 
 @layer components {
 
+  .height-70 {
+    height: 70vh;
+  }
+
   .height-85 {
     height: 85vh;
   }
