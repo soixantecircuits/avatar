@@ -49,5 +49,4 @@ void main() {
   //   gl_FragColor = vec4(b, r, g, texColor.a);
   // }
 
-
 }

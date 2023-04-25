@@ -59,12 +59,9 @@
 import { useCameraStore } from '~~/store'
 import { onBeforeMount, onMounted, onBeforeUnmount, ref } from 'vue'
 
-import * as tf from '@tensorflow/tfjs'
-import * as facemesh from '@tensorflow-models/facemesh'
-
 import { stream, cameraOpen, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg, goToVerif } from '../use/useMedia.js'
 
-import { init, animate, onWindowResize, videoMaterial, videoSprite, mask, nose, noseMaterial, scene, cameraShader, renderer } from '../use/useShader.js'
+import { init, animate, onWindowResize, videoSprite, scene, cameraShader, renderer } from '../use/useShader.js'
 
 export default {
   name: 'CameraStream',
@@ -73,30 +70,10 @@ export default {
 
     const video = document.createElement('video')
 
-    let faces = []
-
     async function startShader () {
       init(video)
-      animate(faces)
+      animate()
       window.addEventListener('resize', onWindowResize, false)
-    }
-
-    // Load the face mesh model
-    async function loadModel () {
-      const model = await facemesh.load({
-        inputResolution: { width: video.videoWidth, height: video.videoHeight },
-        scale: 0.8
-      })
-      detectFaces(model)
-    }
-
-    // Detect the faces
-    async function detectFaces (model) {
-      if (cameraOpen.value && video.readyState === video.HAVE_ENOUGH_DATA) {
-        faces = await model.estimateFaces(video)
-        requestAnimationFrame(() => detectFaces(model))
-        return faces
-      }
     }
 
     onBeforeMount(() => {
@@ -105,7 +82,6 @@ export default {
 
     onMounted(() => {
       video.addEventListener('loadeddata', async () => {
-        // loadModel()
         startShader()
       })
     })
@@ -133,11 +109,7 @@ export default {
       renderer,
       videoSprite,
       cvsContainer,
-      startShader,
-
-      faces,
-      detectFaces,
-      loadModel
+      startShader
     }
   }
 }

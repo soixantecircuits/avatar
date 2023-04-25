@@ -1,11 +1,12 @@
 import * as THREE from 'three'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
 import { cvsContainer } from '../use/useMedia.js'
-
-import { FaceMeshFaceGeometry } from '../tools/face.js'
 
 let renderer = null
 let tex = null
@@ -13,22 +14,22 @@ let scene = null
 let cameraShader = null
 
 let videoSprite = null
-let nose = null
-let mask = null
 
 let videoMaterial = null
-let material = null
-let noseMaterial = null
 
 let raf = null
 
 let canvashader = null
 
-const faceGeometry = new FaceMeshFaceGeometry()
+let cube = null
+let bloomComposer = null
+let bloomPass = null
+let rendererScene = null
 
 function init (video) {
   // render
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+  renderer.autoClear = false
   renderer.setSize(video.videoWidth, video.videoHeight)
   cvsContainer.value.appendChild(renderer.domElement)
   renderer.domElement.setAttribute('id', 'canvashader')
@@ -52,14 +53,14 @@ function init (video) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
   renderer.outputEncoding = THREE.sRGBEncoding
 
-  let width = 1
-  let height = 1
+  const width = 1
+  const height = 1
 
   // scene
   scene = new THREE.Scene()
   cameraShader = new THREE.OrthographicCamera((width / -2), (width / 2), (height / 2), (height / -2), 1, 1000)
-
-  renderer.render(scene, cameraShader)
+  // cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 1000)
+  scene.add(cameraShader)
 
   // the video texture
   tex = new THREE.VideoTexture(video)
@@ -69,114 +70,63 @@ function init (video) {
     uniforms: {
       time: { value: 1.0 },
       resolution: { value: new THREE.Vector2() },
-      face: { value: new Array(468 * 3) },
       tex: { value: tex }
     },
     vertexShader,
     fragmentShader
   })
   videoSprite = new THREE.Sprite(videoMaterial)
-  videoSprite.position.z = -25
+  videoSprite.position.z = -3
+  videoSprite.renderOrder = 1
+
   videoSprite.scale.set(1, 1, 1)
   scene.add(videoSprite)
 
-  // Add lights.
-  const spotLight = new THREE.SpotLight(0xffffbb, 1)
-  spotLight.position.set(0.5, 0.5, 1)
-  spotLight.position.multiplyScalar(400)
-  scene.add(spotLight)
+  // const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
+  // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
+  // cube = new THREE.Mesh(geometry, materialCube)
+  // scene.add(cube)
+  // cube.position.z = -1
 
-  spotLight.castShadow = true
+  const geometry = new THREE.SphereGeometry(0.05, 20, 20)
+  const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
+  const sphere = new THREE.Mesh(geometry, material)
+  sphere.position.z = -1
+  scene.add(sphere)
 
-  spotLight.shadow.mapSize.width = 1024
-  spotLight.shadow.mapSize.height = 1024
+  // add glowing sun
+  bloomComposer = new EffectComposer(renderer)
 
-  spotLight.shadow.camera.near = 200
-  spotLight.shadow.camera.far = 800
+  rendererScene = new RenderPass(scene, cameraShader)
 
-  spotLight.shadow.camera.fov = 40
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.5,
+    0.4,
+    0.85)
+  bloomPass.threshold = 0
+  bloomPass.strength = 1
+  bloomPass.radius = 0
 
-  spotLight.shadow.bias = -0.001125
+  bloomComposer.setSize(window.innerWidth, window.innerHeight)
+  bloomComposer.renderToScreen = true
+  bloomComposer.addPass(rendererScene)
+  bloomComposer.addPass(bloomPass)
 
-  scene.add(spotLight)
-
-  const hemiLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.25)
-  scene.add(hemiLight)
-
-  const ambientLight = new THREE.AmbientLight(0x404040, 0.25)
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
   scene.add(ambientLight)
+  ambientLight.intensity = 0
+  ambientLight.position.z = -1
 
-  // Load textures for mask material.
-  const colorTexture = new THREE.TextureLoader().load('../assets/mesh_map.jpg')
-  const aoTexture = new THREE.TextureLoader().load('../assets/ao.jpg')
-  const alphaTexture = new THREE.TextureLoader().load('../assets/mask.png')
-
-  // Create material for mask.
-  material = new THREE.MeshStandardMaterial({
-    color: 0x808080,
-    roughness: 0.8,
-    metalness: 0.1,
-    alphaMap: alphaTexture,
-    aoMap: aoTexture,
-    map: colorTexture,
-    roughnessMap: colorTexture,
-    transparent: false,
-    side: THREE.DoubleSide
-  })
-
-  // Create mask mesh.
-  mask = new THREE.Mesh(faceGeometry, material)
-  scene.add(mask)
-  mask.position.z = 5
-  mask.receiveShadow = mask.castShadow = true
-
-  // Create a red material for the nose.
-  noseMaterial = new THREE.MeshStandardMaterial({
-    color: 0xff2010,
-    roughness: 0.4,
-    metalness: 0.1,
-    transparent: true
-  })
-  nose = new THREE.Mesh(new THREE.SphereGeometry(0.002, 32, 32), noseMaterial)
-  nose.castShadow = nose.receiveShadow = true
-  // scene.add(nose)
-  nose.scale.set(40, 40, 40)
-
-  cameraShader.position.z = 20
+  cameraShader.position.z = 1
 }
 
-async function animate (faces) {
-  // set the size facegeometry to the video sprite
-  faceGeometry.setSize(1, 1)
-
-  if (faces.length > 0) {
-    faceGeometry.update(faces[0], true)
-    const track = faceGeometry.track(5, 45, 275)
-    nose.position.copy(track.position)
-    nose.rotation.setFromRotationMatrix(track.rotation)
-
-    // size width and height of the video sprite
-    // console.log(videoSprite.scale.x, videoSprite.scale.y)
-
-    // testing the position of the nose
-    // nose.position.set(0, 0.5, 0)
-  }
-
-  // if (wireframe) {
-  //   renderer.render(scene, cameraShader)
-  //   renderer.autoClear = false
-  //   renderer.clear(false, true, false)
-  //   renderer.render(scene, cameraShader)
-  //   mask.material = wireframeMaterial
-  //   renderer.render(scene, cameraShader)
-  //   mask.material = material
-  //   renderer.autoClear = true
-  // } else {
-  //   renderer.render(scene, cameraShader)
-  // }
-
-  renderer.render(scene, cameraShader)
+async function animate () {
   raf = requestAnimationFrame(animate)
+  // cube.rotation.x += 0.01
+  // cube.rotation.y += 0.01
+  // bloomComposer.render()
+  renderer.render(scene, cameraShader)
 }
 
 function onWindowResize () {
@@ -195,9 +145,6 @@ export {
 
   videoMaterial,
   videoSprite,
-  mask,
-  nose,
-  noseMaterial,
   scene,
   cameraShader,
   renderer,
