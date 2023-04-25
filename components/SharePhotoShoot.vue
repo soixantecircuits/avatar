@@ -2,7 +2,7 @@
   <div class="h-5/6 w-full flex flex-col absolute bottom-0">
     <div class="h-full w-full flex flex-row justify-center space-x-7">
     <div class="height-70 w-7/12 flex flex-col space-y-7">
-      <img :src="img" class="h-full w-full image rounded-lg" />
+      <img :src="img" class="h-full w-full image rounded-lg object-cover" />
       <div class="flex justify-center text-3xl font-semibold">
         Terminé
       </div>

@@ -19,6 +19,7 @@ let raf = null
 let canvashader = null
 
 let cube = null
+let sphere = null
 
 function init (video) {
   // render
@@ -73,7 +74,7 @@ function init (video) {
   videoSprite.position.z = -3
   videoSprite.renderOrder = 1
 
-  videoSprite.scale.set(canvasWidth / 900, canvasHeight / 800, 1)
+  videoSprite.scale.set(2, 1.1, 1)
 
   scene.add(videoSprite)
 
@@ -103,37 +104,47 @@ function init (video) {
   const ambientLight = new THREE.AmbientLight(0x404040, 0.25)
   scene.add(ambientLight)
 
-  // Create a red material for the sphere.
-  // const sphereMaterial = new THREE.MeshStandardMaterial({
+  // red sphere
+  const geometry = new THREE.SphereGeometry(0.1, 32, 32)
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xff0000,
+    roughness: 0.4,
+    transparent: true,
+    emmisive: 0x000000
+  })
+  sphere = new THREE.Mesh(geometry, material)
+  scene.add(sphere)
+  sphere.position.z = -1
+  sphere.position.x = 0.1
+  sphere.position.y = 0.1
+
+  // const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
+  // // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  // // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
+  // const materialCube = new THREE.MeshStandardMaterial({
   //   color: 0xffff00,
   //   roughness: 0.4,
-  //   metalness: 0.1,
   //   transparent: true,
   //   emmisive: 0x000000
   // })
-
-  // const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 5), sphereMaterial)
-  // sphere.castShadow = sphere.receiveShadow = true
-  // sphere.position.z = -1
-  // sphere.scale.setScalar(0.1)
-  // scene.add(sphere)
-
-  const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
-  const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
-  const materialCube = new THREE.MeshBasicMaterial({ map: texture })
-  cube = new THREE.Mesh(geometry, materialCube)
-  scene.add(cube)
-  cube.position.z = -1
-  cube.position.x = -0.1
-  cube.position.y = -0.1
+  // cube = new THREE.Mesh(geometry, materialCube)
+  // scene.add(cube)
+  // cube.position.z = -1
+  // cube.position.x = -0.1
+  // cube.position.y = -0.1
 
   cameraShader.position.z = 1
 }
 
 async function animate () {
   raf = requestAnimationFrame(animate)
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
+  // cube.rotation.x += 0.05
+  // cube.rotation.y += 0.05
+
+  // make the sphere translate in a circle
+  // sphere.position.x = Math.sin(Date.now() * 0.001) * 0.5
+  // sphere.position.y = Math.cos(Date.now() * 0.001) * 0.5
+
 
   renderer.render(scene, cameraShader)
 }
