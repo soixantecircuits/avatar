@@ -1,7 +1,4 @@
 import * as THREE from 'three'
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
@@ -22,9 +19,6 @@ let raf = null
 let canvashader = null
 
 let cube = null
-let bloomComposer = null
-let bloomPass = null
-let rendererScene = null
 
 function init (video) {
   // render
@@ -58,8 +52,8 @@ function init (video) {
 
   // scene
   scene = new THREE.Scene()
-  cameraShader = new THREE.OrthographicCamera((width / -2), (width / 2), (height / 2), (height / -2), 1, 1000)
-  // cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 1000)
+  // cameraShader = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0.1, 1000)
+  cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 1000)
   scene.add(cameraShader)
 
   // the video texture
@@ -79,53 +73,68 @@ function init (video) {
   videoSprite.position.z = -3
   videoSprite.renderOrder = 1
 
-  videoSprite.scale.set(1, 1, 1)
+  videoSprite.scale.set(canvasWidth / 900, canvasHeight / 800, 1)
+
   scene.add(videoSprite)
 
-  // const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2)
-  // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
-  // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
-  // cube = new THREE.Mesh(geometry, materialCube)
-  // scene.add(cube)
-  // cube.position.z = -1
+  // Add lights.
+  const spotLight = new THREE.SpotLight(0xffffbb, 1)
+  spotLight.position.set(0.5, 0.5, 1)
+  spotLight.position.multiplyScalar(400)
+  scene.add(spotLight)
 
-  const geometry = new THREE.SphereGeometry(0.05, 20, 20)
-  const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
-  const sphere = new THREE.Mesh(geometry, material)
-  sphere.position.z = -1
-  scene.add(sphere)
+  spotLight.castShadow = true
 
-  // add glowing sun
-  bloomComposer = new EffectComposer(renderer)
+  spotLight.shadow.mapSize.width = 1024
+  spotLight.shadow.mapSize.height = 1024
 
-  rendererScene = new RenderPass(scene, cameraShader)
+  spotLight.shadow.camera.near = 200
+  spotLight.shadow.camera.far = 800
 
-  bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight),
-    1.5,
-    0.4,
-    0.85)
-  bloomPass.threshold = 0
-  bloomPass.strength = 1
-  bloomPass.radius = 0
+  spotLight.shadow.camera.fov = 40
 
-  bloomComposer.setSize(window.innerWidth, window.innerHeight)
-  bloomComposer.renderToScreen = true
-  bloomComposer.addPass(rendererScene)
-  bloomComposer.addPass(bloomPass)
+  spotLight.shadow.bias = -0.001125
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+  scene.add(spotLight)
+
+  const hemiLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.25)
+  scene.add(hemiLight)
+
+  const ambientLight = new THREE.AmbientLight(0x404040, 0.25)
   scene.add(ambientLight)
-  ambientLight.intensity = 0
-  ambientLight.position.z = -1
+
+  // Create a red material for the sphere.
+  // const sphereMaterial = new THREE.MeshStandardMaterial({
+  //   color: 0xffff00,
+  //   roughness: 0.4,
+  //   metalness: 0.1,
+  //   transparent: true,
+  //   emmisive: 0x000000
+  // })
+
+  // const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(1, 5), sphereMaterial)
+  // sphere.castShadow = sphere.receiveShadow = true
+  // sphere.position.z = -1
+  // sphere.scale.setScalar(0.1)
+  // scene.add(sphere)
+
+  const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
+  const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  const materialCube = new THREE.MeshBasicMaterial({ map: texture })
+  cube = new THREE.Mesh(geometry, materialCube)
+  scene.add(cube)
+  cube.position.z = -1
+  cube.position.x = -0.1
+  cube.position.y = -0.1
 
   cameraShader.position.z = 1
 }
 
 async function animate () {
   raf = requestAnimationFrame(animate)
-  // cube.rotation.x += 0.01
-  // cube.rotation.y += 0.01
-  // bloomComposer.render()
+  cube.rotation.x += 0.01
+  cube.rotation.y += 0.01
+
   renderer.render(scene, cameraShader)
 }
 
