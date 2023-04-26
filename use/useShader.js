@@ -3,28 +3,41 @@ import * as THREE from 'three'
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+
 import { cvsContainer } from '../use/useMedia.js'
 
-let renderer = null
-let tex = null
 let scene = null
 let cameraShader = null
 
-let videoSprite = null
-
-let videoMaterial = null
-
-let raf = null
+let renderer = null
 
 let canvashader = null
 
+let videoSprite = null
+let videoMaterial = null
+let tex = null
+
 let cube = null
-let sphere = null
+
+let raf = null
+
+let bloomComposer = null
+let bloomPass = null
+let finalPass = null
+let finalComposer = null
+
+let darkMaterial = null
 
 function init (video) {
   // render
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
   renderer.autoClear = false
+  renderer.toneMapping = THREE.ReinhardToneMapping
+  renderer.toneMappingExposure = 1
   renderer.setSize(video.videoWidth, video.videoHeight)
   cvsContainer.value.appendChild(renderer.domElement)
   renderer.domElement.setAttribute('id', 'canvashader')
@@ -48,13 +61,13 @@ function init (video) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
   renderer.outputEncoding = THREE.sRGBEncoding
 
-  const width = 1
-  const height = 1
+  // const width = 1
+  // const height = 1
 
   // scene
   scene = new THREE.Scene()
   // cameraShader = new THREE.OrthographicCamera(-width / 2, width / 2, height / 2, -height / 2, 0.1, 1000)
-  cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 1, 1000)
+  cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 1000)
   scene.add(cameraShader)
 
   // the video texture
@@ -74,79 +87,92 @@ function init (video) {
   videoSprite.position.z = -3
   videoSprite.renderOrder = 1
 
-  videoSprite.scale.set(2, 1.1, 1)
+  videoSprite.scale.set(2, 1.05, 1)
 
   scene.add(videoSprite)
 
-  // Add lights.
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
   spotLight.position.set(0.5, 0.5, 1)
   spotLight.position.multiplyScalar(400)
   scene.add(spotLight)
 
-  spotLight.castShadow = true
+  bloomComposer = new EffectComposer(renderer)
 
-  spotLight.shadow.mapSize.width = 1024
-  spotLight.shadow.mapSize.height = 1024
+  const renderScene = new RenderPass(scene, cameraShader)
+  bloomComposer.addPass(renderScene)
 
-  spotLight.shadow.camera.near = 200
-  spotLight.shadow.camera.far = 800
+  bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
+  bloomPass.threshold = 0
+  bloomPass.strength = 1.5
+  bloomPass.radius = 2
+  bloomPass.exposure = 2
+  bloomComposer.addPass(bloomPass)
+  bloomComposer.renderToScreen = false
 
-  spotLight.shadow.camera.fov = 40
+  finalPass = new ShaderPass(
+    new THREE.ShaderMaterial({
+      uniforms: {
+        baseTexture: { value: null },
+        bloomTexture: { value: bloomComposer.renderTarget2.texture }
+      },
+      vertexShader:
+      `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }
+      `,
+      fragmentShader:
+      `
+      uniform sampler2D baseTexture;
+      uniform sampler2D bloomTexture;
 
-  spotLight.shadow.bias = -0.001125
+      varying vec2 vUv;
 
-  scene.add(spotLight)
+      void main() {
+        gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+      }
+      `,
+      defines: {}
+    }),
+    'baseTexture'
+  )
+  finalPass.needsSwap = true
 
-  const hemiLight = new THREE.HemisphereLight(0xffffbb, 0x080820, 0.25)
-  scene.add(hemiLight)
+  finalComposer = new EffectComposer(renderer)
+  finalComposer.addPass(renderScene)
+  finalComposer.addPass(finalPass)
 
-  const ambientLight = new THREE.AmbientLight(0x404040, 0.25)
-  scene.add(ambientLight)
+  darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' })
 
-  // red sphere
-  const geometry = new THREE.SphereGeometry(0.1, 32, 32)
-  const material = new THREE.MeshStandardMaterial({
-    color: 0xff0000,
+  const geometryCube = new THREE.BoxGeometry(0.1, 0.1, 0.1)
+  // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
+  const materialCube = new THREE.MeshStandardMaterial({
+    color: 0xffff00,
     roughness: 0.4,
-    transparent: true,
-    emmisive: 0x000000
+    transparent: true
   })
-  sphere = new THREE.Mesh(geometry, material)
-  scene.add(sphere)
-  sphere.position.z = -1
-  sphere.position.x = 0.1
-  sphere.position.y = 0.1
-
-  // const geometry = new THREE.BoxGeometry(0.1, 0.1, 0.1)
-  // // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
-  // // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
-  // const materialCube = new THREE.MeshStandardMaterial({
-  //   color: 0xffff00,
-  //   roughness: 0.4,
-  //   transparent: true,
-  //   emmisive: 0x000000
-  // })
-  // cube = new THREE.Mesh(geometry, materialCube)
-  // scene.add(cube)
-  // cube.position.z = -1
-  // cube.position.x = -0.1
-  // cube.position.y = -0.1
+  cube = new THREE.Mesh(geometryCube, materialCube)
+  scene.add(cube)
+  cube.position.z = -1
+  cube.position.x = -0.1
+  cube.position.y = -0.1
 
   cameraShader.position.z = 1
 }
 
 async function animate () {
   raf = requestAnimationFrame(animate)
-  // cube.rotation.x += 0.05
-  // cube.rotation.y += 0.05
+  cube.rotation.x += 0.05
+  cube.rotation.y += 0.05
 
-  // make the sphere translate in a circle
-  // sphere.position.x = Math.sin(Date.now() * 0.001) * 0.5
-  // sphere.position.y = Math.cos(Date.now() * 0.001) * 0.5
-
-
-  renderer.render(scene, cameraShader)
+  // renderer.render(scene, cameraShader)
+  videoSprite.material = darkMaterial
+  bloomComposer.render()
+  videoSprite.material = videoMaterial
+  finalComposer.render()
 }
 
 function onWindowResize () {
