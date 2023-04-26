@@ -103,8 +103,8 @@ function init (video) {
 
   bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0
-  bloomPass.strength = 1.5
-  bloomPass.radius = 2
+  bloomPass.strength = 3
+  bloomPass.radius = 1
   bloomPass.exposure = 2
   bloomComposer.addPass(bloomPass)
   bloomComposer.renderToScreen = false
@@ -147,13 +147,13 @@ function init (video) {
   darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' })
 
   const geometryCube = new THREE.BoxGeometry(0.1, 0.1, 0.1)
-  // const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
-  // const materialCube = new THREE.MeshBasicMaterial({ map: texture })
-  const materialCube = new THREE.MeshStandardMaterial({
-    color: 0xffff00,
-    roughness: 0.4,
-    transparent: true
-  })
+  const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  const materialCube = new THREE.MeshBasicMaterial({ map: texture })
+  // const materialCube = new THREE.MeshStandardMaterial({
+  //   color: 0xffff00,
+  //   roughness: 0.4,
+  //   transparent: true
+  // })
   cube = new THREE.Mesh(geometryCube, materialCube)
   scene.add(cube)
   cube.position.z = -1
@@ -161,6 +161,30 @@ function init (video) {
   cube.position.y = -0.1
 
   cameraShader.position.z = 1
+
+  window.addEventListener('mousemove', onMouseMove, false)
+}
+
+function onMouseMove (event) {
+  // make the cube follow the mouse cursor exactly
+  const mouseX = event.clientX
+  const mouseY = event.clientY
+
+  const width = window.innerWidth
+  const height = window.innerHeight * 0.85
+
+  const x = ((mouseX / width) * 2 - 1) * -1
+  const y = -(mouseY / height) * 2 + 1
+
+  const vector = new THREE.Vector3(x, y, 0.5)
+  vector.unproject(cameraShader)
+
+  const dir = vector.sub(cameraShader.position).normalize()
+  const distance = -cameraShader.position.z / dir.z
+  const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
+
+  cube.scale.set(0.5, 0.5, 0.5)
+  cube.position.copy(pos)
 }
 
 async function animate () {
