@@ -3,7 +3,7 @@
     <button @click="camStore.initializeMediaUI()">
       <div class="flex flex-col space-y-1">
       <div class="logo-title">Empowered By</div>
-      <img src="../assets/favicon.ico" alt="logo" class="w-20 h-10">
+      <img src="~/assets/favicon.ico" alt="logo" class="w-20 h-10">
     </div>
     </button>
     <label class="relative cursor-pointer">

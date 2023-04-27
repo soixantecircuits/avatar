@@ -7,6 +7,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
+import TextureChess from 'assets/textures/chess.jpg'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -149,7 +150,7 @@ function init (video) {
   darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' })
 
   const geometryCube = new THREE.BoxGeometry(0.1, 0.1, 0.1)
-  const texture = new THREE.TextureLoader().load('../assets/textures/chess.jpg')
+  const texture = new THREE.TextureLoader().load(TextureChess)
   const materialCube = new THREE.MeshBasicMaterial({ map: texture })
   // const materialCube = new THREE.MeshStandardMaterial({
   //   color: 0xffff00,
