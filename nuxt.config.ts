@@ -8,8 +8,7 @@ export default defineNuxtConfig({
   meta: {
     title: 'Avatar',
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '../static/1024.png' }
-      // make the icon rounded
+      { rel: 'icon', type: 'image/x-icon', href: '../assets/favicon.ico' }
     ]
   },
   build: {

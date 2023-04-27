@@ -32,6 +32,8 @@ let finalComposer = null
 
 let darkMaterial = null
 
+let isMouseDown = false
+
 function init (video) {
   // render
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
@@ -162,29 +164,40 @@ function init (video) {
 
   cameraShader.position.z = 1
 
-  window.addEventListener('mousemove', onMouseMove, false)
+  window.addEventListener('mousedown', onMouseDown)
+  window.addEventListener('mouseup', onMouseUp)
+  window.addEventListener('mousemove', onMouseMove)
+}
+
+function onMouseDown () {
+  isMouseDown = true
+}
+
+function onMouseUp () {
+  isMouseDown = false
 }
 
 function onMouseMove (event) {
-  // make the cube follow the mouse cursor exactly
-  const mouseX = event.clientX
-  const mouseY = event.clientY
+  if (isMouseDown) {
+    const mouseX = event.clientX
+    const mouseY = event.clientY
 
-  const width = window.innerWidth
-  const height = window.innerHeight * 0.85
+    const width = window.innerWidth
+    const height = window.innerHeight
 
-  const x = ((mouseX / width) * 2 - 1) * -1
-  const y = -(mouseY / height) * 2 + 1
+    const x = ((mouseX / width) * 2 - 1) * -1
+    const y = -(mouseY / height) * 2 + 1
 
-  const vector = new THREE.Vector3(x, y, 0.5)
-  vector.unproject(cameraShader)
+    const vector = new THREE.Vector3(x, y, 0.5)
+    vector.unproject(cameraShader)
 
-  const dir = vector.sub(cameraShader.position).normalize()
-  const distance = -cameraShader.position.z / dir.z
-  const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
+    const dir = vector.sub(cameraShader.position).normalize()
+    const distance = -cameraShader.position.z / dir.z
+    const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
 
-  cube.scale.set(0.5, 0.5, 0.5)
-  cube.position.copy(pos)
+    cube.scale.set(0.5, 0.5, 0.5)
+    cube.position.copy(pos)
+  }
 }
 
 async function animate () {
