@@ -3,6 +3,8 @@
 
 ![](https://github.com/soixantecircuits/avatar/blob/AVTR-TEST/assets/sc-white-gif.gif)
 
+<img src="https://github.com/soixantecircuits/avatar/blob/AVTR-TEST/assets/sc-white-gif.gif" width="200"/>
+
 ## Description
 
 Avatar is an app that allows you to take pictures with some creative effects and filters.
