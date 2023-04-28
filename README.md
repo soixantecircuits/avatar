@@ -1,19 +1,22 @@
-
-# Avatar 
+# Avatar 👽
 #### By Soixante Circuits
+
+![](https://github.com/soixantecircuits/avatar/tree/AVTR-TEST/sc-white-gif.gif)
 
 ## Description
 
-Avatar is an app that allows you to create an vatar of yourself.
-Nuxt 3 app that uses Three.js library
-In progress 🚧
+Avatar is an app that allows you to take pictures with some creative effects and filters.
+Nuxt3 app that uses Three.js library
+In progress 🚧 🖇
+
+Test App : https://avatar-test.netlify.app/
 
 ## Setup
 
 Make sure to install the dependencies:
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 ## Development Server
