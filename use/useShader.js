@@ -8,7 +8,6 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import TextureChess from 'assets/textures/chess.jpg'
-import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -33,9 +32,6 @@ let finalPass = null
 let finalComposer = null
 
 let darkMaterial = null
-
-let group = null
-let materialGroup = null
 
 let isMouseDown = false
 
@@ -163,45 +159,9 @@ function init (video) {
   // })
   cube = new THREE.Mesh(geometryCube, materialCube)
   scene.add(cube)
-  cube.position.z = -3
-  cube.position.x = 0
-  cube.position.y = 0
-
-  const svgData = '<svg width="96" height="172" viewBox="0 0 96 172" fill="none" xmlns="http://www.w3.org/2000/svg"><g style="mix-blend-mode:difference"><path d="M48.0756 67.0187H38.6574V85.9355H29.2391V104.852H38.6574V85.9355H48.0756V67.0187H57.4939V48.102H48.0756V67.0187ZM19.8209 133.227H10.4026V152.144H0.984375V171.061H10.4026V152.144H19.8209V133.227H29.2391V114.311H19.8209V133.227Z" fill="white"/><path d="M76.5444 47.9325H67.1261V66.8493H57.7079V85.766H67.1261V66.8493H76.5444V47.9325H85.9626V29.0158H76.5444V47.9325ZM48.2896 114.141H38.8714V133.058H29.4531V151.975H38.8714V133.058H48.2896V114.141H57.7079V95.2244H48.2896V114.141Z" fill="white"/></g></svg>'
-  const svgDataURI = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgData)
-  console.log(svgDataURI)
-
-  const loader = new SVGLoader()
-  loader.load(svgDataURI, function (data) {
-    const paths = data.paths
-    group = new THREE.Group()
-    group.position.x = -0.1
-    group.position.y = -0.1
-    group.position.z = -1
-    group.scale.y = -1
-    group.scale.x = 0.01
-    group.scale.z = 0.01
-    for (let i = 0; i < paths.length; i++) {
-      const path = paths[i]
-      const fillColor = path.userData.style.fill
-      if (fillColor !== undefined && fillColor !== 'none') {
-        materialGroup = new THREE.MeshBasicMaterial({
-          color: new THREE.Color().setStyle(fillColor),
-          opacity: path.userData.style.fillOpacity,
-          transparent: path.userData.style.fillOpacity < 1,
-          side: THREE.DoubleSide
-        })
-        const shapes = path.toShapes(true)
-        for (let j = 0; j < shapes.length; j++) {
-          const shape = shapes[j]
-          const geometry = new THREE.ShapeBufferGeometry(shape)
-          const mesh = new THREE.Mesh(geometry, materialGroup)
-          group.add(mesh)
-        }
-      }
-    }
-    scene.add(group)
-  })
+  cube.position.z = -1
+  cube.position.x = -0.1
+  cube.position.y = -0.1
 
   cameraShader.position.z = 1
 
@@ -248,10 +208,8 @@ async function animate () {
 
   // renderer.render(scene, cameraShader)
   videoSprite.material = darkMaterial
-  group.material = darkMaterial
   bloomComposer.render()
   videoSprite.material = videoMaterial
-  group.material = materialGroup
   finalComposer.render()
 }
 
