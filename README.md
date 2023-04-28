@@ -1,9 +1,7 @@
 # Avatar 👽
 #### By Soixante Circuits
 
-![](https://github.com/soixantecircuits/avatar/blob/AVTR-TEST/assets/sc-white-gif.gif)
-
-<img src="https://github.com/soixantecircuits/avatar/blob/AVTR-TEST/assets/sc-white-gif.gif" width="200"/>
+<img src="https://github.com/soixantecircuits/avatar/blob/AVTR-TEST/assets/sc-white-gif.gif" width="300"/>
 
 ## Description
 
