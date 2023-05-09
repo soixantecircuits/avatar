@@ -7,6 +7,7 @@
 
 Avatar is an app that allows you to take pictures with some creative effects and filters.
 Nuxt3 app that uses Three.js library
+
 In progress 🚧 🖇
 
 Test App : https://avatar-test.netlify.app/
