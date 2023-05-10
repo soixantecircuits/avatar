@@ -9,9 +9,9 @@ uniform mat3 faceLandmarks;
 varying vec2 vUv;
 
 void main() {
-  gl_FragColor = vec4(color, 1.);
-  vec4 texColor = texture(tex, vUv.xy);
-  gl_FragColor = texColor;
+  // gl_FragColor = vec4(color, 1.);
+  // vec4 texColor = texture(tex, vUv.xy);
+  // gl_FragColor = texColor;
 
   // wave deformation effect
   // vec2 uv = vUv.xy;
@@ -49,4 +49,7 @@ void main() {
   //   gl_FragColor = vec4(b, r, g, texColor.a);
   // }
 
+  // add a dark filter to the image
+  vec4 texColor = texture(tex, vUv.xy);
+  gl_FragColor = vec4(texColor.r * 0.5, texColor.g * 0.5, texColor.b * 0.5, texColor.a);
 }

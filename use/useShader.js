@@ -13,6 +13,9 @@ import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
+import svgSlash from '../assets/svg/sc-slash.svg'
+import TextureTextTop from 'assets/textures/TextTop.png'
+
 let scene = null
 let cameraShader = null
 
@@ -35,7 +38,11 @@ let darkMaterial = null
 
 let isMouseDown = false
 
-let group = null
+let groupSlash = null
+
+let plane = null
+let planeMaterial = null
+let planeGeometry = null
 
 function init (video) {
   // render
@@ -66,44 +73,23 @@ function init (video) {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
   renderer.outputEncoding = THREE.sRGBEncoding
 
-  // const width = 1
-  // const height = 1
-
   // scene
   scene = new THREE.Scene()
 
   cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 1000)
   scene.add(cameraShader)
+  cameraShader.position.z = 1
 
   // const controls = new OrbitControls(cameraShader, renderer.domElement)
   // controls.screenSpacePanning = true
 
-  // the video texture
-  tex = new THREE.VideoTexture(video)
-  tex.minFilter = THREE.LinearFilter
-
-  videoMaterial = new THREE.ShaderMaterial({
-    uniforms: {
-      time: { value: 1.0 },
-      resolution: { value: new THREE.Vector2() },
-      tex: { value: tex }
-    },
-    vertexShader,
-    fragmentShader
-  })
-  videoSprite = new THREE.Sprite(videoMaterial)
-  videoSprite.position.z = -3
-  videoSprite.renderOrder = 1
-
-  videoSprite.scale.set(2, 1.05, 1)
-
-  scene.add(videoSprite)
-
+  // light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
   spotLight.position.set(0.5, 0.5, 1)
   spotLight.position.multiplyScalar(400)
   scene.add(spotLight)
 
+  // bloom effect
   bloomComposer = new EffectComposer(renderer)
 
   const renderScene = new RenderPass(scene, cameraShader)
@@ -111,8 +97,8 @@ function init (video) {
 
   bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0
-  bloomPass.strength = 3
-  bloomPass.radius = 1
+  bloomPass.strength = 4
+  bloomPass.radius = 1.2
   bloomPass.exposure = 2
   bloomComposer.addPass(bloomPass)
   bloomComposer.renderToScreen = false
@@ -152,30 +138,42 @@ function init (video) {
   finalComposer.addPass(renderScene)
   finalComposer.addPass(finalPass)
 
+  // using this material for non bloom objects
   darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' })
 
-  cameraShader.position.z = 1
+  // the video texture
+  tex = new THREE.VideoTexture(video)
+  tex.minFilter = THREE.LinearFilter
 
-  const svgSlash = ` <svg width="96" height="172" viewBox="0 0 96 172" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g style="mix-blend-mode:difference">
-  <path d="M48.0756 67.0187H38.6574V85.9355H29.2391V104.852H38.6574V85.9355H48.0756V67.0187H57.4939V48.102H48.0756V67.0187ZM19.8209 133.227H10.4026V152.144H0.984375V171.061H10.4026V152.144H19.8209V133.227H29.2391V114.311H19.8209V133.227Z" fill="white"/>
-  <path d="M76.5444 47.9325H67.1261V66.8493H57.7079V85.766H67.1261V66.8493H76.5444V47.9325H85.9626V29.0158H76.5444V47.9325ZM48.2896 114.141H38.8714V133.058H29.4531V151.975H38.8714V133.058H48.2896V114.141H57.7079V95.2244H48.2896V114.141Z" fill="white"/>
-  </g>
-  </svg>
-  `
-  const svgSlashURI = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgSlash)
+  videoMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      time: { value: 1.0 },
+      resolution: { value: new THREE.Vector2() },
+      tex: { value: tex }
+    },
+    vertexShader,
+    fragmentShader
+  })
+  videoSprite = new THREE.Sprite(videoMaterial)
+  videoSprite.position.z = -3
+  videoSprite.renderOrder = 1
 
+  videoSprite.scale.set(2, 1.05, 1)
+
+  scene.add(videoSprite)
+
+  // slash blooming
   const loader = new SVGLoader()
-  loader.load(svgSlashURI, function (data) {
+  loader.load(svgSlash, function (data) {
     const paths = data.paths
-    group = new THREE.Group()
-    group.scale.multiplyScalar(0.001)
-    group.position.x = -0.1
-    group.position.y = -0.1
-    group.position.z = -1
-    // group.scale.y *= -1
+    groupSlash = new THREE.Group()
+    groupSlash.scale.multiplyScalar(0.001)
+    groupSlash.position.x = -0.1
+    groupSlash.position.y = -0.1
+    groupSlash.position.z = -1
+    // groupSlash.scale.y *= -1
 
-    const colorRed = new THREE.Color(0xFF6443)
+    const colorRed = new THREE.Color(0x9F7BFF)
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i]
@@ -189,11 +187,28 @@ function init (video) {
         const shape = shapes[j]
         const geometry = new THREE.ShapeGeometry(shape)
         const mesh = new THREE.Mesh(geometry, material)
-        group.add(mesh)
+        groupSlash.add(mesh)
       }
-      scene.add(group)
+      scene.add(groupSlash)
     }
   })
+
+  // Plane with image texture the text on top
+  planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
+  planeMaterial = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load(TextureTextTop),
+    color: 'white',
+    transparent: true
+  })
+  plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  plane.scale.set(0.8, 0.03, 0.5)
+  plane.position.x = 0
+  plane.position.y = 0.2
+  plane.position.z = -1
+
+  plane.scale.x *= -1
+  scene.add(plane)
+
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
   window.addEventListener('mousemove', onMouseMove)
@@ -224,20 +239,29 @@ function onMouseMove (event) {
     const dir = vector.sub(cameraShader.position).normalize()
     const distance = -cameraShader.position.z / dir.z
     const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
-    group.scale.set(0.0005, 0.0005, 0.0005)
-    group.position.copy(pos)
+    groupSlash.scale.set(0.0005, 0.0005, 0.0005)
+    groupSlash.position.copy(pos)
   }
 }
 
 async function animate () {
   raf = requestAnimationFrame(animate)
-  // group.rotation.x += 0.05
-  // group.rotation.y += 0.05
+  // groupSlash.rotation.x += 0.05
+  // groupSlash.rotation.y += 0.05
+
+  // make the groupTextTop translate like a rubber band from left to right and then restarts from the beginning
+  if (plane.position.x < 1) {
+    plane.position.x += 0.005
+  } else {
+    plane.position.x = -1
+  }
 
   // renderer.render(scene, cameraShader)
   videoSprite.material = darkMaterial
+  // plane.material = darkMaterial
   bloomComposer.render()
   videoSprite.material = videoMaterial
+  plane.material = planeMaterial
   finalComposer.render()
 }
 
