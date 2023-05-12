@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1920 1080" style="enable-background:new 0 0 1920 1080;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;}
+	.st2{fill:none;}
+	.st3{fill:#FFFFFF;}
+	.st4{font-family:'Redaction35-Italic';}
+	.st5{font-size:45px;}
+	.st6{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st7{fill:none;stroke:#FFFFFF;stroke-width:4;stroke-linecap:round;stroke-miterlimit:10;}
+	.st8{fill:none;stroke:#FFFFFF;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st9{font-family:'Redaction35-Regular';}
+	.st10{font-size:20px;}
+	.st11{fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
+	.st12{font-size:23px;}
+</style>
+<g id="Calque_1" class="st0">
+	<rect class="st1" width="1920" height="1080"/>
+</g>
+<g id="Calque_2">
+	<rect x="-12.67" y="63.13" class="st2" width="250" height="69.12"/>
+	<text transform="matrix(1 0 0 1 46.1779 94.6333)" class="st3 st4 st5">avatar</text>
+	<line class="st6" x1="230.56" y1="84.65" x2="354" y2="84.65"/>
+	<rect x="320.7" y="69.13" class="st2" width="250" height="69.12"/>
+	<text transform="matrix(1 0 0 1 398.454 100.6338)" class="st3 st4 st5">2023</text>
+	<g>
+		<line class="st7" x1="586.36" y1="58.21" x2="544.84" y2="99.73"/>
+		<polyline class="st8" points="586.36,89.73 586.5,58.21 554.84,58.21 		"/>
+	</g>
+	<rect x="631.96" y="54.64" class="st2" width="146.04" height="54.36"/>
+	<text transform="matrix(1 0 0 1 631.96 69.3398)"><tspan x="0" y="0" class="st3 st9 st10">atelier</tspan><tspan x="0" y="19" class="st3 st9 st10">de fabrication</tspan><tspan x="0" y="38" class="st3 st9 st10">numérique</tspan></text>
+	<rect x="813.46" y="63.54" class="st2" width="250" height="69.12"/>
+	<text transform="matrix(1 0 0 1 869.9507 95.0402)" class="st3 st4 st5">shaped</text>
+	<rect x="1046.76" y="63.54" class="st2" width="297.24" height="69.12"/>
+	<text transform="matrix(1 0 0 1 1100.0953 95.0408)" class="st3 st4 st5">to expand</text>
+	<rect x="1328.41" y="63.68" class="st2" width="297.24" height="69.12"/>
+	<text transform="matrix(1 0 0 1 1384.8907 95.1801)" class="st3 st4 st5">creativity</text>
+	<path class="st11" d="M174.68,111.64H45.32C30.23,111.64,18,99.41,18,84.32v0C18,69.23,30.23,57,45.32,57h129.36
+		C189.77,57,202,69.23,202,84.32v0C202,99.41,189.77,111.64,174.68,111.64z"/>
+	<g>
+		<line class="st7" x1="825.29" y1="99.66" x2="783.77" y2="58.14"/>
+		<polyline class="st8" points="793.77,99.66 825.29,99.8 825.29,68.14 		"/>
+	</g>
+	<rect x="1752.44" y="58.69" class="st2" width="99.56" height="49.31"/>
+	<text transform="matrix(1 0 0 1 1752.4404 75.5921)"><tspan x="0" y="0" class="st3 st9 st12">soixante</tspan><tspan x="0" y="27.6" class="st3 st9 st12">circuits</tspan></text>
+	<g>
+		<path class="st3" d="M1880.98,70.47h-4.14v8.29h-4.1v8.29h4.14v-8.29h4.1V70.47h4.1v-8.29h-4.1V70.47z M1868.64,99.43h-4.14v8.29
+			h-4.1V116h4.1v-8.29h4.14V99.43h4.1v-8.29h-4.1V99.43z"/>
+		<path class="st3" d="M1893.58,62.15h-4.14v8.29h-4.1v8.29h4.1v-8.29h4.14V62.15h4.1v-8.29h-4.1V62.15z M1881.2,91.1h-4.14v8.24
+			h-4.1v8.29h4.14v-8.29h4.1V91.1h4.1v-8.29h-4.1V91.1z"/>
+	</g>
+	<line class="st6" x1="1598.36" y1="84.65" x2="1721.8" y2="84.65"/>
+	<rect x="1042" y="71" class="st3" width="24" height="24"/>
+	<rect x="1331" y="71" class="st3" width="24" height="24"/>
+</g>
+<g id="Calque_3">
+</g>
+</svg>

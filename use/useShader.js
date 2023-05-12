@@ -83,13 +83,13 @@ function init (video) {
   // const controls = new OrbitControls(cameraShader, renderer.domElement)
   // controls.screenSpacePanning = true
 
-  // light the scene
+  // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
   spotLight.position.set(0.5, 0.5, 1)
   spotLight.position.multiplyScalar(400)
   scene.add(spotLight)
 
-  // bloom effect
+  // Bloom effect
   bloomComposer = new EffectComposer(renderer)
 
   const renderScene = new RenderPass(scene, cameraShader)
@@ -138,10 +138,10 @@ function init (video) {
   finalComposer.addPass(renderScene)
   finalComposer.addPass(finalPass)
 
-  // using this material for non bloom objects
+  // Using this material for non bloom objects
   darkMaterial = new THREE.MeshBasicMaterial({ color: 'black' })
 
-  // the video texture
+  // The video texture
   tex = new THREE.VideoTexture(video)
   tex.minFilter = THREE.LinearFilter
 
@@ -162,7 +162,7 @@ function init (video) {
 
   scene.add(videoSprite)
 
-  // slash blooming
+  // Slash blooming
   const loader = new SVGLoader()
   loader.load(svgSlash, function (data) {
     const paths = data.paths
@@ -194,16 +194,16 @@ function init (video) {
   })
 
   // Plane with image texture the text on top
-  planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
+  planeGeometry = new THREE.PlaneGeometry(2, 2, 2)
   planeMaterial = new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load(TextureTextTop),
     color: 'white',
     transparent: true
   })
   plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  plane.scale.set(0.8, 0.03, 0.5)
-  plane.position.x = 0
-  plane.position.y = 0.2
+  plane.scale.set(0.4, 0.03, 0.5)
+  plane.position.x = -0.5
+  plane.position.y = 0.19
   plane.position.z = -1
 
   plane.scale.x *= -1
@@ -249,9 +249,9 @@ async function animate () {
   // groupSlash.rotation.x += 0.05
   // groupSlash.rotation.y += 0.05
 
-  // make the groupTextTop translate like a rubber band from left to right and then restarts from the beginning
+  // Plane animation translation
   if (plane.position.x < 1) {
-    plane.position.x += 0.005
+    plane.position.x += 0.001
   } else {
     plane.position.x = -1
   }
@@ -266,7 +266,7 @@ async function animate () {
 }
 
 function onWindowResize () {
-  // calculate the canvas size based on the current window size
+  // Calculate the canvas size based on the current window size
   const width = window.innerWidth
   const height = window.innerHeight * 0.85
 
