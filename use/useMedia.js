@@ -43,11 +43,11 @@ function stopCamera (video) {
 }
 
 function getCanvas (video) {
-  animate(1) // to fix currently using a number to handle error of length
+  animate() // to fix currently using a number to handle error of length
   if (cameraOpen.value) {
     const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
+    canvas.width = canvashader.width
+    canvas.height = canvashader.height
 
     canvas.getContext('2d').drawImage(canvashader, 0, 0, canvas.width, canvas.height)
 
@@ -62,8 +62,8 @@ function captureImg (video) {
     const canvas = getCanvas(video)
 
     const img = document.createElement('img')
-    img.width = canvas.width
-    img.height = canvas.height
+    img.width = canvashader.width
+    img.height = canvashader.height
 
     // set the image src to the canvas data url
     img.src = canvas.toDataURL('image/png')

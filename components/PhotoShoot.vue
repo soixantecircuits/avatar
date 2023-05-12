@@ -20,7 +20,7 @@
       <div class='w-full h-1/5 absolute bottom-0 flex justify-center items-center filter-bar'>
         <div class="flex flex-row flex-grow justify-end space-x-5">
         <div class="filter-names">RGB</div>
-        <div class="filter-names">PixelArt</div>
+        <div class="filter-names">Pixelight</div>
         <div class="filter-names">Solar</div>
         <div class="filter-names">Mirror</div>
         <div class="filter-names">Glitch</div>
