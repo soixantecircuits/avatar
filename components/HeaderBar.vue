@@ -43,7 +43,6 @@ export default {
 }
 </script>
 
-
 <style>
   .peer::after {
     content: "";
@@ -51,4 +50,3 @@ export default {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' style='fill: white;'%3E%3C/path%3E%3C/svg%3E");
   }
 </style>
-

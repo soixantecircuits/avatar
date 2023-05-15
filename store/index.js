@@ -40,6 +40,8 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartPage = true
       this.isStartShare = false
       this.isStartMail = false
+      this.isStartQR = false
+      this.emailSent = false
     },
 
     initializeStartPage () {
@@ -49,6 +51,8 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartXp = true
       this.isStartShare = false
       this.isStartMail = false
+      this.isStartQR = false
+      this.emailSent = false
     },
 
     initializeCamera () {
