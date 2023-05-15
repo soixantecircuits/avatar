@@ -105,9 +105,10 @@ export default {
       canvas.height = img.height
 
       // flip the image
-      ctx.translate(img.width, 0)
-      ctx.scale(-1, 1)
-      ctx.drawImage(img, 0, 0, img.width, img.height)
+      // ctx.translate(img.width, 0)
+      // ctx.scale(-1, 1)
+      // ctx.drawImage(img, 0, 0, img.width, img.height)
+      ctx.drawImage(img, 110, 55, img.width, img.height, 0, 0, img.width, img.height)
 
       const data = canvas.toDataURL('image/png')
 
@@ -118,20 +119,19 @@ export default {
     }
 
     async function sendEmail () {
-      // const canvas = document.createElement('canvas')
-      // const ctx = canvas.getContext('2d')
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
 
-      // const img = document.querySelector('.image')
+      const img = document.querySelector('.image')
 
-      // canvas.width = img.width
-      // canvas.height = img.height
+      canvas.width = img.width
+      canvas.height = img.height
 
-      // // ctx.drawImage(img, 0, 0, img.width, img.height)
-      // ctx.drawImage(img, 110, 80, img.width, img.height, 0, 0, img.width, img.height)
+      ctx.drawImage(img, 110, 55, img.width, img.height, 0, 0, img.width, img.height)
 
-      // img.src = canvas.toDataURL('image/png')
+      const imgEmailedData = canvas.toDataURL('image/png')
 
-      // camStore.imgStored = img.src
+      camStore.imgEmailed = imgEmailedData
 
       const date = new Date()
       const day = date.getDate()
@@ -148,7 +148,7 @@ export default {
       const imageurl = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/images/' + firstname + '-' + lastname + '-' + time + '.png'
       camStore.linkToImg = imageurl
 
-      const image = camStore.imgStored
+      const image = camStore.imgEmailed
       const formData = new FormData()
 
       // convert image to blob
