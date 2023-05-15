@@ -9,7 +9,7 @@
             <path d='M35.3962 37.2937L22.4982 24.3956L9.60167 37.2937C9.47761 37.419 9.32969 37.5184 9.16679 37.586C9.00389 37.6537 8.82955 37.6881 8.65318 37.6874C8.4768 37.6882 8.30203 37.6538 8.13911 37.5862C7.9762 37.5186 7.82823 37.4191 7.70424 37.2937C7.57879 37.1697 7.47934 37.0219 7.41173 36.859C7.34411 36.6961 7.30977 36.5213 7.31056 36.3449C7.30988 36.1686 7.34412 35.9938 7.41173 35.8309C7.47933 35.668 7.57887 35.5202 7.70424 35.3962L20.6022 22.4981L7.70424 9.59994C7.57879 9.47595 7.47934 9.32816 7.41173 9.16525C7.34411 9.00234 7.30977 8.82756 7.31056 8.65118C7.30988 8.47481 7.34412 8.30008 7.41173 8.13718C7.47933 7.97428 7.57887 7.82649 7.70424 7.70244C7.82851 7.57749 7.97624 7.4785 8.13911 7.41123C8.30199 7.34395 8.47696 7.30974 8.65318 7.31056C8.82937 7.30994 9.00394 7.34426 9.16679 7.41153C9.32964 7.47879 9.47727 7.57766 9.60167 7.70244L22.4982 20.6006L35.3962 7.70244C35.5209 7.5776 35.6693 7.47871 35.8324 7.41146C35.9956 7.3442 36.1705 7.3099 36.347 7.31056C36.5232 7.30994 36.6977 7.34426 36.8606 7.41153C37.0234 7.47879 37.1711 7.57766 37.2955 7.70244C37.4202 7.82683 37.5193 7.97474 37.5866 8.13758C37.6539 8.30043 37.6879 8.47499 37.6873 8.65118C37.6881 8.8274 37.6539 9.00203 37.5866 9.1649C37.5193 9.32778 37.4204 9.47566 37.2955 9.59994L24.3975 22.4981L37.2955 35.3962C37.4202 35.5206 37.5193 35.6685 37.5866 35.8313C37.6539 35.9942 37.6879 36.1687 37.6873 36.3449C37.6881 36.5212 37.6539 36.6958 37.5866 36.8587C37.5193 37.0215 37.4204 37.1694 37.2955 37.2937C37.1714 37.419 37.0235 37.5184 36.8606 37.586C36.6977 37.6537 36.5233 37.6881 36.347 37.6874C36.1703 37.6882 35.9952 37.6537 35.832 37.5861C35.6688 37.5185 35.5206 37.4191 35.3962 37.2937Z' fill='white'/>
           </svg>
         </button>
-        <form id='form' class='w-3/4 flex flex-col form' @submit.prevent="sendEmail" method="POST">
+        <form v-if="!camStore.emailSent" id='form' class='w-3/4 flex flex-col form' @submit.prevent="sendEmail" method="POST">
           <div class='space-y-7'>
             <div class='flex flex-row space-x-4'>
             <div class='flex flex-col w-1/2'>
@@ -27,6 +27,14 @@
         </button>
           </div>
         </form>
+        <div v-if="camStore.emailSent" class='flex flex-col space-y-2 z-40'>
+          <div class='text-3xl font-semibold drop-shadow-md'>
+            Email envoyé
+          </div>
+          <div class='text-xl drop-shadow-md'>
+            Retrouvez votre super photo dans votre messagerie !
+          </div>
+        </div>
       </div>
       <div class='text-3xl font-semibold'>
         Terminé
@@ -77,13 +85,14 @@
 
 <script>
 import { useCameraStore } from '~~/store'
-import { onMounted } from 'vue'
+import { onBeforeUnmount } from 'vue'
 
 export default {
   name: 'CameraCapture',
   setup () {
     const camStore = useCameraStore()
     const img = camStore.imgStored
+    const emailSent = camStore.emailSent
 
     function saveImage () {
       // save the image to the device and flip it
@@ -109,6 +118,21 @@ export default {
     }
 
     async function sendEmail () {
+      // const canvas = document.createElement('canvas')
+      // const ctx = canvas.getContext('2d')
+
+      // const img = document.querySelector('.image')
+
+      // canvas.width = img.width
+      // canvas.height = img.height
+
+      // // ctx.drawImage(img, 0, 0, img.width, img.height)
+      // ctx.drawImage(img, 110, 80, img.width, img.height, 0, 0, img.width, img.height)
+
+      // img.src = canvas.toDataURL('image/png')
+
+      // camStore.imgStored = img.src
+
       const date = new Date()
       const day = date.getDate()
       const month = date.getMonth() + 1
@@ -125,6 +149,7 @@ export default {
 
       const image = camStore.imgStored
       const formData = new FormData()
+
       // convert image to blob
       const blob = await fetch(image).then(r => r.blob())
       formData.append('image', blob, firstname + '-' + lastname + '-' + time + '.png')
@@ -146,6 +171,8 @@ export default {
         method: 'POST',
         body: JSON.stringify(data)
       })
+
+      camStore.emailSent = true
     }
 
     function goToShare () {
@@ -157,7 +184,8 @@ export default {
       camStore.isStartShare = true
     }
 
-    onMounted(() => {
+    onBeforeUnmount(() => {
+      camStore.emailSent = false
     })
 
     return {

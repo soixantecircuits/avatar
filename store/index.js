@@ -18,6 +18,8 @@ export const useCameraStore = defineStore('CameraStore', {
 
     isStartMail: false,
 
+    emailSent: false,
+
     imgStored: null
 
   }),

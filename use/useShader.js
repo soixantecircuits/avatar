@@ -251,7 +251,7 @@ async function animate () {
 
   // Plane animation translation
   if (plane.position.x < 1) {
-    plane.position.x += 0.001
+    plane.position.x += 0.005
   } else {
     plane.position.x = -1
   }
