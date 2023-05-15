@@ -68,7 +68,6 @@
 
 <script>
 import { useCameraStore } from '~~/store'
-import { onBeforeMount } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 
 export default {
@@ -79,8 +78,6 @@ export default {
   setup () {
     const camStore = useCameraStore()
     const img = camStore.imgStored
-    const linkToImage = camStore.linkToImage
-    console.log('linkToImage', linkToImage)
 
     function saveImage () {
       const canvas = document.createElement('canvas')
@@ -101,27 +98,21 @@ export default {
       link.click()
     }
 
-    async function fetchQR () {
-    }
-
     function goToShare () {
       camStore.isStartMail = false
       camStore.isStartShoot = false
       camStore.isStartXp = false
       camStore.isStartVerif = false
       camStore.isStartPage = false
+      camStore.isStartQR = false
+      camStore.emailSent = false
       camStore.isStartShare = true
     }
-
-    onBeforeMount(() => {
-      fetchQR()
-    })
 
     return {
       camStore,
       img,
       saveImage,
-      fetchQR,
       goToShare
     }
   }

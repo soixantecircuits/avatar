@@ -2,10 +2,8 @@ import { defineStore } from 'pinia'
 
 export const useCameraStore = defineStore('CameraStore', {
 
-  // state it's the data i have on my component
   state: () => ({
-    // state prop returns an object
-    // this object is a state object
+    // this object is a state object state prop returns an object
     isStartPage: true,
 
     isStartXp: false,
