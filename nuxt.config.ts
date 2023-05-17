@@ -22,11 +22,7 @@ export default defineNuxtConfig({
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'apple-touch-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'apple-touch-icon', sizes: '64x64', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'shortcut', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' }
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: '/sc-tab.png' }
     ]
   },
   build: {
