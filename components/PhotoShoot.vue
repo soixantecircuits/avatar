@@ -1,5 +1,5 @@
 <template>
-  <div class='h-screen'>
+  <div :class="getBackgroundClasses()">
     <div class="absolute bottom-0 w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center" v-if="!cameraOpen">
     <div class=" flex flex-row  justify-center items-center space-x-4">
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,6 +70,13 @@ export default {
 
     const video = document.createElement('video')
 
+    const getBackgroundClasses = () => {
+      if (camStore.darkMode === true) {
+        return 'h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#FFFFFF] '
+      } else if (camStore.darkMode === false) {
+        return 'h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000] '
+      }
+    }
     async function startShader () {
       init(video)
       animate()
@@ -101,6 +108,7 @@ export default {
       getCanvas,
       captureImg,
       goToVerif,
+      getBackgroundClasses,
 
       init,
       animate,

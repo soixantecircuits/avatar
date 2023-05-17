@@ -3,11 +3,11 @@
     <button @click="camStore.initializeMediaUI()">
       <div class="flex flex-col space-y-1">
       <div class="logo-title">Empowered By</div>
-      <img src="~/assets/favicon.ico" alt="logo" class="w-20 h-10">
+      <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
     </div>
     </button>
     <label class="relative cursor-pointer">
-    <input type="checkbox" value="" class="sr-only peer" @change="toggleDarkMode()">
+    <input type="checkbox" value="" class=" sr-only peer" @change="toggleDarkMode">
       <div class="w-11 h-6 bg-gray-600
         peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300
         rounded-full peer
@@ -49,9 +49,18 @@ export default {
       camStore.toggleDarkMode()
     }
 
+    const changeLogoImage = () => {
+      if (camStore.darkMode === true) {
+        return '/assets/favicon-purple.ico'
+      } else if (camStore.darkMode === false) {
+        return '/assets/favicon.ico'
+      }
+    }
+
     return {
       camStore,
-      toggleDarkMode
+      toggleDarkMode,
+      changeLogoImage
     }
   }
 }
