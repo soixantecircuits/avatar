@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'static/sc-tab.png' }
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: '/static/sc-tab.png' }
     ]
   },
   build: {
@@ -55,7 +55,6 @@ export default defineNuxtConfig({
     ]
   ],
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/'
   }
 })
