@@ -7,8 +7,30 @@ export default defineNuxtConfig({
   },
   meta: {
     title: 'Avatar',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'apple-mobile-web-app-title', content: 'Avatar' },
+
+      { hid: 'og:title', property: 'og:title', content: 'Avatar' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'Avatar' },
+      { hid: 'og:image', property: 'og:image', content: 'https://Avatar.com/icon.png' },
+      { hid: 'og:description', property: 'og:description', content: '' },
+      { hid: 'og:url', property: 'og:url', content: 'https://Avatar.com' },
+
+      { hid: 'twitter:title', name: 'twitter:title', content: 'Avatar' },
+      { hid: 'twitter:description', name: 'twitter:description', content: '' },
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://Avatar.com/icon.png' },
+      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
+
+    ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/sc-tab.png' }
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https:/Avatar.com/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '512x512', href: 'https://Avatar.com/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '64x64', href: 'https://Avatar.com/icon.png' },
+      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://Avatar.com/icon.png' },
+      { rel: 'shortcut', type: 'image/x-icon', href: 'https://Avatar.com/icon.png' }
     ]
   },
   build: {
