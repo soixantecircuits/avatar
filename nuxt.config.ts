@@ -2,6 +2,14 @@
 import glsl from 'vite-plugin-glsl'
 
 export default defineNuxtConfig({
+  ssr: true,
+
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
+  },
+  target: 'static',
+  components: true,
   vite: {
     plugins: [glsl()]
   },
@@ -14,11 +22,11 @@ export default defineNuxtConfig({
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: '/icon.png' },
-      { rel: 'apple-touch-icon', sizes: '512x512', href: '/icon.png' },
-      { rel: 'apple-touch-icon', sizes: '64x64', href: '/icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', href: '/icon.png' },
-      { rel: 'shortcut', type: 'image/x-icon', href: '/icon.png' }
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '64x64', href: 'https://avatar-test.netlify.app/icon.png' },
+      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' },
+      { rel: 'shortcut', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' }
     ]
   },
   build: {
