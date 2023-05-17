@@ -7,7 +7,7 @@
     </div>
     </button>
     <label class="relative cursor-pointer">
-    <input type="checkbox" value="" class=" sr-only peer" @change="toggleDarkMode">
+    <input checked type="checkbox" class=" sr-only peer" @change="toggleDarkMode">
       <div class="w-11 h-6 bg-white
         peer-focus:outline-none
         peer-focus:ring-4
