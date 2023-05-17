@@ -2,29 +2,31 @@
   <div class="flex flex-row items-center p-4 space-x-5">
     <button @click="camStore.initializeMediaUI()">
       <div class="flex flex-col space-y-1">
-      <div class="logo-title">Empowered By</div>
+      <div class="logo-title dark:purple">Empowered By</div>
       <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
     </div>
     </button>
     <label class="relative cursor-pointer">
     <input type="checkbox" value="" class=" sr-only peer" @change="toggleDarkMode">
-      <div class="w-11 h-6 bg-gray-600
-        peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300
+      <div class="w-11 h-6 bg-white
+        peer-focus:outline-none
+        peer-focus:ring-4
+        peer-focus:ring-white
         rounded-full peer
         peer-checked:after:translate-x-full
-        peer-checked:after:border-gray-800
+        peer-checked:after:border-white
 
         after:absolute after:top-[2px]
         after:left-[2px]
-        after:bg-gray-800
-        after:border-gray-800
+        after:bg-violet
+        after:border-white
         after:border after:rounded-full
         after:h-5 after:w-5
         after:transition-all
-        peer-checked:bg-blue-600
+        peer-checked:bg-violet
         peer-checked:after
 
-        dark:peer-focus:ring-blue-800
+        dark:peer-focus:ring-violet
         dark:peer-checked:bg-blue-800
         dark:peer-checked:after:border-blue-800
         dark:peer-checked:after:bg-blue-800

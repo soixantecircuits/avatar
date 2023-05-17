@@ -74,7 +74,7 @@ export default {
       if (camStore.darkMode === true) {
         return 'h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#FFFFFF] '
       } else if (camStore.darkMode === false) {
-        return 'h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000] '
+        return 'h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000]'
       }
     }
     async function startShader () {

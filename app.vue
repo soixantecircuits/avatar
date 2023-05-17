@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div :class="getBackgroundClasses()" class="relative" >
+    <div :class="getBackgroundClasses()" class="relative text-violet-700" >
       <HeaderBar class="absolute top-0" />
       <NuxtPage class="h-screen w-screen flex flex-col justify-center" />
     </div>
