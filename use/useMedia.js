@@ -55,21 +55,6 @@ function getCanvas (video) {
 
     canvas.getContext('2d').drawImage(canvashader, 0, 0, canvas.width, canvas.height)
 
-    // const canvas = document.createElement('canvas')
-    // const ctx = canvas.getContext('2d')
-
-    // const img = document.querySelector('.image')
-
-    // canvas.width = img.width
-    // canvas.height = img.height
-
-    // // ctx.drawImage(img, 0, 0, img.width, img.height)
-    // ctx.drawImage(img, 110, 80, img.width, img.height, 0, 0, img.width, img.height)
-
-    // img.src = canvas.toDataURL('image/png')
-
-    // camStore.imgStored = img.src
-
     return canvas
   }
 }
