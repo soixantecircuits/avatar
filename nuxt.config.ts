@@ -11,19 +11,7 @@ export default defineNuxtConfig({
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'format-detection', content: 'telephone=no' },
-      { name: 'apple-mobile-web-app-title', content: 'Avatar' },
-
-      { hid: 'og:title', property: 'og:title', content: 'Avatar' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'Avatar' },
-      { hid: 'og:image', property: 'og:image', content: '/icon.png' },
-      { hid: 'og:description', property: 'og:description', content: '' },
-      { hid: 'og:url', property: 'og:url', content: 'https://avatar-test.netlify.app' },
-
-      { hid: 'twitter:title', name: 'twitter:title', content: 'Avatar' },
-      { hid: 'twitter:description', name: 'twitter:description', content: '' },
-      { hid: 'twitter:image', name: 'twitter:image', content: '/icon.png' },
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
-
+      { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: '/icon.png' },
