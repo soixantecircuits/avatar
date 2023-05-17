@@ -24,11 +24,14 @@ export const useCameraStore = defineStore('CameraStore', {
 
     imgEmailed: null,
 
-    linkToImg: null
+    linkToImg: null,
+
+    darkMode: false
 
   }),
 
   getters: {
+    getDarkMode: (state) => state.darkMode
   },
 
   actions: {
@@ -62,6 +65,11 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartShoot = true
       this.isStartShare = false
       this.isStartMail = false
+    },
+
+    toggleDarkMode () {
+      this.darkMode = !this.darkMode
+      document.body.classList.toggle('dark', this.darkMode)
     }
   }
 
