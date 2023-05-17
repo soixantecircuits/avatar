@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https:/Avatar.com/icon.png' },
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app//icon.png' },
       { rel: 'apple-touch-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
       { rel: 'apple-touch-icon', sizes: '64x64', href: 'https://avatar-test.netlify.app/icon.png' },
       { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' },
