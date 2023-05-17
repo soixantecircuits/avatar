@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   meta: {
     title: 'Avatar',
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/assets/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/sc-tab.png' }
     ]
   },
   build: {
