@@ -15,22 +15,22 @@ export default defineNuxtConfig({
 
       { hid: 'og:title', property: 'og:title', content: 'Avatar' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'Avatar' },
-      { hid: 'og:image', property: 'og:image', content: 'https://avatar-test.netlify.app/icon.png' },
+      { hid: 'og:image', property: 'og:image', content: '/icon.png' },
       { hid: 'og:description', property: 'og:description', content: '' },
       { hid: 'og:url', property: 'og:url', content: 'https://avatar-test.netlify.app' },
 
       { hid: 'twitter:title', name: 'twitter:title', content: 'Avatar' },
       { hid: 'twitter:description', name: 'twitter:description', content: '' },
-      { hid: 'twitter:image', name: 'twitter:image', content: 'https://avatar-test.netlify.app/icon.png' },
+      { hid: 'twitter:image', name: 'twitter:image', content: '/icon.png' },
       { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' }
 
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app//icon.png' },
-      { rel: 'apple-touch-icon', sizes: '512x512', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'apple-touch-icon', sizes: '64x64', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' },
-      { rel: 'shortcut', type: 'image/x-icon', href: 'https://avatar-test.netlify.app/icon.png' }
+      { rel: 'icon', type: 'image/x-icon', sizes: '512x512', href: '/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '512x512', href: '/icon.png' },
+      { rel: 'apple-touch-icon', sizes: '64x64', href: '/icon.png' },
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/icon.png' },
+      { rel: 'shortcut', type: 'image/x-icon', href: '/icon.png' }
     ]
   },
   build: {
