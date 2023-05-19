@@ -1,11 +1,15 @@
 <template>
   <div class="flex flex-row items-center p-4 space-x-5">
-    <button @click="camStore.initializeMediaUI()">
+    <a href="https://www.soixantecircuits.fr" target="_blank" rel="noopener noreferrer" class="">
       <div class="flex flex-col space-y-1">
-      <div class="logo-title dark:purple">Empowered By</div>
-      <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
-    </div>
+        <div class="logo-title dark:purple">Empowered By</div>
+        <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
+      </div>
+    </a>
+    <button @click="camStore.initializeMediaUI()">
+      <img :src="changeHomeIcon()" alt="Home" class="w-6 h-6">
     </button>
+
     <label class="relative cursor-pointer">
     <input checked type="checkbox" class=" sr-only peer" @change="toggleDarkMode">
       <div class="w-11 h-6 bg-white
@@ -59,10 +63,19 @@ export default {
       }
     }
 
+    const changeHomeIcon = () => {
+      if (camStore.darkMode === true) {
+        return '/assets/svg/home.svg'
+      } else if (camStore.darkMode === false) {
+        return '/assets/svg/home-white.svg'
+      }
+    }
+
     return {
       camStore,
       toggleDarkMode,
-      changeLogoImage
+      changeLogoImage,
+      changeHomeIcon
     }
   }
 }
