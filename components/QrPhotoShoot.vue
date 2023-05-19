@@ -16,7 +16,7 @@
           <div class='text-xl font-semibold drop-shadow-md'>
             Ceci est le QR code generé pour ton image
           </div>
-          <qrcode-vue class="drop-shadow-2xl" :value=camStore.linkToImg :size='400' foreground= '#ffffff' background='transparent' />
+          <qrcode-vue class="drop-shadow-2xl" :value='camStore.linkToImg' :size='400' foreground= '#000000' background='white' level="L" @scan="handleQRCodeScan" />
         </div>
       </div>
       <div class='text-3xl font-semibold'>
@@ -78,6 +78,7 @@ export default {
   setup () {
     const camStore = useCameraStore()
     const img = camStore.imgStored
+    console.log(camStore.linkToImg)
 
     function saveImage () {
       const canvas = document.createElement('canvas')
@@ -109,11 +110,16 @@ export default {
       camStore.isStartShare = true
     }
 
+    function handleQRCodeScan (result) {
+      window.open(result, '_blank')
+    }
+
     return {
       camStore,
       img,
       saveImage,
-      goToShare
+      goToShare,
+      handleQRCodeScan
     }
   }
 }
