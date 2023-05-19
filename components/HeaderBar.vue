@@ -47,7 +47,7 @@
 import { useCameraStore } from '~~/store'
 import homeIcon from '~/assets/svg/home.svg'
 import homeIconWhite from '~/assets/svg/home-white.svg'
-import logo from '~/assets/favicon.ico'
+import logo from '~/assets/favicon-white.ico'
 import logoPurple from '~/assets/favicon-purple.ico'
 
 export default {
