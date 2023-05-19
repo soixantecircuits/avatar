@@ -45,6 +45,10 @@
 
 <script>
 import { useCameraStore } from '~~/store'
+import homeIcon from '~/assets/svg/home.svg'
+import homeIconWhite from '~/assets/svg/home-white.svg'
+import logo from '~/assets/favicon.ico'
+import logoPurple from '~/assets/favicon-purple.ico'
 
 export default {
   name: 'HeaderBar',
@@ -57,17 +61,17 @@ export default {
 
     const changeLogoImage = () => {
       if (camStore.darkMode === true) {
-        return '/assets/favicon-purple.ico'
+        return logoPurple
       } else if (camStore.darkMode === false) {
-        return '/assets/favicon.ico'
+        return logo
       }
     }
 
     const changeHomeIcon = () => {
       if (camStore.darkMode === true) {
-        return '/assets/svg/home.svg'
+        return homeIcon
       } else if (camStore.darkMode === false) {
-        return '/assets/svg/home-white.svg'
+        return homeIconWhite
       }
     }
 
