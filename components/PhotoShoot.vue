@@ -17,16 +17,16 @@
 
       <div class='w-full absolute bottom-0' ref='cvsContainer'> </div>
 
-      <div class='w-full h-1/5 absolute bottom-0 flex justify-center items-center filter-bar'>
-        <div class="flex flex-row flex-grow justify-end space-x-5">
+      <div class='w-full h-1/5 absolute bottom-0 flex justify-center filter-bar'>
+        <!-- <div class="flex flex-row flex-grow justify-end space-x-5">
         <div class="filter-names">RGB</div>
         <div class="filter-names">Pixelight</div>
         <div class="filter-names">Solar</div>
         <div class="filter-names">Mirror</div>
         <div class="filter-names">Glitch</div>
-        </div>
+        </div> -->
 
-        <button class="flex-grow" @click='captureImg(video), goToVerif()'>
+        <button  @click='captureImg(video), goToVerif()'>
           <svg width="127" height="127" viewBox="0 0 127 127" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_210_796)">
             <path d="M63.4998 113.018C93.0569 113.018 117.018 89.0571 117.018 59.5C117.018 29.9429 93.0569 5.98218 63.4998 5.98218C33.9427 5.98218 9.98193 29.9429 9.98193 59.5C9.98193 89.0571 33.9427 113.018 63.4998 113.018Z" stroke="white" stroke-width="2.5"/>
@@ -47,8 +47,8 @@
           </svg>
         </button>
 
-        <div class="flex-grow">
-        </div>
+        <!-- <div class="flex-grow">
+        </div> -->
       </div>
     </div>
     </div>
