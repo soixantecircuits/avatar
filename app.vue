@@ -1,10 +1,6 @@
 <template>
-  <div class="relative overflow-hidden">
-    <div :class="getBackgroundClasses()" class="relative text-violet-700" >
-      <HeaderBar class="absolute top-0" />
-      <NuxtPage class="h-screen w-screen flex flex-col justify-center" />
-    </div>
-    <div class=" absolute bg-violet bottom-0 rounded-full blur-3xl z-i50"
+  <div>
+    <div class="absolute bg-violet bottom-0 rounded-full blur-3xl"
       :style="{
         left: `${x}px`,
         top: `${y}px`,
@@ -12,6 +8,10 @@
         height: `200px`,
       }">
       </div>
+    <div :class="getBackgroundClasses()" class="relative text-violet-700" >
+      <HeaderBar class="absolute top-0" />
+      <NuxtPage class="h-screen w-screen flex flex-col justify-center" />
+    </div>
   </div>
 </template>
 
