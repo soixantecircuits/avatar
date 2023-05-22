@@ -239,6 +239,17 @@ function onMouseMove (event) {
     const dir = vector.sub(cameraShader.position).normalize()
     const distance = -cameraShader.position.z / dir.z
     const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
+
+    // Clamp the position of groupSlash within the frame boundaries
+    const minX = -0.5 // Minimum x position
+    const maxX = 0.21 // Maximum x position
+    const minY = -0.15 // Minimum y position
+    const maxY = 0.03 // Maximum y position
+
+    // Clamp the x and y position of groupSlash within the boundaries
+    pos.x = Math.max(minX, Math.min(maxX, pos.x))
+    pos.y = Math.max(minY, Math.min(maxY, pos.y))
+
     groupSlash.scale.set(0.0005, 0.0005, 0.0005)
     groupSlash.position.copy(pos)
   }
