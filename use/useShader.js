@@ -231,7 +231,7 @@ function onMouseMove (event) {
     const height = window.innerHeight
 
     const x = ((mouseX / width) * 2 - 1) * -1
-    const y = -(mouseY / height) * 2 + 1
+    const y = -(mouseY / height) * 2 + 0.5
 
     const vector = new THREE.Vector3(x, y, 0.01)
     vector.unproject(cameraShader)
