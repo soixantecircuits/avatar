@@ -1,16 +1,11 @@
 <template>
-  <div class="flex flex-row items-center p-4 space-x-5 layer-header">
-    <a href="https://www.soixantecircuits.fr" target="_blank" rel="noopener noreferrer" class="">
-      <div class="flex flex-col space-y-1">
-        <div class="logo-title dark:purple">Empowered By</div>
-        <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
-      </div>
-    </a>
-    <button @click="camStore.initializeMediaUI()">
+  <div class="w-full flex py-5 px-5 justify-between layer-header">
+    <div class="flex relative cursor-pointer flex flex-row items-center space-x-5">
+      <button @click="camStore.initializeMediaUI()">
       <img :src="changeHomeIcon()" alt="Home" class="w-6 h-6">
     </button>
 
-    <label class="relative cursor-pointer">
+    <label class="relative cursor-pointer flex">
     <input checked type="checkbox" class=" sr-only peer" @change="toggleDarkMode">
       <div class="w-11 h-6 bg-white
         peer-focus:outline-none
@@ -40,6 +35,13 @@
         ">
       </div>
     </label>
+    </div>
+    <a href="https://www.soixantecircuits.fr" target="_blank" rel="noopener noreferrer" class="">
+      <div class="flex flex-col space-y-1">
+        <div class="logo-title dark:purple">Powered By</div>
+        <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
+      </div>
+    </a>
   </div>
 </template>
 
