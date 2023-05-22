@@ -7,7 +7,7 @@
     <share-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR" />
     <email-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && camStore.isStartMail & !camStore.isStartQR" />
     <qr-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & camStore.isStartQR" />
-        <div class=" absolute bg-violet bottom-0 rounded-full blur-3xl z-i50"
+        <div class="absolute bg-violet bottom-0 rounded-full blur-3xl"
       :style="{
         left: `${x}px`,
         top: `${y}px`,
