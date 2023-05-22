@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="absolute bg-violet bottom-0 rounded-full blur-3xl"
+      :style="{
+        left: `${x}px`,
+        top: `${y}px`,
+        width: `200px`,
+        height: `200px`,
+      }">
+      </div>
     <div :class="getBackgroundClasses()" class="relative text-violet-700" >
       <HeaderBar class="absolute top-0" />
       <NuxtPage class="h-screen w-screen flex flex-col justify-center" />
@@ -9,10 +17,13 @@
 
 <script>
 import { useCameraStore } from './store'
+import { useMouse } from '@vueuse/core'
+
 export default {
   name: 'App',
   setup () {
     const camStore = useCameraStore()
+    const { x, y } = useMouse()
 
     const getBackgroundClasses = () => {
       if (camStore.darkMode === true) {
@@ -23,7 +34,10 @@ export default {
     }
     return {
       camStore,
-      getBackgroundClasses
+      getBackgroundClasses,
+      x,
+      y
+
     }
   }
 }
