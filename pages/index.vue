@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="overflow-hidden">
     <start-page v-if="camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR" />
     <start-x-p v-if="!camStore.isStartPage && camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR" />
     <photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && camStore.isStartShoot && !camStore.isStartVerif && !camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR" />
@@ -7,14 +7,14 @@
     <share-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR" />
     <email-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && camStore.isStartMail & !camStore.isStartQR" />
     <qr-photo-shoot v-if="!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & camStore.isStartQR" />
-        <div class=" absolute bg-violet bottom-0 rounded-full blur-3xl z-i50"
-      :style="{
-        left: `${x}px`,
-        top: `${y}px`,
-        width: `150px`,
-        height: `150px`,
-      }">
-      </div>
+    <div class="absolute bg-violet bottom-0 rounded-full blur-3xl pointer-events-none"
+    :style="{
+      left: `${x - 75}px`,
+      top: `${y - 75}px`,
+      width: `150px`,
+      height: `150px`,
+    }">
+    </div>
 </div>
 </template>
 
