@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center justify-center space-y-20 layer-text">
-    <button class="title text-center low-highlight" @click="camStore.initializeCamera()">
+    <button class="ping-animation title text-center low-highlight" @click="camStore.initializeCamera()">
       START
     </button>
     <div class="text-6xl text-center px-40">
