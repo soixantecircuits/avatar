@@ -11,6 +11,14 @@
 
 @layer components {
 
+  .layer-header {
+    @apply z-50;
+  }
+
+  .layer-text {
+    @apply z-40;
+  }
+
   .height-70 {
     height: 70vh;
   }

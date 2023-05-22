@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center p-4 space-x-5">
+  <div class="flex flex-row items-center p-4 space-x-5 layer-header">
     <a href="https://www.soixantecircuits.fr" target="_blank" rel="noopener noreferrer" class="">
       <div class="flex flex-col space-y-1">
         <div class="logo-title dark:purple">Empowered By</div>

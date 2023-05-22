@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="layer-text" >
     <div class="h-screen">
       <img :src="img" class="image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center" />
       </div>

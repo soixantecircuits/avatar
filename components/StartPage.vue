@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex justify-center items-center">
-        <button class=" title text-center low-highlight" @click="camStore.initializeStartPage()">
+        <button class=" title text-center low-highlight layer-text" @click="camStore.initializeStartPage()">
           LET'S GO
         </button>
   </div>

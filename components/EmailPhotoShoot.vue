@@ -1,8 +1,8 @@
 <template>
-  <div class='h-5/6 w-full flex flex-col absolute bottom-0'>
+  <div class='h-5/6 w-full flex flex-col absolute bottom-0 layer-text'>
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
     <div class='height-70 w-7/12 flex flex-col items-center space-y-7'>
-      <div class='relative h-full w-full relative flex flex-col justify-center items-center space-y-4'>
+      <div class='relative h-full w-full flex flex-col justify-center items-center space-y-4'>
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex object-none' />
         <button class='absolute button top-0 left-0' @click='goToShare'>
           <svg width='45' height='45' viewBox='0 0 45 45' fill='none' xmlns='http://www.w3.org/2000/svg'>
