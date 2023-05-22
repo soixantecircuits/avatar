@@ -4,7 +4,7 @@
       START
     </button>
     <div class="text-6xl text-center px-40">
-      Lorem ipsum dolor sit amet, <span class="low-highlight"> consectetur adipiscing </span> elit, sed do eiusmod tempor incididunt ut labore et dolore
+      Bye-bye Socialite ! <span class="low-highlight"> Avatar </span>  prend place, l'application où chaque clic devient une histoire à raconter
     </div>
     <div class="flex justify-between">
       <div class="flex items-center px-10">
