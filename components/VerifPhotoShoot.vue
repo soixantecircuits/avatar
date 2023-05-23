@@ -1,9 +1,9 @@
 <template>
-  <div class="layer-text" >
-    <div class="h-screen">
-      <img :src="img" class="image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center" />
+  <div>
+    <div class="h-screen layer-text">
+      <img :src="img" class="image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text" />
       </div>
-      <div class="w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar">
+      <div class="layer-text w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar">
         <button class="flex flex-col justify-center items-center" @click="goToShare()">
           <div class="title low-highlight">
             SUIVANT
