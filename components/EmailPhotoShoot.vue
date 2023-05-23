@@ -2,40 +2,50 @@
   <div class='h-5/6 w-full flex flex-col absolute bottom-0 layer-text'>
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
     <div class='height-70 w-7/12 flex flex-col items-center space-y-7'>
-      <div class='relative h-full w-full flex flex-col justify-center items-center space-y-4'>
+      <div class='relative h-full w-full flex flex-col '>
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex object-none' />
-        <button class='absolute button top-0 left-0' @click='goToShare'>
+        <div class='relative h-full w-full flex justify-center items-center space-y-4'>
+          <div class='space-y-4 w-4/6'>
+          <button class='button drop-shadow-md' @click='goToShare'>
           <svg width='45' height='45' viewBox='0 0 45 45' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path d='M35.3962 37.2937L22.4982 24.3956L9.60167 37.2937C9.47761 37.419 9.32969 37.5184 9.16679 37.586C9.00389 37.6537 8.82955 37.6881 8.65318 37.6874C8.4768 37.6882 8.30203 37.6538 8.13911 37.5862C7.9762 37.5186 7.82823 37.4191 7.70424 37.2937C7.57879 37.1697 7.47934 37.0219 7.41173 36.859C7.34411 36.6961 7.30977 36.5213 7.31056 36.3449C7.30988 36.1686 7.34412 35.9938 7.41173 35.8309C7.47933 35.668 7.57887 35.5202 7.70424 35.3962L20.6022 22.4981L7.70424 9.59994C7.57879 9.47595 7.47934 9.32816 7.41173 9.16525C7.34411 9.00234 7.30977 8.82756 7.31056 8.65118C7.30988 8.47481 7.34412 8.30008 7.41173 8.13718C7.47933 7.97428 7.57887 7.82649 7.70424 7.70244C7.82851 7.57749 7.97624 7.4785 8.13911 7.41123C8.30199 7.34395 8.47696 7.30974 8.65318 7.31056C8.82937 7.30994 9.00394 7.34426 9.16679 7.41153C9.32964 7.47879 9.47727 7.57766 9.60167 7.70244L22.4982 20.6006L35.3962 7.70244C35.5209 7.5776 35.6693 7.47871 35.8324 7.41146C35.9956 7.3442 36.1705 7.3099 36.347 7.31056C36.5232 7.30994 36.6977 7.34426 36.8606 7.41153C37.0234 7.47879 37.1711 7.57766 37.2955 7.70244C37.4202 7.82683 37.5193 7.97474 37.5866 8.13758C37.6539 8.30043 37.6879 8.47499 37.6873 8.65118C37.6881 8.8274 37.6539 9.00203 37.5866 9.1649C37.5193 9.32778 37.4204 9.47566 37.2955 9.59994L24.3975 22.4981L37.2955 35.3962C37.4202 35.5206 37.5193 35.6685 37.5866 35.8313C37.6539 35.9942 37.6879 36.1687 37.6873 36.3449C37.6881 36.5212 37.6539 36.6958 37.5866 36.8587C37.5193 37.0215 37.4204 37.1694 37.2955 37.2937C37.1714 37.419 37.0235 37.5184 36.8606 37.586C36.6977 37.6537 36.5233 37.6881 36.347 37.6874C36.1703 37.6882 35.9952 37.6537 35.832 37.5861C35.6688 37.5185 35.5206 37.4191 35.3962 37.2937Z' fill='white'/>
           </svg>
         </button>
-        <form v-if="!camStore.emailSent" id='form' class='w-3/4 flex flex-col form' @submit.prevent="sendEmail" method="POST">
+        <form v-if="!camStore.emailSent" id='form' class='w-full flex flex-col form' @submit.prevent="sendEmail" method="POST">
           <div class='space-y-7'>
             <div class='flex flex-row space-x-4'>
-            <div class='flex flex-col w-1/2'>
-              <input type='text' id='firstName' name='firstName' placeholder='Prenom' class='rounded-lg p-2 bg-gray-800'>
+            <div class='flex flex-col w-1/2 h-1/2'>
+              <input type='text' id='firstName' name='firstName' placeholder='Prénom' class='rounded-xl p-2 bg-gray-800 drop-shadow-md text-lg'>
             </div>
             <div class='flex flex-col w-1/2'>
-              <input type='text' id='lastName' name='lastName' placeholder='Nom' class='rounded-lg p-2 bg-gray-800'>
+              <input type='text' id='lastName' name='lastName' placeholder='Nom' class='rounded-xl p-2 bg-gray-800 drop-shadow-md text-lg'>
             </div>
           </div>
           <div class='flex flex-col'>
-            <input type='email' id='email' name='email' v-model="email" placeholder='Email' class='rounded-lg p-2 bg-gray-800'>
+            <input type='email' id='email' name='email' v-model="email" placeholder='Adresse mail' class='rounded-xl p-2 bg-gray-800 drop-shadow-md text-lg'>
           </div>
-          <button id='sendEmailButton' type='submit' class='button button-color rounded-lg p-2 text-white'>
+          <button id='sendEmailButton' type='submit' class='button button-color rounded-xl p-2 text-white text-lg drop-shadow-md w-1/3'>
           Envoyer
         </button>
           </div>
         </form>
-        <div v-if="camStore.emailSent" class='flex flex-col space-y-2 z-40'>
-          <div class='text-3xl font-semibold drop-shadow-md'>
-            Email envoyé
+        <div v-if="camStore.emailSent" class='flex flex-col items-center space-y-2 z-40 drop-shadow-2xl'>
+          <div class='text-3xl font-semibold drop-shadow-2xl low-highlight'>
+            Photo envoyée
           </div>
-          <div class='text-xl drop-shadow-md'>
-            Retrouvez votre super photo dans votre messagerie !
+          <div class='text-xl font-semibold drop-shadow-2xl'>
+            Vous allez la recevoir dans votre messagerie
+          </div>
+          <div class='text-xl font-semibold drop-shadow-2xl'>
+            Ou scannez le <span class='low-highlight'> QR code</span> generé !
+          </div>
+          <div class="w-52 h-52 bg-white flex justify-center items-center rounded-xl">
+            <qrcode-vue class="drop-shadow-2xl" :value='camStore.linkToImg' :size='200' foreground= '#1F2937' background='white' level="L" @scan="handleQRCodeScan" />
           </div>
         </div>
       </div>
+        </div>
+        </div>
       <div class='text-3xl font-semibold'>
         Terminé
       </div>
@@ -54,13 +64,6 @@
             <rect width='30' height='24' fill='white' transform='translate(10 13)'/>
             </clipPath>
             </defs>
-          </svg>
-        </button>
-
-        <button @click="goToQR">
-          <svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <rect width='50' height='50' rx='15' fill='#543BED'/>
-            <path d='M14.7999 13.5333C13.5475 13.5333 12.5332 14.5477 12.5332 15.8V20.3333C12.5332 21.5857 13.5475 22.6 14.7999 22.6H19.3332C20.5855 22.6 21.5999 21.5857 21.5999 20.3333V15.8C21.5999 14.5477 20.5855 13.5333 19.3332 13.5333H14.7999ZM30.6665 13.5333C29.4142 13.5333 28.3999 14.5477 28.3999 15.8V20.3333C28.3999 21.5857 29.4142 22.6 30.6665 22.6H35.1999C36.4522 22.6 37.4665 21.5857 37.4665 20.3333V15.8C37.4665 14.5477 36.4522 13.5333 35.1999 13.5333H30.6665ZM14.7999 15.8H19.3332V20.3333H14.7999V15.8ZM23.8665 15.8V18.0667H26.1332V15.8H23.8665ZM30.6665 15.8H35.1999V20.3333H30.6665V15.8ZM15.9332 16.9333V19.2H18.1999V16.9333H15.9332ZM31.7999 16.9333V19.2H34.0665V16.9333H31.7999ZM23.8665 20.3333V22.6H26.1332V20.3333H23.8665ZM14.7999 24.8667V27.1333H17.0665V24.8667H14.7999ZM19.3332 24.8667V27.1333H21.5999V24.8667H19.3332ZM23.8665 24.8667V27.1333H26.1332V24.8667H23.8665ZM26.1332 27.1333V29.4H28.3999V27.1333H26.1332ZM28.3999 27.1333H30.6665V24.8667H28.3999V27.1333ZM30.6665 27.1333V29.4H32.9332V27.1333H30.6665ZM32.9332 27.1333H35.1999V24.8667H32.9332V27.1333ZM35.1999 27.1333V29.4H37.4665V27.1333H35.1999ZM35.1999 29.4H32.9332V31.6667H35.1999V29.4ZM35.1999 31.6667V33.9333H37.4665V31.6667H35.1999ZM35.1999 33.9333H32.9332V36.2H35.1999V33.9333ZM32.9332 36.2H30.6665V38.4667H32.9332V36.2ZM30.6665 36.2V33.9333H28.3999V36.2H30.6665ZM28.3999 36.2H26.1332V38.4667H28.3999V36.2ZM26.1332 36.2V33.9333H23.8665V36.2H26.1332ZM26.1332 33.9333H28.3999V31.6667H26.1332V33.9333ZM26.1332 31.6667V29.4H23.8665V31.6667H26.1332ZM28.3999 31.6667H30.6665V29.4H28.3999V31.6667ZM30.6665 31.6667V33.9333H32.9332V31.6667H30.6665ZM14.7999 29.4C13.5475 29.4 12.5332 30.4143 12.5332 31.6667V36.2C12.5332 37.4523 13.5475 38.4667 14.7999 38.4667H19.3332C20.5855 38.4667 21.5999 37.4523 21.5999 36.2V31.6667C21.5999 30.4143 20.5855 29.4 19.3332 29.4H14.7999ZM14.7999 31.6667H19.3332V36.2H14.7999V31.6667ZM15.9332 32.8V35.0667H18.1999V32.8H15.9332Z' fill='white'/>
           </svg>
         </button>
 
@@ -87,9 +90,13 @@
 <script>
 import { useCameraStore } from '~~/store'
 import { onBeforeUnmount } from 'vue'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
   name: 'CameraCapture',
+  components: {
+    QrcodeVue
+  },
   setup () {
     const camStore = useCameraStore()
     const img = camStore.imgStored
@@ -182,14 +189,8 @@ export default {
       camStore.isStartShare = true
     }
 
-    function goToQR () {
-      camStore.isStartMail = false
-      camStore.isStartShoot = false
-      camStore.isStartXp = false
-      camStore.isStartVerif = false
-      camStore.isStartPage = false
-      camStore.isStartShare = false
-      camStore.isStartQR = true
+    function handleQRCodeScan (result) {
+      window.open(result, '_blank')
     }
 
     onBeforeUnmount(() => {
@@ -202,7 +203,7 @@ export default {
       saveImage,
       sendEmail,
       goToShare,
-      goToQR
+      handleQRCodeScan
     }
   }
 }
