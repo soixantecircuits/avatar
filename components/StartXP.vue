@@ -1,9 +1,9 @@
 <template>
-  <div class="h-full flex flex-col items-center justify-center space-y-20">
+  <div class="h-full flex flex-col items-center justify-center space-y-7">
     <button class="ping-animation lg:title text-center low-highlight text-5xl font-black layer-text" @click="camStore.initializeCamera()">
       START
     </button>
-    <div class="lg:text-6xl text-3xl text-center px-40 layer-text">
+    <div class="lg:text-6xl text-3xl text-center lg:px-40 px-10 layer-text">
       Bye-bye Socialite ! <span class="low-highlight"> Avatar</span>  prend place, l'application où chaque clic devient une histoire à raconter
     </div>
     <div class="flex flex-col  lg:flex-row justify-between layer-text space-y-3lg:space-x-3">
