@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center items-center">
+  <div class="h-full w-full flex justify-center items-center ">
         <button class="ping-animation title text-center low-highlight layer-text" @click="camStore.initializeStartPage()">
           LET'S GO
         </button>

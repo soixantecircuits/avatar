@@ -1,19 +1,19 @@
 <template>
-  <div class="flex flex-col items-center justify-center space-y-20 layer-text">
-    <button class="ping-animation title text-center low-highlight" @click="camStore.initializeCamera()">
+  <div class="h-full flex flex-col items-center justify-center space-y-20">
+    <button class="ping-animation lg:title text-center low-highlight text-5xl font-black layer-text" @click="camStore.initializeCamera()">
       START
     </button>
-    <div class="text-6xl text-center px-40">
+    <div class="lg:text-6xl text-3xl text-center px-40 layer-text">
       Bye-bye Socialite ! <span class="low-highlight"> Avatar</span>  prend place, l'application où chaque clic devient une histoire à raconter
     </div>
-    <div class="flex justify-between">
-      <div class="flex items-center px-10">
+    <div class="flex flex-col  lg:flex-row justify-between layer-text space-y-3lg:space-x-3">
+      <div class="flex items-center lg:px-10">
         <input id="show-in-gallery-checkbox" type="checkbox" class="w-4 h-4 rounded" v-model="showInGallery" @change="handleCheckboxChange('show')">
-        <label for="show-in-gallery-checkbox" class="ml-2 text-xl">Afficher dans la galerie </label>
+        <label for="show-in-gallery-checkbox" class="ml-2 lg:text-xl">Afficher dans la galerie </label>
       </div>
-      <div class="flex items-center px-10">
+      <div class="flex items-center lg:px-10">
         <input id="hide-in-gallery-checkbox" type="checkbox" class="w-4 h-4 rounded" v-model="hideInGallery" @change="handleCheckboxChange('hide')">
-        <label for="hide-in-gallery-checkbox" class="ml-2 text-xl">Ne pas afficher dans la galerie</label>
+        <label for="hide-in-gallery-checkbox" class="ml-2 lg:text-xl">Ne pas afficher dans la galerie</label>
       </div>
     </div>
   </div>
