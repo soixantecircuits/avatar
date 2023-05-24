@@ -76,7 +76,8 @@ function init (video) {
   // scene
   scene = new THREE.Scene()
 
-  cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 1000)
+  // cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 1000)
+  cameraShader = new THREE.PerspectiveCamera(14, 1, 0.1, 1000)
   scene.add(cameraShader)
   cameraShader.position.z = 1
 
@@ -154,11 +155,13 @@ function init (video) {
     vertexShader,
     fragmentShader
   })
+
+  const geometry = new THREE.PlaneBufferGeometry(16, 9)
+  geometry.scale(0.5, 0.5, 0.5)
+
   videoSprite = new THREE.Sprite(videoMaterial)
   videoSprite.position.z = -3
   videoSprite.renderOrder = 1
-
-  videoSprite.scale.set(2, 1.05, 1)
 
   scene.add(videoSprite)
 
@@ -167,9 +170,9 @@ function init (video) {
   loader.load(svgSlash, function (data) {
     const paths = data.paths
     groupSlash = new THREE.Group()
-    groupSlash.scale.multiplyScalar(0.001)
-    groupSlash.position.x = -0.1
-    groupSlash.position.y = -0.1
+    groupSlash.scale.multiplyScalar(0.0008)
+    groupSlash.position.x = 0
+    groupSlash.position.y = 0
     groupSlash.position.z = -1
     // groupSlash.scale.y *= -1
 
@@ -194,16 +197,16 @@ function init (video) {
   })
 
   // Plane with image texture the text on top
-  planeGeometry = new THREE.PlaneGeometry(2, 2, 2)
+  planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
   planeMaterial = new THREE.MeshBasicMaterial({
     map: new THREE.TextureLoader().load(TextureTextTop),
     color: 'white',
     transparent: true
   })
   plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  plane.scale.set(0.4, 0.03, 0.5)
+  plane.scale.set(0.4, 0.05, 0.5)
   plane.position.x = -0.5
-  plane.position.y = 0.19
+  plane.position.y = 0.18
   plane.position.z = -1
 
   plane.scale.x *= -1
@@ -231,7 +234,7 @@ function onMouseMove (event) {
     const height = window.innerHeight
 
     const x = ((mouseX / width) * 2 - 1) * -1
-    const y = -(mouseY / height) * 2 + 0.5
+    const y = -(mouseY / height) * 2 + 0.6
 
     const vector = new THREE.Vector3(x, y, 0.01)
     vector.unproject(cameraShader)
@@ -250,7 +253,7 @@ function onMouseMove (event) {
     pos.x = Math.max(minX, Math.min(maxX, pos.x))
     pos.y = Math.max(minY, Math.min(maxY, pos.y))
 
-    groupSlash.scale.set(0.0005, 0.0005, 0.0005)
+    groupSlash.scale.set(0.0004, 0.0004, 0.0004)
     groupSlash.position.copy(pos)
   }
 }
@@ -283,6 +286,9 @@ function onWindowResize () {
 
   canvashader.style.width = width + 'px'
   canvashader.style.height = height + 'px'
+
+  cameraShader.aspect = 1
+  cameraShader.updateProjectionMatrix()
 }
 
 export {
