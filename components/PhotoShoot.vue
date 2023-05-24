@@ -27,7 +27,7 @@
         </div> -->
 
         <button  @click='captureImg(video), goToVerif()' class="layer-text">
-          <svg width="127" height="127" viewBox="0 0 127 127" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="90" height="90" class="lg:w-28 lg:h-28" viewBox="0 0 127 127" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_210_796)">
             <path d="M63.4998 113.018C93.0569 113.018 117.018 89.0571 117.018 59.5C117.018 29.9429 93.0569 5.98218 63.4998 5.98218C33.9427 5.98218 9.98193 29.9429 9.98193 59.5C9.98193 89.0571 33.9427 113.018 63.4998 113.018Z" stroke="white" stroke-width="2.5"/>
             <path opacity="0.63" d="M63.4998 102.314C87.1455 102.314 106.314 83.1458 106.314 59.5001C106.314 35.8544 87.1455 16.6858 63.4998 16.6858C39.8542 16.6858 20.6855 35.8544 20.6855 59.5001C20.6855 83.1458 39.8542 102.314 63.4998 102.314Z" fill="white"/>
