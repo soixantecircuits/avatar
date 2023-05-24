@@ -60,7 +60,7 @@ function init (video) {
   canvashader = document.getElementById('canvashader')
 
   const canvasWidth = window.innerWidth
-  const canvasHeight = window.innerHeight * 0.85
+  const canvasHeight = window.innerHeight * 0.90
 
   // object fit
   canvashader.style.objectFit = 'cover'
@@ -77,7 +77,7 @@ function init (video) {
   scene = new THREE.Scene()
 
   // cameraShader = new THREE.PerspectiveCamera(15, window.innerWidth / window.innerHeight, 0.1, 1000)
-  cameraShader = new THREE.PerspectiveCamera(14, 1, 0.1, 1000)
+  cameraShader = new THREE.PerspectiveCamera(12, 1, 0.1, 1000)
   scene.add(cameraShader)
   cameraShader.position.z = 1
 
@@ -206,7 +206,7 @@ function init (video) {
   plane = new THREE.Mesh(planeGeometry, planeMaterial)
   plane.scale.set(0.4, 0.05, 0.5)
   plane.position.x = -0.5
-  plane.position.y = 0.18
+  plane.position.y = 0.17
   plane.position.z = -1
 
   plane.scale.x *= -1

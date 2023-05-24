@@ -10,7 +10,6 @@
 }
 
 @layer components {
-
   .layer-header {
     @apply z-50;
   }
@@ -24,7 +23,7 @@
   }
 
   .height-85 {
-    height: 85vh;
+    height: 90vh;
   }
 
   .low-highlight {
