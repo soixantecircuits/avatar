@@ -60,7 +60,7 @@ function init (video) {
   canvashader = document.getElementById('canvashader')
 
   const canvasWidth = window.innerWidth
-  const canvasHeight = window.innerHeight * 0.90
+  const canvasHeight = window.innerHeight * 0.85
 
   // object fit
   canvashader.style.objectFit = 'cover'
@@ -206,7 +206,7 @@ function init (video) {
   plane = new THREE.Mesh(planeGeometry, planeMaterial)
   plane.scale.set(0.4, 0.05, 0.5)
   plane.position.x = -0.5
-  plane.position.y = 0.17
+  plane.position.y = 0.16
   plane.position.z = -1
 
   plane.scale.x *= -1

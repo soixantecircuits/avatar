@@ -23,7 +23,7 @@
   }
 
   .height-85 {
-    height: 90vh;
+    height: 85vh;
   }
 
   .low-highlight {
@@ -46,6 +46,9 @@
   }
   .image {
     /* transform: scaleX(-1); */
+    /* rounded corners */
+    border-radius: 500
+    px;
   }
 
   .button-color {

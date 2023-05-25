@@ -63,8 +63,7 @@ export default {
       canvas.width = img.width
       canvas.height = img.height
 
-      // ctx.drawImage(img, 110, 55, img.width, img.height, 0, 0, img.width, img.height)
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      ctx.drawImage(img, 110, 55, img.width, img.height, 0, 0, img.width, img.height)
 
       const data = canvas.toDataURL('image/png')
 
