@@ -325,6 +325,10 @@ function onWindowResize () {
 
   cameraShader.aspect = 1
   cameraShader.updateProjectionMatrix()
+
+  renderer.setSize(width, height)
+  bloomComposer.setSize(width, height)
+  finalComposer.setSize(width, height)
 }
 
 export {
