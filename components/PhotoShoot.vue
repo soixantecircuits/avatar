@@ -95,6 +95,11 @@ export default {
 
     onBeforeUnmount(() => {
       stopCamera(video)
+      // remove event listeners
+      window.removeEventListener('resize', onWindowResize, false)
+      video.removeEventListener('loadeddata', async () => {
+        startShader()
+      })
     })
 
     return {
