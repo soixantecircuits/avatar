@@ -9,12 +9,13 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
 import svgSlash from '../assets/svg/sc-slash.svg'
-import TextureTextTop from 'assets/textures/TextTop.png'
+import svgText from '../assets/svg/text-top.svg'
+// import TextureTextTop from 'assets/textures/TextTop.png'
 
 let scene = null
 let cameraShader = null
@@ -39,10 +40,11 @@ let darkMaterial = null
 let isMouseDown = false
 
 let groupSlash = null
+let groupTextTop = null
 
-let plane = null
-let planeMaterial = null
-let planeGeometry = null
+// let plane = null
+// let planeMaterial = null
+// let planeGeometry = null
 
 function init (video) {
   // render
@@ -81,8 +83,8 @@ function init (video) {
   scene.add(cameraShader)
   cameraShader.position.z = 1
 
-  // const controls = new OrbitControls(cameraShader, renderer.domElement)
-  // controls.screenSpacePanning = true
+  const controls = new OrbitControls(cameraShader, renderer.domElement)
+  controls.screenSpacePanning = true
 
   // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
@@ -170,7 +172,7 @@ function init (video) {
   loader.load(svgSlash, function (data) {
     const paths = data.paths
     groupSlash = new THREE.Group()
-    groupSlash.scale.multiplyScalar(0.0008)
+    // groupSlash.scale.multiplyScalar(0.0008)
     groupSlash.position.x = 0
     groupSlash.position.y = 0
     groupSlash.position.z = -1
@@ -196,21 +198,82 @@ function init (video) {
     }
   })
 
-  // Plane with image texture the text on top
-  planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
-  planeMaterial = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(TextureTextTop),
-    color: 'white',
-    transparent: true
-  })
-  plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  plane.scale.set(0.4, 0.05, 0.5)
-  plane.position.x = -0.5
-  plane.position.y = 0.16
-  plane.position.z = -1
+  loader.load(svgText, function (data) {
+    const paths = data.paths
+    groupTextTop = new THREE.Group()
+    groupTextTop.scale.multiplyScalar(0.0008)
+    groupTextTop.position.x = -0.5
+    groupTextTop.position.y = 0.16
+    // groupTextTop.scale.y *= -1
 
-  plane.scale.x *= -1
-  scene.add(plane)
+    for (let i = 0; i < paths.length; i++) {
+      const path = paths[i]
+
+      const fillColor = path.userData.style.fill
+      if (fillColor !== undefined && fillColor !== 'none') {
+        const material = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setStyle(fillColor),
+          opacity: path.userData.style.fillOpacity,
+          transparent: path.userData.style.fillOpacity < 1,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+          wireframe: false
+        })
+
+        const shapes = path.toShapes(true)
+
+        for (let j = 0; j < shapes.length; j++) {
+          const shape = shapes[j]
+
+          const geometry = new THREE.ShapeBufferGeometry(shape)
+          const mesh = new THREE.Mesh(geometry, material)
+
+          groupTextTop.add(mesh)
+        }
+      }
+      const strokeColor = path.userData.style.stroke
+
+      if (strokeColor !== undefined && strokeColor !== 'none') {
+        const material = new THREE.MeshBasicMaterial({
+          color: new THREE.Color().setStyle(strokeColor),
+          opacity: path.userData.style.strokeOpacity,
+          transparent: path.userData.style.strokeOpacity < 1,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+          wireframe: false
+        })
+
+        for (let j = 0, jl = path.subPaths.length; j < jl; j++) {
+          const subPath = path.subPaths[j]
+
+          const geometry = SVGLoader.pointsToStroke(subPath.getPoints(), path.userData.style)
+
+          if (geometry) {
+            const mesh = new THREE.Mesh(geometry, material)
+
+            groupTextTop.add(mesh)
+          }
+        }
+      }
+      scene.add(groupTextTop)
+    }
+  })
+
+  // // Plane with image texture the text on top
+  // planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
+  // planeMaterial = new THREE.MeshBasicMaterial({
+  //   map: new THREE.TextureLoader().load(TextureTextTop),
+  //   color: 'white',
+  //   transparent: true
+  // })
+  // plane = new THREE.Mesh(planeGeometry, planeMaterial)
+  // // plane.scale.set(0.4, 0.05, 0.5)
+  // plane.position.x = -0.5
+  // plane.position.y = 0.16
+  // plane.position.z = -1
+
+  // plane.scale.x *= -1
+  // scene.add(plane)
 
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
@@ -299,20 +362,20 @@ async function animate () {
   // groupSlash.rotation.x += 0.05
   // groupSlash.rotation.y += 0.05
 
-  // Plane animation translation
-  if (plane.position.x < 1) {
-    plane.position.x += 0.005
-  } else {
-    plane.position.x = -1
-  }
+  // // Plane animation translation
+  // if (plane.position.x < 1) {
+  //   plane.position.x += 0.005
+  // } else {
+  //   plane.position.x = -1
+  // }
 
-  // renderer.render(scene, cameraShader)
-  videoSprite.material = darkMaterial
-  // plane.material = darkMaterial
-  bloomComposer.render()
-  videoSprite.material = videoMaterial
-  plane.material = planeMaterial
-  finalComposer.render()
+  renderer.render(scene, cameraShader)
+  // videoSprite.material = darkMaterial
+  // // plane.material = darkMaterial
+  // bloomComposer.render()
+  // videoSprite.material = videoMaterial
+  // plane.material = planeMaterial
+  // finalComposer.render()
 }
 
 function onWindowResize () {
