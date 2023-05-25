@@ -215,6 +215,11 @@ function init (video) {
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
   window.addEventListener('mousemove', onMouseMove)
+
+  // touch events
+  window.addEventListener('touchstart', onMouseDown)
+  window.addEventListener('touchend', onMouseUp)
+  window.addEventListener('touchmove', onMouseMove)
 }
 
 function onMouseDown () {
