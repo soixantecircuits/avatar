@@ -219,7 +219,7 @@ function init (video) {
   // touch events
   window.addEventListener('touchstart', onMouseDown)
   window.addEventListener('touchend', onMouseUp)
-  window.addEventListener('touchmove', onMouseMove)
+  window.addEventListener('touchmove', onTouchEvent)
 }
 
 function onMouseDown () {
@@ -261,6 +261,37 @@ function onMouseMove (event) {
     groupSlash.scale.set(0.0004, 0.0004, 0.0004)
     groupSlash.position.copy(pos)
   }
+}
+
+function onTouchEvent (event) {
+  const mouseX = event.touches[0].clientX
+  const mouseY = event.touches[0].clientY
+
+  const width = window.innerWidth
+  const height = window.innerHeight
+
+  const x = ((mouseX / width) * 2 - 1) * -1
+  const y = -(mouseY / height) * 2 + 0.6
+
+  const vector = new THREE.Vector3(x, y, 0.01)
+  vector.unproject(cameraShader)
+
+  const dir = vector.sub(cameraShader.position).normalize()
+  const distance = -cameraShader.position.z / dir.z
+  const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
+
+  // Clamp the position of groupSlash within the frame boundaries
+  const minX = -0.5 // Minimum x position
+  const maxX = 0.21 // Maximum x position
+  const minY = -0.15 // Minimum y position
+  const maxY = 0.03 // Maximum y position
+
+  // Clamp the x and y position of groupSlash within the boundaries
+  pos.x = Math.max(minX, Math.min(maxX, pos.x))
+  pos.y = Math.max(minY, Math.min(maxY, pos.y))
+
+  groupSlash.scale.set(0.0004, 0.0004, 0.0004)
+  groupSlash.position.copy(pos)
 }
 
 async function animate () {
