@@ -1,7 +1,7 @@
 <template>
   <div class='h-5/6 w-full flex flex-col absolute bottom-0 layer-text'>
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
-    <div class='height-70 w-7/12 flex flex-col items-center space-y-7'>
+    <div class='height-70 w-8/12 flex flex-col items-center space-y-7'>
       <div class='relative h-full w-full flex flex-col '>
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex object-none object-left' />
         <div class='relative h-full w-full flex justify-center items-center space-y-4'>
