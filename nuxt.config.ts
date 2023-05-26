@@ -25,6 +25,17 @@ export default defineNuxtConfig({
       { rel: 'icon', type: 'image/x-icon', href: 'static/favicon.png' }
     ]
   },
+  pwa: {
+    manifest: {
+      name: 'Avatar',
+      short_name: 'Avatar',
+      description: 'Avatar',
+      lang: 'en'
+    },
+    icon: {
+      fileName: 'static/favicon.png'
+    }
+  },
   build: {
     postcss: {
       postcssOptions: {
