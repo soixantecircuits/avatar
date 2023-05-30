@@ -9,6 +9,7 @@
     "lint": "eslint ./src --ext .js"
   },
   "devDependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "eslint": "^8.27.0",
@@ -22,7 +23,6 @@
   },
   "dependencies": {
     "@nuxt-hero-icons/outline": "^1.0.1",
-    "@nuxtjs/pwa": "^3.3.5",
     "@pinia/nuxt": "^0.4.2",
     "@tensorflow-models/facemesh": "^0.0.5",
     "@tensorflow/tfjs": "^4.0.0",

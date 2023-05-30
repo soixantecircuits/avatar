@@ -20,9 +20,6 @@ export default defineNuxtConfig({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'static/icon.png' }
     ]
   },
   pwa: {
@@ -33,7 +30,7 @@ export default defineNuxtConfig({
       lang: 'en'
     },
     icon: {
-      source: '/icon.png',
+      source: 'static/icon.png',
       fileName: 'icon.png'
     }
   },
@@ -51,9 +48,7 @@ export default defineNuxtConfig({
     '~/assets/css/tailwind.css'
   ],
   buildModules: [
-    '@nuxt-hero-icons/outline/nuxt',
-    '@nuxtjs/pwa'
-
+    '@nuxt-hero-icons/outline/nuxt'
   ],
   modules: [
     [
