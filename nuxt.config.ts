@@ -33,7 +33,7 @@ export default defineNuxtConfig({
       lang: 'en'
     },
     icon: {
-      source: 'static/icon.png',
+      source: '/icon.png',
       fileName: 'icon.png'
     }
   },
