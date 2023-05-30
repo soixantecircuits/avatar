@@ -3,7 +3,7 @@
     <div class="flex relative cursor-pointer flex flex-row items-center space-x-5">
       <button @click="camStore.initializeMediaUI()">
       <img :src="changeHomeIcon()" alt="Home" class="w-6 h-6">
-      <img src="static/sc-icon.png" alt="Home" class="w-6 h-6">
+      <img src="@/assets/sc-icon.png" alt="Home" class="w-6 h-6">
     </button>
 
     <label class="relative cursor-pointer flex">
