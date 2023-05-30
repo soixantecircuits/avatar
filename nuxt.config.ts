@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: 'https://main--avatar-soixante-circuits.netlify.app/_nuxt/sc-icon.b6248375.png' }
+      { rel: 'icon', type: 'image/x-icon', href: 'static/icon.png' }
     ]
   },
   pwa: {
@@ -33,8 +33,8 @@ export default defineNuxtConfig({
       lang: 'en'
     },
     icon: {
-      source: 'static/sc-icon.png',
-      fileName: 'sc-icon.png'
+      source: 'static/icon.png',
+      fileName: 'icon.png'
     }
   },
   build: {
