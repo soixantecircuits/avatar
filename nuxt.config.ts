@@ -20,6 +20,9 @@ export default defineNuxtConfig({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
+    ],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' }
     ]
   },
   pwa: {
