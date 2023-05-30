@@ -51,7 +51,8 @@ export default defineNuxtConfig({
     '~/assets/css/tailwind.css'
   ],
   buildModules: [
-    '@nuxt-hero-icons/outline/nuxt'
+    '@nuxt-hero-icons/outline/nuxt',
+    '@nuxtjs/pwa'
 
   ],
   modules: [
