@@ -64,7 +64,8 @@ export default defineNuxtConfig({
         ]
       }
 
-    ]
+    ],
+    '@nuxtjs/pwa'
   ],
   axios: {
     baseURL: '/'
