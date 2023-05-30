@@ -7,9 +7,8 @@ const stream = ref(null)
 const cameraOpen = ref(false)
 const img = ref(null)
 
-const cvsContainer = ref(null) // query selector and refs to fix
+const cvsContainer = ref(null)
 
-// Starting the camera
 function startCamera (video) {
   if (!cameraOpen.value) {
     navigator.mediaDevices.getUserMedia({
@@ -21,7 +20,6 @@ function startCamera (video) {
     }).then(stream => {
       cameraOpen.value = true
 
-      // we initialise the stream of the camera to the video
       video.srcObject = stream
       video.play()
       stream.value = stream
@@ -32,7 +30,6 @@ function startCamera (video) {
   }
 }
 
-// Stopping the camera
 function stopCamera (video) {
   if (cameraOpen.value) {
     const tracks = video.srcObject.getTracks()
@@ -43,13 +40,12 @@ function stopCamera (video) {
 }
 
 function getCanvas (video) {
-  animate() // to fix currently using a number to handle error of length
+  animate()
   if (cameraOpen.value) {
     const canvas = document.createElement('canvas')
     canvas.width = canvashader.width
     canvas.height = canvashader.height
 
-    // flip the image
     canvas.getContext('2d').translate(canvas.width, 0)
     canvas.getContext('2d').scale(-1, 1)
 
@@ -69,10 +65,8 @@ function captureImg (video) {
     img.width = canvashader.width
     img.height = canvashader.height
 
-    // set the image src to the canvas data url
     img.src = canvas.toDataURL('image/png')
 
-    // store the image in the pinia store
     camStore.imgStored = img.src
   }
 }
@@ -90,7 +84,6 @@ function goToVerif () {
   }
 }
 
-// export the functions and the ref
 export {
   stream,
   cameraOpen,

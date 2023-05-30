@@ -57,7 +57,7 @@
 <script>
 
 import { useCameraStore } from '~~/store'
-import { onBeforeMount, onMounted, onBeforeUnmount, ref } from 'vue'
+import { onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
 
 import { stream, cameraOpen, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg, goToVerif } from '../use/useMedia.js'
 
@@ -95,7 +95,6 @@ export default {
 
     onBeforeUnmount(() => {
       stopCamera(video)
-      // remove event listeners
       window.removeEventListener('resize', onWindowResize, false)
       video.removeEventListener('loadeddata', async () => {
         startShader()
