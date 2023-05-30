@@ -9,6 +9,7 @@
 
 <script>
 import { useCameraStore } from './store'
+import icon from './static/icon.png'
 
 export default {
   name: 'App',

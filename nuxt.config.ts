@@ -22,7 +22,7 @@ export default defineNuxtConfig({
       { name: 'apple-mobile-web-app-title', content: 'Avatar' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/icon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: '/_nuxt/icon.b6248375.png' }
     ]
   },
   pwa: {
@@ -30,10 +30,10 @@ export default defineNuxtConfig({
       name: 'Avatar',
       short_name: 'Avatar',
       description: 'Avatar',
-      lang: 'en'
+      lang: 'fr'
     },
     icon: {
-      source: 'static/icon.png',
+      source: 'avatar/static/icon.png',
       fileName: 'icon.png'
     }
   },
@@ -54,6 +54,7 @@ export default defineNuxtConfig({
     '@nuxt-hero-icons/outline/nuxt'
   ],
   modules: [
+    '@vite-pwa/nuxt',
     [
       '@pinia/nuxt',
       {

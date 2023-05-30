@@ -30,6 +30,7 @@
     "@tensorflow/tfjs-backend-webgl": "^4.0.0",
     "@tensorflow/tfjs-converter": "^4.4.0",
     "@tensorflow/tfjs-core": "^4.0.0",
+    "@vite-pwa/nuxt": "^0.0.9",
     "@vueuse/core": "^10.1.2",
     "pinia": "^2.0.22",
     "qrcode.vue": "^3.4.0",
