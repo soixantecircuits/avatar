@@ -24,7 +24,7 @@
           </svg>
         </button>
 
-        <button>
+        <button @click="camStore.goToShareMedia()" >
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="50" height="50" rx="15" fill="#543BED"/>
             <path d="M39.1841 10.8146L24.1306 25.8681" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

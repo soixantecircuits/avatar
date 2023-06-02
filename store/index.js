@@ -18,6 +18,8 @@ export const useCameraStore = defineStore('CameraStore', {
 
     isStartQR: false,
 
+    isStartShareMedia: false,
+
     emailSent: false,
 
     imgStored: null,
@@ -45,6 +47,7 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartMail = false
       this.isStartQR = false
       this.emailSent = false
+      this.isStartShareMedia = false
     },
 
     initializeStartPage () {
@@ -56,6 +59,7 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartMail = false
       this.isStartQR = false
       this.emailSent = false
+      this.isStartShareMedia = false
     },
 
     initializeCamera () {
@@ -65,6 +69,20 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartShoot = true
       this.isStartShare = false
       this.isStartMail = false
+      this.isStartQR = false
+      this.emailSent = false
+      this.isStartShareMedia = false
+    },
+
+    goToShareMedia () {
+      this.isStartPage = false
+      this.isStartXp = false
+      this.isStartVerif = false
+      this.isStartShoot = false
+      this.isStartShare = false
+      this.isStartMail = false
+      this.isStartQR = false
+      this.isStartShareMedia = true
     },
 
     toggleDarkMode () {

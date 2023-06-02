@@ -38,6 +38,7 @@
     "three-orbitcontrols": "^2.110.3",
     "vite": "^3.1.8",
     "vite-plugin-glsl": "^0.5.3",
-    "vue-carousel": "^0.18.0"
+    "vue-carousel": "^0.18.0",
+    "vue-social-sharing": "^4.0.0-alpha4"
   }
 }
