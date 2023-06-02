@@ -6,7 +6,7 @@
     <div class="lg:text-6xl text-3xl text-center lg:px-40 px-10 layer-text">
       Bye-bye Socialite ! <span class="low-highlight"> Avatar</span>  prend place, l'application où chaque clic devient une histoire à raconter
     </div>
-    <div class="flex flex-col  lg:flex-row justify-between layer-text space-y-3lg:space-x-3">
+    <div class="flex flex-col  lg:flex-row justify-between layer-text space-y-3 lg:space-x-3">
       <div class="flex items-center lg:px-10">
         <input id="show-in-gallery-checkbox" type="checkbox" class="w-4 h-4 rounded" v-model="showInGallery" @change="handleCheckboxChange('show')">
         <label for="show-in-gallery-checkbox" class="ml-2 lg:text-xl">Afficher dans la galerie </label>
