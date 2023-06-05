@@ -4,7 +4,7 @@
       <img :src="img" class="image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text" />
       </div>
       <div class="layer-text w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar py-30">
-        <button class="flex flex-col justify-center items-center" @click="goToShare()">
+        <button class="flex flex-col justify-center items-center" @click='camStore.goToShare()'>
           <div class="lg:title text-5xl font-black low-highlight">
             SUIVANT
           </div>
@@ -36,15 +36,6 @@ export default {
       camStore.isStartMail = false
     }
 
-    function goToShare () {
-      camStore.isStartShoot = false
-      camStore.isStartPage = false
-      camStore.isStartXp = false
-      camStore.isStartVerif = false
-      camStore.isStartShare = true
-      camStore.isStartMail = false
-    }
-
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
       document.querySelector('.image').style.objectFit = 'cover'
@@ -53,8 +44,7 @@ export default {
     return {
       camStore,
       img,
-      cancelImage,
-      goToShare
+      cancelImage
     }
   }
 

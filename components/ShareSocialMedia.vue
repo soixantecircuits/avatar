@@ -6,7 +6,7 @@
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex object-none object-left' />
         <div class='relative h-full w-full flex justify-center items-center space-y-4'>
           <div class='space-y-4 w-4/6'>
-          <button class='button drop-shadow-md' @click='goToShare'>
+          <button class='button drop-shadow-md' @click='camStore.goToShare()'>
           <svg width='30' height='30' class="lg:w-10 lg:h-10" viewBox='0 0 45 45' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path d='M35.3962 37.2937L22.4982 24.3956L9.60167 37.2937C9.47761 37.419 9.32969 37.5184 9.16679 37.586C9.00389 37.6537 8.82955 37.6881 8.65318 37.6874C8.4768 37.6882 8.30203 37.6538 8.13911 37.5862C7.9762 37.5186 7.82823 37.4191 7.70424 37.2937C7.57879 37.1697 7.47934 37.0219 7.41173 36.859C7.34411 36.6961 7.30977 36.5213 7.31056 36.3449C7.30988 36.1686 7.34412 35.9938 7.41173 35.8309C7.47933 35.668 7.57887 35.5202 7.70424 35.3962L20.6022 22.4981L7.70424 9.59994C7.57879 9.47595 7.47934 9.32816 7.41173 9.16525C7.34411 9.00234 7.30977 8.82756 7.31056 8.65118C7.30988 8.47481 7.34412 8.30008 7.41173 8.13718C7.47933 7.97428 7.57887 7.82649 7.70424 7.70244C7.82851 7.57749 7.97624 7.4785 8.13911 7.41123C8.30199 7.34395 8.47696 7.30974 8.65318 7.31056C8.82937 7.30994 9.00394 7.34426 9.16679 7.41153C9.32964 7.47879 9.47727 7.57766 9.60167 7.70244L22.4982 20.6006L35.3962 7.70244C35.5209 7.5776 35.6693 7.47871 35.8324 7.41146C35.9956 7.3442 36.1705 7.3099 36.347 7.31056C36.5232 7.30994 36.6977 7.34426 36.8606 7.41153C37.0234 7.47879 37.1711 7.57766 37.2955 7.70244C37.4202 7.82683 37.5193 7.97474 37.5866 8.13758C37.6539 8.30043 37.6879 8.47499 37.6873 8.65118C37.6881 8.8274 37.6539 9.00203 37.5866 9.1649C37.5193 9.32778 37.4204 9.47566 37.2955 9.59994L24.3975 22.4981L37.2955 35.3962C37.4202 35.5206 37.5193 35.6685 37.5866 35.8313C37.6539 35.9942 37.6879 36.1687 37.6873 36.3449C37.6881 36.5212 37.6539 36.6958 37.5866 36.8587C37.5193 37.0215 37.4204 37.1694 37.2955 37.2937C37.1714 37.419 37.0235 37.5184 36.8606 37.586C36.6977 37.6537 36.5233 37.6881 36.347 37.6874C36.1703 37.6882 35.9952 37.6537 35.832 37.5861C35.6688 37.5185 35.5206 37.4191 35.3962 37.2937Z' fill='white'/>
           </svg>
@@ -41,7 +41,7 @@
 
     <div class='flex flex-col space-y-2'>
 
-        <button>
+      <button @click="camStore.goToMail()">
           <svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <rect width='50' height='50' rx='15' fill='#543BED'/>
             <g clip-path='url(#clip0_210_919)'>
@@ -55,7 +55,14 @@
           </svg>
         </button>
 
-        <button>
+        <button @click="camStore.goToQR()">
+          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="50" height="50" rx="15" fill="#543BED"/>
+            <path d="M14.7999 13.5333C13.5475 13.5333 12.5332 14.5477 12.5332 15.8V20.3333C12.5332 21.5857 13.5475 22.6 14.7999 22.6H19.3332C20.5855 22.6 21.5999 21.5857 21.5999 20.3333V15.8C21.5999 14.5477 20.5855 13.5333 19.3332 13.5333H14.7999ZM30.6665 13.5333C29.4142 13.5333 28.3999 14.5477 28.3999 15.8V20.3333C28.3999 21.5857 29.4142 22.6 30.6665 22.6H35.1999C36.4522 22.6 37.4665 21.5857 37.4665 20.3333V15.8C37.4665 14.5477 36.4522 13.5333 35.1999 13.5333H30.6665ZM14.7999 15.8H19.3332V20.3333H14.7999V15.8ZM23.8665 15.8V18.0667H26.1332V15.8H23.8665ZM30.6665 15.8H35.1999V20.3333H30.6665V15.8ZM15.9332 16.9333V19.2H18.1999V16.9333H15.9332ZM31.7999 16.9333V19.2H34.0665V16.9333H31.7999ZM23.8665 20.3333V22.6H26.1332V20.3333H23.8665ZM14.7999 24.8667V27.1333H17.0665V24.8667H14.7999ZM19.3332 24.8667V27.1333H21.5999V24.8667H19.3332ZM23.8665 24.8667V27.1333H26.1332V24.8667H23.8665ZM26.1332 27.1333V29.4H28.3999V27.1333H26.1332ZM28.3999 27.1333H30.6665V24.8667H28.3999V27.1333ZM30.6665 27.1333V29.4H32.9332V27.1333H30.6665ZM32.9332 27.1333H35.1999V24.8667H32.9332V27.1333ZM35.1999 27.1333V29.4H37.4665V27.1333H35.1999ZM35.1999 29.4H32.9332V31.6667H35.1999V29.4ZM35.1999 31.6667V33.9333H37.4665V31.6667H35.1999ZM35.1999 33.9333H32.9332V36.2H35.1999V33.9333ZM32.9332 36.2H30.6665V38.4667H32.9332V36.2ZM30.6665 36.2V33.9333H28.3999V36.2H30.6665ZM28.3999 36.2H26.1332V38.4667H28.3999V36.2ZM26.1332 36.2V33.9333H23.8665V36.2H26.1332ZM26.1332 33.9333H28.3999V31.6667H26.1332V33.9333ZM26.1332 31.6667V29.4H23.8665V31.6667H26.1332ZM28.3999 31.6667H30.6665V29.4H28.3999V31.6667ZM30.6665 31.6667V33.9333H32.9332V31.6667H30.6665ZM14.7999 29.4C13.5475 29.4 12.5332 30.4143 12.5332 31.6667V36.2C12.5332 37.4523 13.5475 38.4667 14.7999 38.4667H19.3332C20.5855 38.4667 21.5999 37.4523 21.5999 36.2V31.6667C21.5999 30.4143 20.5855 29.4 19.3332 29.4H14.7999ZM14.7999 31.6667H19.3332V36.2H14.7999V31.6667ZM15.9332 32.8V35.0667H18.1999V32.8H15.9332Z" fill="white"/>
+          </svg>
+        </button>
+
+        <button @click="camStore.goToShareMedia()" >
           <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="50" height="50" rx="15" fill="#543BED"/>
             <path d="M39.1841 10.8146L24.1306 25.8681" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -126,92 +133,6 @@ export default {
       link.click()
     }
 
-    async function sendEmail () {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-
-      const img = document.querySelector('.image')
-
-      canvas.width = img.width
-      canvas.height = img.height
-
-      ctx.drawImage(img, 0, 65, img.width, img.height, 0, 0, img.width, img.height)
-      // ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-      const imgEmailedData = canvas.toDataURL('image/png')
-
-      camStore.imgEmailed = imgEmailedData
-
-      const date = new Date()
-      const day = date.getDate()
-      const month = date.getMonth() + 1
-      const year = date.getFullYear()
-      const hour = date.getHours()
-      const minutes = date.getMinutes()
-      const seconds = date.getSeconds()
-      const time = day + '-' + month + '-' + year + '-' + hour + '-' + minutes + '-' + seconds
-
-      const email = document.getElementById('email').value
-      const firstname = document.getElementById('firstName').value
-      const lastname = document.getElementById('lastName').value
-      const imageurl = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/images/' + firstname + '-' + lastname + '-' + time + '.png'
-      camStore.linkToImg = imageurl
-
-      const image = camStore.imgEmailed
-      const formData = new FormData()
-
-      // convert image to blob
-      const blob = await fetch(image).then(r => r.blob())
-      formData.append('image', blob, firstname + '-' + lastname + '-' + time + '.png')
-
-      await fetch('https://hook.eu1.make.com/a1iwhthnhtp1mwwuy4qh92iseh6nm7r8', {
-        method: 'POST',
-        body: formData
-      })
-
-      const data = {
-        firstname,
-        lastname,
-        email,
-        imageurl,
-        time
-      }
-
-      await fetch('https://hook.eu1.make.com/hy6rt8azipju4nv5b7r4qt6di3css4sv', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-
-      camStore.emailSent = true
-    }
-
-    function goToShare () {
-      camStore.isStartMail = false
-      camStore.isStartShoot = false
-      camStore.isStartXp = false
-      camStore.isStartVerif = false
-      camStore.isStartPage = false
-      camStore.isStartShare = true
-      camStore.isStartShareMedia = false
-    }
-
-    function shareOnSocial () {
-      const shareData = {
-        title: 'MDN',
-        text: 'Learn web development on MDN!',
-        url: camStore.linkToImg
-      }
-      const btn = document.getElementById('shareBtn')
-      btn.addEventListener('click', async () => {
-        try {
-          await navigator.share(shareData)
-          console.log('MDN shared successfully')
-        } catch (err) {
-          console.log('Error: ' + err)
-        }
-      })
-    }
-
     const changeInputColor = () => {
       if (camStore.darkMode === true) {
         return 'bg-white'
@@ -228,10 +149,7 @@ export default {
       camStore,
       img,
       saveImage,
-      sendEmail,
-      goToShare,
       changeInputColor,
-      shareOnSocial,
       sharing,
       networks
     }

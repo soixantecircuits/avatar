@@ -11,33 +11,9 @@
             <path d='M35.3962 37.2937L22.4982 24.3956L9.60167 37.2937C9.47761 37.419 9.32969 37.5184 9.16679 37.586C9.00389 37.6537 8.82955 37.6881 8.65318 37.6874C8.4768 37.6882 8.30203 37.6538 8.13911 37.5862C7.9762 37.5186 7.82823 37.4191 7.70424 37.2937C7.57879 37.1697 7.47934 37.0219 7.41173 36.859C7.34411 36.6961 7.30977 36.5213 7.31056 36.3449C7.30988 36.1686 7.34412 35.9938 7.41173 35.8309C7.47933 35.668 7.57887 35.5202 7.70424 35.3962L20.6022 22.4981L7.70424 9.59994C7.57879 9.47595 7.47934 9.32816 7.41173 9.16525C7.34411 9.00234 7.30977 8.82756 7.31056 8.65118C7.30988 8.47481 7.34412 8.30008 7.41173 8.13718C7.47933 7.97428 7.57887 7.82649 7.70424 7.70244C7.82851 7.57749 7.97624 7.4785 8.13911 7.41123C8.30199 7.34395 8.47696 7.30974 8.65318 7.31056C8.82937 7.30994 9.00394 7.34426 9.16679 7.41153C9.32964 7.47879 9.47727 7.57766 9.60167 7.70244L22.4982 20.6006L35.3962 7.70244C35.5209 7.5776 35.6693 7.47871 35.8324 7.41146C35.9956 7.3442 36.1705 7.3099 36.347 7.31056C36.5232 7.30994 36.6977 7.34426 36.8606 7.41153C37.0234 7.47879 37.1711 7.57766 37.2955 7.70244C37.4202 7.82683 37.5193 7.97474 37.5866 8.13758C37.6539 8.30043 37.6879 8.47499 37.6873 8.65118C37.6881 8.8274 37.6539 9.00203 37.5866 9.1649C37.5193 9.32778 37.4204 9.47566 37.2955 9.59994L24.3975 22.4981L37.2955 35.3962C37.4202 35.5206 37.5193 35.6685 37.5866 35.8313C37.6539 35.9942 37.6879 36.1687 37.6873 36.3449C37.6881 36.5212 37.6539 36.6958 37.5866 36.8587C37.5193 37.0215 37.4204 37.1694 37.2955 37.2937C37.1714 37.419 37.0235 37.5184 36.8606 37.586C36.6977 37.6537 36.5233 37.6881 36.347 37.6874C36.1703 37.6882 35.9952 37.6537 35.832 37.5861C35.6688 37.5185 35.5206 37.4191 35.3962 37.2937Z' fill='white'/>
           </svg>
         </button>
-        <form v-if="!camStore.emailSent" id='form' class='w-full flex flex-col form' @submit.prevent="sendEmail" method="POST">
-          <div class='space-y-7'>
-            <div class='flex flex-row space-x-4'>
-            <div class='flex flex-col w-1/2 h-1/2'>
-              <input type='text' id='firstName' name='firstName' placeholder='Prénom' :class="changeInputColor()" class='rounded-xl p-2 drop-shadow-md text-sm lg:text-lg'>
-            </div>
-            <div class='flex flex-col w-1/2'>
-              <input type='text' id='lastName' name='lastName' placeholder='Nom' :class="changeInputColor()"  class='rounded-xl p-2 drop-shadow-md text-sm lg:text-lg'>
-            </div>
-          </div>
-          <div class='flex flex-col'>
-            <input type='email' id='email' name='email' v-model="email" placeholder='Adresse mail' :class="changeInputColor()" class='rounded-xl p-2 drop-shadow-md text-sm lg:text-lg'>
-          </div>
-          <button id='sendEmailButton' type='submit' class='button button-color rounded-xl p-2 text-white text-sm lg:text-lg drop-shadow-md w-fit lg:w-1/3 '>
-          Envoyer
-        </button>
-          </div>
-        </form>
-        <div v-if="camStore.emailSent" class='flex flex-col lg:items-center space-y-2 z-40 drop-shadow-2xl'>
-          <div class='text-xl lg:text-3xl font-semibold drop-shadow-2xl low-highlight'>
-            Photo envoyée
-          </div>
-          <div class='text:sm lg:text-xl font-semibold drop-shadow-2xl'>
-            Vous allez la recevoir dans votre messagerie
-          </div>
-          <div class='text:sm lg:text-xl font-semibold drop-shadow-2xl'>
-            Ou scannez le <span class='low-highlight'> QR code</span> generé !
+        <div class='flex flex-col lg:items-center space-y-2 z-40 drop-shadow-2xl'>
+          <div class='text:xl lg:text-3xl font-semibold drop-shadow-2xl'>
+            Scannez le <span class='low-highlight'> QR code</span> generé !
           </div>
           <div class="w-28 h-28 lg:w-52 lg:h-52 bg-white flex justify-center items-center rounded-xl space-y-10">
             <qrcode-vue class="drop-shadow-2xl" :value='camStore.linkToImg' :size='changeQRCodeSize()' foreground= '#1F2937' background='white' level="L" @scan="handleQRCodeScan" />
@@ -53,7 +29,7 @@
 
     <div class='flex flex-col space-y-2'>
 
-        <button>
+        <button @click="camStore.goToMail()">
           <svg width='50' height='50' viewBox='0 0 50 50' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <rect width='50' height='50' rx='15' fill='#543BED'/>
             <g clip-path='url(#clip0_210_919)'>
@@ -130,75 +106,8 @@ export default {
       link.click()
     }
 
-    async function sendEmail () {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-
-      const img = document.querySelector('.image')
-
-      canvas.width = img.width
-      canvas.height = img.height
-
-      ctx.drawImage(img, 0, 65, img.width, img.height, 0, 0, img.width, img.height)
-      // ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-      const imgEmailedData = canvas.toDataURL('image/png')
-
-      camStore.imgEmailed = imgEmailedData
-
-      const date = new Date()
-      const day = date.getDate()
-      const month = date.getMonth() + 1
-      const year = date.getFullYear()
-      const hour = date.getHours()
-      const minutes = date.getMinutes()
-      const seconds = date.getSeconds()
-      const time = day + '-' + month + '-' + year + '-' + hour + '-' + minutes + '-' + seconds
-
-      const email = document.getElementById('email').value
-      const firstname = document.getElementById('firstName').value
-      const lastname = document.getElementById('lastName').value
-      const imageurl = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/images/' + firstname + '-' + lastname + '-' + time + '.png'
-      camStore.linkToImg = imageurl
-
-      const image = camStore.imgEmailed
-      const formData = new FormData()
-
-      // convert image to blob
-      const blob = await fetch(image).then(r => r.blob())
-      formData.append('image', blob, firstname + '-' + lastname + '-' + time + '.png')
-
-      await fetch('https://hook.eu1.make.com/a1iwhthnhtp1mwwuy4qh92iseh6nm7r8', {
-        method: 'POST',
-        body: formData
-      })
-
-      const data = {
-        firstname,
-        lastname,
-        email,
-        imageurl,
-        time
-      }
-
-      await fetch('https://hook.eu1.make.com/hy6rt8azipju4nv5b7r4qt6di3css4sv', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      })
-
-      camStore.emailSent = true
-    }
-
     function handleQRCodeScan (result) {
       window.open(result, '_blank')
-    }
-
-    const changeInputColor = () => {
-      if (camStore.darkMode === true) {
-        return 'bg-white'
-      } else if (camStore.darkMode === false) {
-        return 'bg-gray-800'
-      }
     }
 
     const changeQRCodeSize = () => {
@@ -217,9 +126,7 @@ export default {
       camStore,
       img,
       saveImage,
-      sendEmail,
       handleQRCodeScan,
-      changeInputColor,
       changeQRCodeSize
     }
   }
