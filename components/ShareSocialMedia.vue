@@ -77,12 +77,13 @@
 <script>
 import { useCameraStore } from '~~/store'
 import { onBeforeUnmount } from 'vue'
-import { ShareNetwork } from 'vue-social-sharing'
+import facebookIcon from '~/assets/svg/facebook.svg'
+import twitterIcon from '~/assets/svg/twitter.svg'
+import pinterestIcon from '~/assets/svg/pinterest.svg'
 
 export default {
   name: 'CameraCapture',
   components: {
-    ShareNetwork
   },
   setup () {
     const camStore = useCameraStore()
@@ -99,9 +100,9 @@ export default {
     }
 
     const networks = [
-      { network: 'facebook', name: 'Facebook', icon: '/assets/svg/facebook.svg' },
-      { network: 'twitter', name: 'Twitter', icon: '/assets/svg/twitter.svg' },
-      { network: 'pinterest', name: 'Pinterest', icon: '/assets/svg/pinterest.svg' }
+      { network: 'facebook', name: 'Facebook', icon: facebookIcon },
+      { network: 'twitter', name: 'Twitter', icon: twitterIcon },
+      { network: 'pinterest', name: 'Pinterest', icon: pinterestIcon }
     ]
 
     function saveImage () {
