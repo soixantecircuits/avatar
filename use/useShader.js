@@ -14,7 +14,6 @@ import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import { cvsContainer } from '../use/useMedia.js'
 
 import svgSlash from '../assets/svg/sc-slash.svg'
-// import svgText from '../assets/svg/text-top.svg'
 import TextureTextTop from 'assets/textures/TextTop.png'
 
 let scene = null
@@ -208,10 +207,6 @@ function init (video) {
   })
   plane = new THREE.Mesh(planeGeometry, planeMaterial)
   plane.scale.set(0.4, 0.05, 0.5)
-  // plane.position.x = -0.5
-  // plane.position.y = 0.17
-  // plane.position.z = -1
-  // plane position will depend on the screen size
   const canvasW = canvashader.width
   const canvasH = canvashader.height
   plane.position.x = -canvasW / -20000
@@ -258,10 +253,10 @@ function onMouseMove (event) {
     const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
 
     // Clamp the position of groupSlash within the frame boundaries
-    const minX = -0.5 // Minimum x position
-    const maxX = 0.21 // Maximum x position
-    const minY = -0.15 // Minimum y position
-    const maxY = 0.03 // Maximum y position
+    const minX = -0.5
+    const maxX = 0.21
+    const minY = -0.15
+    const maxY = 0.03
 
     // Clamp the x and y position of groupSlash within the boundaries
     pos.x = Math.max(minX, Math.min(maxX, pos.x))
@@ -290,10 +285,10 @@ function onTouchEvent (event) {
   const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
 
   // Clamp the position of groupSlash within the frame boundaries
-  const minX = -0.5 // Minimum x position
-  const maxX = 0.21 // Maximum x position
-  const minY = -0.15 // Minimum y position
-  const maxY = 0.03 // Maximum y position
+  const minX = -0.5
+  const maxX = 0.21
+  const minY = -0.15
+  const maxY = 0.03
 
   // Clamp the x and y position of groupSlash within the boundaries
   pos.x = Math.max(minX, Math.min(maxX, pos.x))
@@ -305,8 +300,6 @@ function onTouchEvent (event) {
 
 async function animate () {
   raf = requestAnimationFrame(animate)
-  // groupTextTop.rotation.x += 0.05
-  // groupTextTop.rotation.y += 0.05
 
   // // Plane animation translation
   if (plane.position.x < 0.5) {

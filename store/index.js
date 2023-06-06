@@ -4,6 +4,8 @@ export const useCameraStore = defineStore('CameraStore', {
 
   state: () => ({
     // this object is a state object state prop returns an object
+    cameraOpen: false,
+
     isStartPage: true,
 
     isStartXp: false,
@@ -72,6 +74,17 @@ export const useCameraStore = defineStore('CameraStore', {
       this.isStartQR = false
       this.emailSent = false
       this.isStartShareMedia = false
+    },
+
+    goToVerif () {
+      if (this.cameraOpen) {
+        this.isStartCam = false
+        this.isStartShoot = false
+        this.isStartXp = false
+        this.isStartVerif = true
+        this.isStartShare = false
+        this.isStartMail = false
+      }
     },
 
     goToShareMedia () {

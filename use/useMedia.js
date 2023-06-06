@@ -4,13 +4,13 @@ import { useCameraStore } from '~~/store'
 import { animate, canvashader } from './useShader'
 
 const stream = ref(null)
-const cameraOpen = ref(false)
 const img = ref(null)
 
 const cvsContainer = ref(null)
 
 function startCamera (video) {
-  if (!cameraOpen.value) {
+  const camStore = useCameraStore()
+  if (!camStore.cameraOpen) {
     navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
@@ -18,7 +18,7 @@ function startCamera (video) {
         height: { min: 720 }
       }
     }).then(stream => {
-      cameraOpen.value = true
+      camStore.cameraOpen = true
 
       video.srcObject = stream
       video.play()
@@ -31,17 +31,19 @@ function startCamera (video) {
 }
 
 function stopCamera (video) {
-  if (cameraOpen.value) {
+  const camStore = useCameraStore()
+  if (camStore.cameraOpen) {
     const tracks = video.srcObject.getTracks()
     tracks.forEach(track => track.stop())
     video.srcObject = null
-    cameraOpen.value = false
+    camStore.cameraOpen = false
   }
 }
 
 function getCanvas (video) {
+  const camStore = useCameraStore()
   animate()
-  if (cameraOpen.value) {
+  if (camStore.cameraOpen) {
     const canvas = document.createElement('canvas')
     canvas.width = canvashader.width
     canvas.height = canvashader.height
@@ -58,7 +60,7 @@ function getCanvas (video) {
 function captureImg (video) {
   const camStore = useCameraStore()
 
-  if (cameraOpen.value) {
+  if (camStore.cameraOpen) {
     const canvas = getCanvas(video)
 
     const img = document.createElement('img')
@@ -71,28 +73,13 @@ function captureImg (video) {
   }
 }
 
-function goToVerif () {
-  const camStore = useCameraStore()
-
-  if (cameraOpen.value) {
-    camStore.isStartCam = false
-    camStore.isStartShoot = false
-    camStore.isStartXp = false
-    camStore.isStartVerif = true
-    camStore.isStartShare = false
-    camStore.isStartMail = false
-  }
-}
-
 export {
   stream,
-  cameraOpen,
   img,
   cvsContainer,
 
   startCamera,
   stopCamera,
   getCanvas,
-  captureImg,
-  goToVerif
+  captureImg
 }

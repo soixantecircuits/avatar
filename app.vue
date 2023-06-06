@@ -1,8 +1,8 @@
 <template>
-  <div class="overflow-hidden">
-    <div :class="getBackgroundClasses()" class="relative text-violet-700" >
-      <HeaderBar class="absolute top-0" />
-      <NuxtPage class="h-screen w-screen " />
+  <div class='overflow-hidden'>
+    <div :class='getBackgroundClasses()' class='relative text-violet-700' >
+      <HeaderBar class='absolute top-0' />
+      <NuxtPage class='h-screen w-screen ' />
     </div>
   </div>
 </template>

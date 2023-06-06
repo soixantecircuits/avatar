@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="h-screen layer-text">
-      <img :src="img" class="image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text" />
+    <div class='h-screen layer-text'>
+      <img :src='img' class='image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text' />
       </div>
-      <div class="layer-text w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar py-30">
-        <button class="flex flex-col justify-center items-center" @click='camStore.goToShare()'>
-          <div class="lg:title text-5xl font-black low-highlight">
+      <div class='layer-text w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar py-30'>
+        <button class='flex flex-col justify-center items-center' @click='camStore.goToShare()'>
+          <div class='lg:title text-5xl font-black low-highlight'>
             SUIVANT
           </div>
         </button>
-        <button class="flex flex-col justify-center items-center" @click="cancelImage()">
-          <div class="underline filter-names"> Recommencer </div>
+        <button class='flex flex-col justify-center items-center' @click='cancelImage()'>
+          <div class='underline filter-names'> Recommencer </div>
         </button>
       </div>
   </div>
