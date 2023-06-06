@@ -164,7 +164,7 @@ export default {
       const image = camStore.imgEmailed
       const formData = new FormData()
 
-      // convert image to blob
+      // converting image to blob
       const blob = await fetch(image).then(r => r.blob())
       formData.append('image', blob, firstname + '-' + lastname + '-' + time + '.png')
 
