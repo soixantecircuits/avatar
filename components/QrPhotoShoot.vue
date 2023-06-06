@@ -31,15 +31,15 @@
           <img :src=emailIcon alt='email'>
         </button>
 
-        <button @click='camStore.goToQR()'>
+        <button @click='camStore.goToQR(), saveImagetoDataBase()'>
           <img :src=qrIcon alt='qrcode'>
         </button>
 
-        <button @click='camStore.goToShareMedia()' >
+        <button @click='camStore.goToShareMedia(), saveImagetoDataBase()' >
           <img :src=sendIcon alt='send'>
         </button>
 
-        <button @click='saveImage'>
+        <button @click='downloadImage()'>
           <img :src=downloadIcon alt='download'>
         </button>
 
@@ -60,6 +60,8 @@ import qrIcon from '~/assets/svg/qr-code.svg'
 import sendIcon from '~/assets/svg/send.svg'
 import downloadIcon from '~/assets/svg/download.svg'
 
+import { downloadImage, saveImagetoDataBase } from '../use/usePhoto.js'
+
 export default {
   name: 'CameraCapture',
   components: {
@@ -69,27 +71,6 @@ export default {
     const camStore = useCameraStore()
     const img = camStore.imgStored
     const emailSent = camStore.emailSent
-
-    function saveImage () {
-      // save the image to the device and flip it
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-
-      const img = document.querySelector('.image')
-
-      canvas.width = img.width
-      canvas.height = img.height
-
-      ctx.drawImage(img, 0, 65, img.width, img.height, 0, 0, img.width, img.height)
-      // ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-      const imgdata = canvas.toDataURL('image/png')
-
-      const link = document.createElement('a')
-      link.download = 'your-picture.png'
-      link.href = imgdata
-      link.click()
-    }
 
     function handleQRCodeScan (result) {
       window.open(result, '_blank')
@@ -110,14 +91,15 @@ export default {
     return {
       camStore,
       img,
-      saveImage,
       handleQRCodeScan,
       changeQRCodeSize,
       emailIcon,
       qrIcon,
       sendIcon,
       downloadIcon,
-      crossIcon
+      crossIcon,
+      saveImagetoDataBase,
+      downloadImage
     }
   }
 }
