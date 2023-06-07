@@ -331,10 +331,35 @@ function onWindowResize () {
 
   cameraShader.aspect = 1
   cameraShader.updateProjectionMatrix()
+}
 
-//   renderer.setSize(width, height)
-//   bloomComposer.setSize(width, height)
-//   finalComposer.setSize(width, height)
+function stopShader () {
+  cancelAnimationFrame(raf)
+  raf = null
+  renderer = null
+  videoSprite = null
+  videoMaterial = null
+  tex = null
+  bloomComposer = null
+  bloomPass = null
+  finalPass = null
+  finalComposer = null
+  darkMaterial = null
+  groupSlash = null
+  groupTextTop = null
+  plane = null
+  planeMaterial = null
+  planeGeometry = null
+  scene = null
+  cameraShader = null
+  renderer = null
+  canvashader = null
+  window.removeEventListener('mousedown', onMouseDown)
+  window.removeEventListener('mouseup', onMouseUp)
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('touchstart', onMouseDown)
+  window.removeEventListener('touchend', onMouseUp)
+  window.removeEventListener('touchmove', onTouchEvent)
 }
 
 export {
@@ -347,5 +372,6 @@ export {
   scene,
   cameraShader,
   renderer,
-  canvashader
+  canvashader,
+  stopShader
 }

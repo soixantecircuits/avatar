@@ -44,7 +44,7 @@ import { onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
 
 import { stream, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg } from '../use/useMedia.js'
 
-import { init, animate, onWindowResize, videoSprite, scene, cameraShader, renderer } from '../use/useShader.js'
+import { init, animate, onWindowResize, videoSprite, scene, cameraShader, renderer, stopShader } from '../use/useShader.js'
 
 import shootIcon from '~/assets/svg/shoot.svg'
 
@@ -84,6 +84,7 @@ export default {
       video.removeEventListener('loadeddata', async () => {
         startShader()
       })
+      stopShader()
     })
 
     return {
