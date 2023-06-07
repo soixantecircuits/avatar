@@ -298,6 +298,7 @@ function onTouchEvent (event) {
   pos.x = Math.max(minX, Math.min(maxX, pos.x))
   pos.y = Math.max(minY, Math.min(maxY, pos.y))
 
+  groupSlash.scale.set(0.0025, 0.0008, 0.0008)
   groupSlash.position.copy(pos)
 }
 
