@@ -27,24 +27,7 @@
         </div> -->
 
         <button  @click='captureImg(video), camStore.goToVerif()' class='layer-text'>
-          <svg width='90' height='90' class='lg:w-28 lg:h-28' viewBox='0 0 127 127' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <g filter='url(#filter0_d_210_796)'>
-            <path d='M63.4998 113.018C93.0569 113.018 117.018 89.0571 117.018 59.5C117.018 29.9429 93.0569 5.98218 63.4998 5.98218C33.9427 5.98218 9.98193 29.9429 9.98193 59.5C9.98193 89.0571 33.9427 113.018 63.4998 113.018Z' stroke='white' stroke-width='2.5'/>
-            <path opacity='0.63' d='M63.4998 102.314C87.1455 102.314 106.314 83.1458 106.314 59.5001C106.314 35.8544 87.1455 16.6858 63.4998 16.6858C39.8542 16.6858 20.6855 35.8544 20.6855 59.5001C20.6855 83.1458 39.8542 102.314 63.4998 102.314Z' fill='white'/>
-            </g>
-            <defs>
-            <filter id='filter0_d_210_796' x='0' y='0' width='127' height='127' filterUnits='userSpaceOnUse' color-interpolation-filters='sRGB'>
-            <feFlood flood-opacity='0' result='BackgroundImageFix'/>
-            <feColorMatrix in='SourceAlpha' type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0' result='hardAlpha'/>
-            <feOffset dy='4'/>
-            <feGaussianBlur stdDeviation='4'/>
-            <feComposite in2='hardAlpha' operator='out'/>
-            <feColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'/>
-            <feBlend mode='normal' in2='BackgroundImageFix' result='effect1_dropShadow_210_796'/>
-            <feBlend mode='normal' in='SourceGraphic' in2='effect1_dropShadow_210_796' result='shape'/>
-            </filter>
-            </defs>
-          </svg>
+          <img :src='shootIcon' class='w-20 h-20 lg:w-32 lg:h-32' />
         </button>
 
         <!-- <div class='flex-grow'>
@@ -62,6 +45,8 @@ import { onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
 import { stream, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg } from '../use/useMedia.js'
 
 import { init, animate, onWindowResize, videoSprite, scene, cameraShader, renderer } from '../use/useShader.js'
+
+import shootIcon from '~/assets/svg/shoot.svg'
 
 export default {
   name: 'CameraStream',
@@ -119,7 +104,8 @@ export default {
       renderer,
       videoSprite,
       cvsContainer,
-      startShader
+      startShader,
+      shootIcon
     }
   }
 }
