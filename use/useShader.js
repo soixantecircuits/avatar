@@ -178,7 +178,7 @@ function init (video) {
     // groupSlash.scale.y *= -1
     // streatch vertically the slash on mobile
     if (window.innerWidth < 768) {
-      groupSlash.scale.set(0.0025, 0.0008, 0.0008)
+      groupSlash.scale.set(0.0015, 0.0008, 0.0008)
     }
 
     groupSlash.renderOrder = 1
@@ -312,13 +312,13 @@ async function animate () {
     plane.position.x += -1
   }
 
-  // renderer.render(scene, cameraShader)
-  videoSprite.material = darkMaterial
-  // // plane.material = darkMaterial
-  bloomComposer.render()
-  videoSprite.material = videoMaterial
-  // plane.material = planeMaterial
-  finalComposer.render()
+  renderer.render(scene, cameraShader)
+  // videoSprite.material = darkMaterial
+  // // // plane.material = darkMaterial
+  // bloomComposer.render()
+  // videoSprite.material = videoMaterial
+  // // plane.material = planeMaterial
+  // finalComposer.render()
 }
 
 function onWindowResize () {
