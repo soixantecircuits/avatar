@@ -178,7 +178,7 @@ function init (video) {
     // groupSlash.scale.y *= -1
     // streatch vertically the slash on mobile
     if (window.innerWidth < 768) {
-      groupSlash.scale.set(0.0025, 0.0008, 0.0008)
+      groupSlash.scale.set(0.00125, 0.0004, 0.0004)
     }
 
     groupSlash.renderOrder = 1
@@ -298,7 +298,7 @@ function onTouchEvent (event) {
   pos.x = Math.max(minX, Math.min(maxX, pos.x))
   pos.y = Math.max(minY, Math.min(maxY, pos.y))
 
-  groupSlash.scale.set(0.0025, 0.0008, 0.0008)
+  groupSlash.scale.set(0.00125, 0.0004, 0.0004)
   groupSlash.position.copy(pos)
 }
 
