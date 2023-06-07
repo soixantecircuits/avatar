@@ -19,7 +19,6 @@
 <script>
 import { useCameraStore } from '~~/store'
 import { onMounted } from 'vue'
-import { stopShader } from '~~/use/useShader'
 
 export default {
   name: 'CameraCapture',

@@ -3,7 +3,7 @@
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
     <div class='height-70 w-8/12 flex flex-col space-y-7'>
       <div class='relative height-60  w-full flex flex-col '>
-        <img :src='img' class='h-full w-full image rounded-lg object-none object-left' />
+        <img :src='img' class='h-full w-full image rounded-lg lg:object-none lg:object-left object-cover' />
       </div>
       <div class='flex justify-center text-3xl font-semibold'>
         Terminé
