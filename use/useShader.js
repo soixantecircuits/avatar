@@ -312,13 +312,13 @@ async function animate () {
     plane.position.x += -1
   }
 
-  renderer.render(scene, cameraShader)
-  // videoSprite.material = darkMaterial
-  // // // plane.material = darkMaterial
-  // bloomComposer.render()
-  // videoSprite.material = videoMaterial
-  // // plane.material = planeMaterial
-  // finalComposer.render()
+  // renderer.render(scene, cameraShader)
+  videoSprite.material = darkMaterial
+  // // plane.material = darkMaterial
+  bloomComposer.render()
+  videoSprite.material = videoMaterial
+  // plane.material = planeMaterial
+  finalComposer.render()
 }
 
 function onWindowResize () {
