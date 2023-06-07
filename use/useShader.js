@@ -171,11 +171,15 @@ function init (video) {
   loader.load(svgSlash, function (data) {
     const paths = data.paths
     groupSlash = new THREE.Group()
-    groupSlash.scale.multiplyScalar(0.0008)
+    groupSlash.scale.set(0.0008, 0.0008, 0.0008)
     groupSlash.position.x = 0
     groupSlash.position.y = 0
     groupSlash.position.z = -1
     // groupSlash.scale.y *= -1
+    // undistort vertically the slash on mobile
+    if (window.innerWidth < 768) {
+      groupSlash.scale.y *= 0.8
+    }
 
     groupSlash.renderOrder = 1
     const colorRed = new THREE.Color(0x9F7BFF)
@@ -296,6 +300,7 @@ function onTouchEvent (event) {
 
   groupSlash.scale.set(0.0004, 0.0004, 0.0004)
   groupSlash.position.copy(pos)
+  groupSlash.scale.y *= 0.8
 }
 
 async function animate () {
