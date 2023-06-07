@@ -307,7 +307,6 @@ function onTouchEvent (event) {
 async function animate (raf) {
   const camStore = useCameraStore()
   if (camStore.cameraOpen) {
-    console.log('animate')
     raf = requestAnimationFrame(animate)
 
     // // Plane animation translation
