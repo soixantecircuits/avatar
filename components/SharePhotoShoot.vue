@@ -2,7 +2,7 @@
   <div class='h-5/6 w-full flex flex-col absolute bottom-0 layer-text'>
     <div class='h-full w-full flex flex-row justify-center space-x-7'>
     <div class='height-70 w-8/12 flex flex-col space-y-7'>
-      <div class='relative height-60 w-full flex flex-col '>
+      <div class='relative lg:height-60 height-55 w-full flex flex-col '>
         <img :src='img' class='h-full w-full image rounded-lg lg:object-none lg:object-left object-center object-cover' />
       </div>
       <div class='flex justify-center text-3xl font-semibold'>
