@@ -178,7 +178,7 @@ function init (video) {
     // groupSlash.scale.y *= -1
     // streatch vertically the slash on mobile
     if (window.innerWidth < 768) {
-      groupSlash.scale.set(0.0015, 0.0008, 0.0008)
+      groupSlash.scale.set(0.0025, 0.0008, 0.0008)
     }
 
     groupSlash.renderOrder = 1
