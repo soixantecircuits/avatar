@@ -30,6 +30,10 @@
     height: 60vh;
   }
 
+  .height-50 {
+    height: 50vh;
+  }
+
   .low-highlight {
     background: linear-gradient(to bottom, transparent 50%, #5C64EC 50%);
   }
