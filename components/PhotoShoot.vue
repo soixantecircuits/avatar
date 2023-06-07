@@ -40,7 +40,7 @@
 <script>
 
 import { useCameraStore } from '~~/store'
-import { onBeforeMount, onMounted, onBeforeUnmount } from 'vue'
+import { onBeforeMount, onMounted, onUnmounted } from 'vue'
 
 import { stream, img, cvsContainer, startCamera, stopCamera, getCanvas, captureImg } from '../use/useMedia.js'
 
@@ -73,18 +73,17 @@ export default {
     })
 
     onMounted(() => {
-      video.addEventListener('loadeddata', async () => {
+      video.addEventListener('loadeddata', () => {
         startShader()
       })
     })
 
-    onBeforeUnmount(() => {
+    onUnmounted(() => {
       stopCamera(video)
       window.removeEventListener('resize', onWindowResize, false)
-      video.removeEventListener('loadeddata', async () => {
-        startShader()
+      video.removeEventListener('loadeddata', () => {
+        stopShader()
       })
-      stopShader()
     })
 
     return {

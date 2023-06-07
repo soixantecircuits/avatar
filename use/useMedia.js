@@ -42,7 +42,7 @@ function stopCamera (video) {
 
 function getCanvas (video) {
   const camStore = useCameraStore()
-  animate()
+  animate(1)
   if (camStore.cameraOpen) {
     const canvas = document.createElement('canvas')
     canvas.width = canvashader.width

@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 
+import { useCameraStore } from '~~/store'
+
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
@@ -302,23 +304,27 @@ function onTouchEvent (event) {
   groupSlash.position.copy(pos)
 }
 
-async function animate () {
-  raf = requestAnimationFrame(animate)
+async function animate (raf) {
+  const camStore = useCameraStore()
+  if (camStore.cameraOpen) {
+    console.log('animate')
+    raf = requestAnimationFrame(animate)
 
-  // // Plane animation translation
-  if (plane.position.x < 0.5) {
-    plane.position.x += 0.001
-  } else {
-    plane.position.x += -1
+    // // Plane animation translation
+    if (plane.position.x < 0.5) {
+      plane.position.x += 0.001
+    } else {
+      plane.position.x += -1
+    }
+
+    // renderer.render(scene, cameraShader)
+    videoSprite.material = darkMaterial
+    // // plane.material = darkMaterial
+    bloomComposer.render()
+    videoSprite.material = videoMaterial
+    // plane.material = planeMaterial
+    finalComposer.render()
   }
-
-  // renderer.render(scene, cameraShader)
-  videoSprite.material = darkMaterial
-  // // plane.material = darkMaterial
-  bloomComposer.render()
-  videoSprite.material = videoMaterial
-  // plane.material = planeMaterial
-  finalComposer.render()
 }
 
 function onWindowResize () {
@@ -333,8 +339,8 @@ function onWindowResize () {
   cameraShader.updateProjectionMatrix()
 }
 
-function stopShader () {
-  cancelAnimationFrame(raf)
+function stopShader (raf) {
+  window.cancelAnimationFrame(raf)
   raf = null
   renderer = null
   videoSprite = null
