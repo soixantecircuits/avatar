@@ -1,5 +1,7 @@
 import * as THREE from 'three'
 
+import { useCameraStore } from '~~/store'
+
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
@@ -302,23 +304,26 @@ function onTouchEvent (event) {
   groupSlash.position.copy(pos)
 }
 
-async function animate () {
-  raf = requestAnimationFrame(animate)
+async function animate (raf) {
+  const camStore = useCameraStore()
+  if (camStore.cameraOpen) {
+    raf = requestAnimationFrame(animate)
 
-  // // Plane animation translation
-  if (plane.position.x < 0.5) {
-    plane.position.x += 0.001
-  } else {
-    plane.position.x += -1
+    // // Plane animation translation
+    if (plane.position.x < 0.5) {
+      plane.position.x += 0.001
+    } else {
+      plane.position.x += -1
+    }
+
+    // renderer.render(scene, cameraShader)
+    videoSprite.material = darkMaterial
+    // // plane.material = darkMaterial
+    bloomComposer.render()
+    videoSprite.material = videoMaterial
+    // plane.material = planeMaterial
+    finalComposer.render()
   }
-
-  // renderer.render(scene, cameraShader)
-  videoSprite.material = darkMaterial
-  // // plane.material = darkMaterial
-  bloomComposer.render()
-  videoSprite.material = videoMaterial
-  // plane.material = planeMaterial
-  finalComposer.render()
 }
 
 function onWindowResize () {
@@ -331,10 +336,35 @@ function onWindowResize () {
 
   cameraShader.aspect = 1
   cameraShader.updateProjectionMatrix()
+}
 
-//   renderer.setSize(width, height)
-//   bloomComposer.setSize(width, height)
-//   finalComposer.setSize(width, height)
+function stopShader (raf) {
+  window.cancelAnimationFrame(raf)
+  raf = null
+  renderer = null
+  videoSprite = null
+  videoMaterial = null
+  tex = null
+  bloomComposer = null
+  bloomPass = null
+  finalPass = null
+  finalComposer = null
+  darkMaterial = null
+  groupSlash = null
+  groupTextTop = null
+  plane = null
+  planeMaterial = null
+  planeGeometry = null
+  scene = null
+  cameraShader = null
+  renderer = null
+  canvashader = null
+  window.removeEventListener('mousedown', onMouseDown)
+  window.removeEventListener('mouseup', onMouseUp)
+  window.removeEventListener('mousemove', onMouseMove)
+  window.removeEventListener('touchstart', onMouseDown)
+  window.removeEventListener('touchend', onMouseUp)
+  window.removeEventListener('touchmove', onTouchEvent)
 }
 
 export {
@@ -347,5 +377,6 @@ export {
   scene,
   cameraShader,
   renderer,
-  canvashader
+  canvashader,
+  stopShader
 }
