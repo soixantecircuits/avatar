@@ -212,56 +212,58 @@ function init (video) {
     }
   })
 
-  // Plane with image texture the text on top
-  planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
-  planeMaterial = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(TextureTextTop),
-    color: 'white',
-    transparent: true
-  })
-  plane = new THREE.Mesh(planeGeometry, planeMaterial)
-  plane.scale.set(0.4, 0.05, 0.5)
-  const canvasW = canvashader.width
-  const canvasH = canvashader.height
-  plane.position.x = -canvasW / -20000
-  plane.position.y = canvasW / 8000
-  plane.position.z = -1
+  if (window.innerWidth >= 768) {
 
-  plane.scale.x *= -1
-  scene.add(plane)
+    // Plane with image texture the text on top
+    planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
+    planeMaterial = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(TextureTextTop),
+      color: 'white',
+      transparent: true
+    })
+    plane = new THREE.Mesh(planeGeometry, planeMaterial)
+    plane.scale.set(0.4, 0.05, 0.5)
+    const canvasW = canvashader.width
+    const canvasH = canvashader.height
+    plane.position.x = -canvasW / -20000
+    plane.position.y = canvasW / 8000
+    plane.position.z = -1
 
-  // Plane with image texture the text on top
-  planeGeometry1 = new THREE.PlaneGeometry(1, 1, 1)
-  planeMaterial1 = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(TextureTextTop),
-    color: 'white',
-    transparent: true
-  })
-  plane1 = new THREE.Mesh(planeGeometry1, planeMaterial1)
-  plane1.scale.set(0.4, 0.05, 0.5)
-  plane1.position.x = -canvasW / 3800
-  plane1.position.y = canvasW / 8000
-  plane1.position.z = -1
+    plane.scale.x *= -1
+    scene.add(plane)
 
-  plane1.scale.x *= -1
-  scene.add(plane1)
+    // Plane with image texture the text on top
+    planeGeometry1 = new THREE.PlaneGeometry(1, 1, 1)
+    planeMaterial1 = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(TextureTextTop),
+      color: 'white',
+      transparent: true
+    })
+    plane1 = new THREE.Mesh(planeGeometry1, planeMaterial1)
+    plane1.scale.set(0.4, 0.05, 0.5)
+    plane1.position.x = -canvasW / 3800
+    plane1.position.y = canvasW / 8000
+    plane1.position.z = -1
 
-  // Plane with image texture the text on top
-  planeGeometry2 = new THREE.PlaneGeometry(1, 1, 1)
-  planeMaterial2 = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load(TextureTextTop),
-    color: 'white',
-    transparent: true
-  })
-  plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2)
-  plane2.scale.set(0.4, 0.05, 0.5)
-  plane2.position.x = -canvasW / 1750
-  plane2.position.y = canvasW / 8000
-  plane2.position.z = -1
+    plane1.scale.x *= -1
+    scene.add(plane1)
 
-  plane2.scale.x *= -1
-  scene.add(plane2)
+    // Plane with image texture the text on top
+    planeGeometry2 = new THREE.PlaneGeometry(1, 1, 1)
+    planeMaterial2 = new THREE.MeshBasicMaterial({
+      map: new THREE.TextureLoader().load(TextureTextTop),
+      color: 'white',
+      transparent: true
+    })
+    plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2)
+    plane2.scale.set(0.4, 0.05, 0.5)
+    plane2.position.x = -canvasW / 1750
+    plane2.position.y = canvasW / 8000
+    plane2.position.z = -1
 
+    plane2.scale.x *= -1
+    scene.add(plane2)
+  }
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
   window.addEventListener('mousemove', onMouseMove)
@@ -349,22 +351,23 @@ async function animate (raf) {
   if (camStore.cameraOpen) {
     raf = requestAnimationFrame(animate)
 
-    // make the planes animate in conitnuous loop like a band one after the other
-    plane.position.x += 0.0005
-    plane1.position.x += 0.0005
-    plane2.position.x += 0.0005
+    if (window.innerWidth >= 768) {
+      // make the planes animate in conitnuous loop like a band one after the other
+      plane.position.x += 0.0005
+      plane1.position.x += 0.0005
+      plane2.position.x += 0.0005
 
-    // when the plane is out of the screen, reset its position right after the other plane current position
-    if (plane.position.x > 0.6) {
-      plane.position.x = plane2.position.x - 0.4
+      // when the plane is out of the screen, reset its position right after the other plane current position
+      if (plane.position.x > 0.6) {
+        plane.position.x = plane2.position.x - 0.4
+      }
+      if (plane1.position.x > 0.6) {
+        plane1.position.x = plane.position.x - 0.4
+      }
+      if (plane2.position.x > 0.6) {
+        plane2.position.x = plane1.position.x - 0.4
+      }
     }
-    if (plane1.position.x > 0.6) {
-      plane1.position.x = plane.position.x - 0.4
-    }
-    if (plane2.position.x > 0.6) {
-      plane2.position.x = plane1.position.x - 0.4
-    }
-
     // renderer.render(scene, cameraShader)
     videoSprite.material = darkMaterial
     // // plane.material = darkMaterial
