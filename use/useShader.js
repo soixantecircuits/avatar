@@ -1,7 +1,5 @@
 import * as THREE from 'three'
 
-import { useCameraStore } from '~~/store'
-
 import fragmentShader from '../shaders/frag.glsl'
 import vertexShader from '../shaders/vert.glsl'
 
@@ -11,7 +9,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -83,10 +81,9 @@ function init (video) {
   cameraShader = new THREE.PerspectiveCamera(13, 1, 0.1, 1000)
   scene.add(cameraShader)
   cameraShader.position.z = 1
-  cameraShader.position.y = -0.018
 
-  const controls = new OrbitControls(cameraShader, renderer.domElement)
-  controls.screenSpacePanning = true
+  // const controls = new OrbitControls(cameraShader, renderer.domElement)
+  // controls.screenSpacePanning = true
 
   // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
@@ -165,7 +162,6 @@ function init (video) {
 
   videoSprite = new THREE.Sprite(videoMaterial)
   videoSprite.position.z = -3
-  videoSprite.position.y = -0.04
   videoSprite.renderOrder = 2
 
   scene.add(videoSprite)
@@ -306,26 +302,23 @@ function onTouchEvent (event) {
   groupSlash.position.copy(pos)
 }
 
-async function animate (raf) {
-  const camStore = useCameraStore()
-  if (camStore.cameraOpen) {
-    raf = requestAnimationFrame(animate)
+async function animate () {
+  raf = requestAnimationFrame(animate)
 
-    // // Plane animation translation
-    if (plane.position.x < 0.5) {
-      plane.position.x += 0.001
-    } else {
-      plane.position.x += -1
-    }
-
-    // renderer.render(scene, cameraShader)
-    videoSprite.material = darkMaterial
-    // // plane.material = darkMaterial
-    bloomComposer.render()
-    videoSprite.material = videoMaterial
-    // plane.material = planeMaterial
-    finalComposer.render()
+  // // Plane animation translation
+  if (plane.position.x < 0.5) {
+    plane.position.x += 0.001
+  } else {
+    plane.position.x += -1
   }
+
+  // renderer.render(scene, cameraShader)
+  videoSprite.material = darkMaterial
+  // // plane.material = darkMaterial
+  bloomComposer.render()
+  videoSprite.material = videoMaterial
+  // plane.material = planeMaterial
+  finalComposer.render()
 }
 
 function onWindowResize () {
@@ -338,40 +331,10 @@ function onWindowResize () {
 
   cameraShader.aspect = 1
   cameraShader.updateProjectionMatrix()
-  if (window.innerWidth < 768) {
-    cameraShader.position.y = -0.09
-  } else {
-    cameraShader.position.y = -0.018
-  }
-}
 
-function stopShader (raf) {
-  window.cancelAnimationFrame(raf)
-  raf = null
-  renderer = null
-  videoSprite = null
-  videoMaterial = null
-  tex = null
-  bloomComposer = null
-  bloomPass = null
-  finalPass = null
-  finalComposer = null
-  darkMaterial = null
-  groupSlash = null
-  groupTextTop = null
-  plane = null
-  planeMaterial = null
-  planeGeometry = null
-  scene = null
-  cameraShader = null
-  renderer = null
-  canvashader = null
-  window.removeEventListener('mousedown', onMouseDown)
-  window.removeEventListener('mouseup', onMouseUp)
-  window.removeEventListener('mousemove', onMouseMove)
-  window.removeEventListener('touchstart', onMouseDown)
-  window.removeEventListener('touchend', onMouseUp)
-  window.removeEventListener('touchmove', onTouchEvent)
+//   renderer.setSize(width, height)
+//   bloomComposer.setSize(width, height)
+//   finalComposer.setSize(width, height)
 }
 
 export {
@@ -384,6 +347,5 @@ export {
   scene,
   cameraShader,
   renderer,
-  canvashader,
-  stopShader
+  canvashader
 }
