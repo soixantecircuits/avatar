@@ -336,7 +336,8 @@ function onWindowResize () {
   canvashader.style.width = width + 'px'
   canvashader.style.height = height + 'px'
 
-  // the cameraShader needs to be updated when the window width is decreased so the camera should be up a bit
+  cameraShader.aspect = 1
+  cameraShader.updateProjectionMatrix()
   if (window.innerWidth < 768) {
     cameraShader.position.y = -0.09
   } else {
