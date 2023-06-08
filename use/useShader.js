@@ -83,11 +83,7 @@ function init (video) {
   cameraShader = new THREE.PerspectiveCamera(13, 1, 0.1, 1000)
   scene.add(cameraShader)
   cameraShader.position.z = 1
-  if (window.innerWidth < 768) {
-    cameraShader.position.y = -0.09
-  } else {
-    cameraShader.position.y = -0.018
-  }
+  cameraShader.position.y = -0.018
 
   const controls = new OrbitControls(cameraShader, renderer.domElement)
   controls.screenSpacePanning = true
