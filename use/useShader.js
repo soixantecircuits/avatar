@@ -11,7 +11,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -92,8 +92,8 @@ function init (video) {
   scene.add(cameraShader)
   cameraShader.position.z = 1
 
-  const controls = new OrbitControls(cameraShader, renderer.domElement)
-  controls.screenSpacePanning = true
+  // const controls = new OrbitControls(cameraShader, renderer.domElement)
+  // controls.screenSpacePanning = true
 
   // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
