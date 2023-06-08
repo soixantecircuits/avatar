@@ -11,7 +11,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -83,9 +83,14 @@ function init (video) {
   cameraShader = new THREE.PerspectiveCamera(13, 1, 0.1, 1000)
   scene.add(cameraShader)
   cameraShader.position.z = 1
+  if (window.innerWidth < 768) {
+    cameraShader.position.y = -0.09
+  } else {
+    cameraShader.position.y = -0.018
+  }
 
-  // const controls = new OrbitControls(cameraShader, renderer.domElement)
-  // controls.screenSpacePanning = true
+  const controls = new OrbitControls(cameraShader, renderer.domElement)
+  controls.screenSpacePanning = true
 
   // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
@@ -164,6 +169,7 @@ function init (video) {
 
   videoSprite = new THREE.Sprite(videoMaterial)
   videoSprite.position.z = -3
+  videoSprite.position.y = -0.04
   videoSprite.renderOrder = 2
 
   scene.add(videoSprite)
@@ -334,8 +340,12 @@ function onWindowResize () {
   canvashader.style.width = width + 'px'
   canvashader.style.height = height + 'px'
 
-  cameraShader.aspect = 1
-  cameraShader.updateProjectionMatrix()
+  // the cameraShader needs to be updated when the window width is decreased so the camera should be up a bit
+  if (window.innerWidth < 768) {
+    cameraShader.position.y = -0.09
+  } else {
+    cameraShader.position.y = -0.018
+  }
 }
 
 function stopShader (raf) {
