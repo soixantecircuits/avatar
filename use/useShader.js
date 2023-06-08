@@ -11,7 +11,7 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import { cvsContainer } from '../use/useMedia.js'
 
@@ -46,6 +46,14 @@ let groupTextTop = null
 let plane = null
 let planeMaterial = null
 let planeGeometry = null
+
+let plane1 = null
+let planeMaterial1 = null
+let planeGeometry1 = null
+
+let plane2 = null
+let planeMaterial2 = null
+let planeGeometry2 = null
 
 function init (video) {
   // render
@@ -84,8 +92,8 @@ function init (video) {
   scene.add(cameraShader)
   cameraShader.position.z = 1
 
-  // const controls = new OrbitControls(cameraShader, renderer.domElement)
-  // controls.screenSpacePanning = true
+  const controls = new OrbitControls(cameraShader, renderer.domElement)
+  controls.screenSpacePanning = true
 
   // Light the scene
   const spotLight = new THREE.SpotLight(0xffffbb, 1)
@@ -222,6 +230,38 @@ function init (video) {
   plane.scale.x *= -1
   scene.add(plane)
 
+  // Plane with image texture the text on top
+  planeGeometry1 = new THREE.PlaneGeometry(1, 1, 1)
+  planeMaterial1 = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load(TextureTextTop),
+    color: 'white',
+    transparent: true
+  })
+  plane1 = new THREE.Mesh(planeGeometry1, planeMaterial1)
+  plane1.scale.set(0.4, 0.05, 0.5)
+  plane1.position.x = -canvasW / 3800
+  plane1.position.y = canvasW / 8000
+  plane1.position.z = -1
+
+  plane1.scale.x *= -1
+  scene.add(plane1)
+
+  // Plane with image texture the text on top
+  planeGeometry2 = new THREE.PlaneGeometry(1, 1, 1)
+  planeMaterial2 = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load(TextureTextTop),
+    color: 'white',
+    transparent: true
+  })
+  plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2)
+  plane2.scale.set(0.4, 0.05, 0.5)
+  plane2.position.x = -canvasW / 1750
+  plane2.position.y = canvasW / 8000
+  plane2.position.z = -1
+
+  plane2.scale.x *= -1
+  scene.add(plane2)
+
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
   window.addEventListener('mousemove', onMouseMove)
@@ -309,11 +349,20 @@ async function animate (raf) {
   if (camStore.cameraOpen) {
     raf = requestAnimationFrame(animate)
 
-    // // Plane animation translation
-    if (plane.position.x < 0.5) {
-      plane.position.x += 0.001
-    } else {
-      plane.position.x += -1
+    // make the planes animate in conitnuous loop like a band one after the other
+    plane.position.x += 0.0005
+    plane1.position.x += 0.0005
+    plane2.position.x += 0.0005
+
+    // when the plane is out of the screen, reset its position right after the other plane current position
+    if (plane.position.x > 0.6) {
+      plane.position.x = plane2.position.x - 0.4
+    }
+    if (plane1.position.x > 0.6) {
+      plane1.position.x = plane.position.x - 0.4
+    }
+    if (plane2.position.x > 0.6) {
+      plane2.position.x = plane1.position.x - 0.4
     }
 
     // renderer.render(scene, cameraShader)
@@ -353,8 +402,11 @@ function stopShader (raf) {
   groupSlash = null
   groupTextTop = null
   plane = null
+  plane1 = null
   planeMaterial = null
+  planeMaterial1 = null
   planeGeometry = null
+  planeGeometry1 = null
   scene = null
   cameraShader = null
   renderer = null
