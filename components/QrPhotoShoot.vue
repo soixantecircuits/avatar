@@ -11,7 +11,7 @@
           </button>
         <div class='flex flex-col lg:items-center space-y-2 z-40 drop-shadow-2xl'>
           <div class='text:xl lg:text-3xl font-semibold drop-shadow-2xl'>
-            Scannez le <span class='low-highlight'> QR code </span> generé !
+            Scannez le <span class='low-highlight'> QR code</span> generé !
           </div>
           <div class='w-28 h-28 lg:w-52 lg:h-52 bg-white flex justify-center items-center rounded-xl space-y-10'>
             <qrcode-vue class='drop-shadow-2xl' :value='camStore.linkToImg' :size='changeQRCodeSize()' foreground= '#1F2937' background='white' level='L' @scan='handleQRCodeScan' />
