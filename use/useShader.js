@@ -212,8 +212,10 @@ function init (video) {
     }
   })
 
-  if (window.innerWidth >= 768) {
+  const canvasW = canvashader.width
+  const canvasH = canvashader.height
 
+  if (window.innerWidth >= 768) {
     // Plane with image texture the text on top
     planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
     planeMaterial = new THREE.MeshBasicMaterial({
@@ -223,8 +225,6 @@ function init (video) {
     })
     plane = new THREE.Mesh(planeGeometry, planeMaterial)
     plane.scale.set(0.4, 0.05, 0.5)
-    const canvasW = canvashader.width
-    const canvasH = canvashader.height
     plane.position.x = -canvasW / -20000
     plane.position.y = canvasW / 8000
     plane.position.z = -1
@@ -241,7 +241,7 @@ function init (video) {
     })
     plane1 = new THREE.Mesh(planeGeometry1, planeMaterial1)
     plane1.scale.set(0.4, 0.05, 0.5)
-    plane1.position.x = -canvasW / 3800
+    plane1.position.x = plane.position.x - 0.4
     plane1.position.y = canvasW / 8000
     plane1.position.z = -1
 
@@ -257,13 +257,24 @@ function init (video) {
     })
     plane2 = new THREE.Mesh(planeGeometry2, planeMaterial2)
     plane2.scale.set(0.4, 0.05, 0.5)
-    plane2.position.x = -canvasW / 1750
+    plane2.position.x = plane1.position.x - 0.4
     plane2.position.y = canvasW / 8000
     plane2.position.z = -1
 
     plane2.scale.x *= -1
     scene.add(plane2)
   }
+
+  if (window.innerHeight <= 768) {
+    plane.position.y = canvasW / 15000
+    plane1.position.y = canvasW / 15000
+    plane2.position.y = canvasW / 15000
+
+    plane.position.x = -canvasW / 20000
+    plane1.position.x = plane.position.x - 0.4
+    plane2.position.x = plane1.position.x - 0.4
+  }
+
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
   window.addEventListener('mousemove', onMouseMove)
