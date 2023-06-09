@@ -1,18 +1,9 @@
 import { useCameraStore } from '~~/store'
 
 function downloadImage () {
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-
   const img = document.querySelector('.image')
 
-  canvas.width = img.width
-  canvas.height = img.height
-
-  ctx.drawImage(img, 0, 65, img.width, img.height, 0, 0, img.width, img.height)
-  // ctx.drawImage(img, 0, 0, img.width, img.height)
-
-  const data = canvas.toDataURL('image/png')
+  const data = img.src
 
   const link = document.createElement('a')
   link.download = 'your-picture.png'
