@@ -265,7 +265,7 @@ function init (video) {
     scene.add(plane2)
   }
 
-  if (window.innerHeight <= 768) {
+  if (window.innerHeight <= 768 && window.innerWidth > 768) {
     plane.position.y = canvasW / 15000
     plane1.position.y = canvasW / 15000
     plane2.position.y = canvasW / 15000
