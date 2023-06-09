@@ -110,8 +110,8 @@ function init (video) {
   bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0
   bloomPass.strength = 4
-  bloomPass.radius = 1.2
-  bloomPass.exposure = 2
+  bloomPass.radius = 1.3
+  bloomPass.exposure = 1
   bloomComposer.addPass(bloomPass)
   bloomComposer.renderToScreen = false
 
@@ -270,7 +270,7 @@ function init (video) {
     plane1.position.y = canvasW / 15000
     plane2.position.y = canvasW / 15000
 
-    plane.position.x = -canvasW / 20000
+    plane.position.x = -canvasW / -20000
     plane1.position.x = plane.position.x - 0.4
     plane2.position.x = plane1.position.x - 0.4
   }
