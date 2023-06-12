@@ -266,9 +266,9 @@ function init (video) {
   }
 
   if (window.innerHeight <= 768 && window.innerWidth > 768) {
-    plane.position.y = canvasW / 11000
-    plane1.position.y = canvasW / 11000
-    plane2.position.y = canvasW / 11000
+    plane.position.y = canvasW / 10000
+    plane1.position.y = canvasW / 10000
+    plane2.position.y = canvasW / 10000
 
     plane.position.x = -canvasW / -20000
     plane1.position.x = plane.position.x - 0.4
