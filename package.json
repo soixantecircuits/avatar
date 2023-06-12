@@ -24,6 +24,7 @@
   "dependencies": {
     "@nuxt-hero-icons/outline": "^1.0.1",
     "@pinia/nuxt": "^0.4.2",
+    "@supabase/supabase-js": "^2.24.0",
     "@tensorflow-models/facemesh": "^0.0.5",
     "@tensorflow/tfjs": "^4.0.0",
     "@tensorflow/tfjs-backend-cpu": "^4.0.0",
