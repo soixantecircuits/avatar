@@ -14,21 +14,6 @@ function downloadImage () {
 async function saveImagetoDataBase () {
   const camStore = useCameraStore()
 
-  const canvas = document.createElement('canvas')
-  const ctx = canvas.getContext('2d')
-
-  const img = document.querySelector('.image')
-
-  canvas.width = img.width
-  canvas.height = img.height
-
-  ctx.drawImage(img, 0, 65, img.width, img.height, 0, 0, img.width, img.height)
-  // ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-
-  const imgEmailedData = canvas.toDataURL('image/png')
-
-  camStore.imgEmailed = imgEmailedData
-
   const date = new Date()
   const day = date.getDate()
   const month = date.getMonth() + 1
@@ -41,7 +26,7 @@ async function saveImagetoDataBase () {
   const imageurl = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/images/' + 'your-picture' + '-' + time + '.png'
   camStore.linkToImg = imageurl
 
-  const image = camStore.imgEmailed
+  const image = camStore.imgStored
   const formData = new FormData()
 
   // convert image to blob

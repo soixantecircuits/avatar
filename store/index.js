@@ -26,8 +26,6 @@ export const useCameraStore = defineStore('CameraStore', {
 
     imgStored: null,
 
-    imgEmailed: null,
-
     linkToImg: null,
 
     darkMode: false
