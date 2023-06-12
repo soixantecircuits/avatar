@@ -1,9 +1,9 @@
 import { useCameraStore } from '~~/store'
 
 function downloadImage () {
-  const img = document.querySelector('.image')
+  const camStore = useCameraStore()
 
-  const data = img.src
+  const data = camStore.imgStored
 
   const link = document.createElement('a')
   link.download = 'your-picture.png'
