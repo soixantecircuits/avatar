@@ -379,6 +379,7 @@ async function animate (raf) {
         plane2.position.x = plane1.position.x - 0.4
       }
     }
+
     // renderer.render(scene, cameraShader)
     videoSprite.material = darkMaterial
     // // plane.material = darkMaterial
