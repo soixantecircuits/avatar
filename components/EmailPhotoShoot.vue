@@ -103,7 +103,7 @@ export default {
 
     const changeInputColor = () => {
       if (camStore.darkMode === true) {
-        return 'bg-white'
+        return 'bg-white, text-gray-800'
       } else if (camStore.darkMode === false) {
         return 'bg-gray-800'
       }
