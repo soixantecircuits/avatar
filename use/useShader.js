@@ -265,15 +265,15 @@ function init (video) {
     scene.add(plane2)
   }
 
-  if (window.innerHeight <= 768 && window.innerWidth > 768) {
-    plane.position.y = canvasW / 15000
-    plane1.position.y = canvasW / 15000
-    plane2.position.y = canvasW / 15000
+  // if (window.innerHeight <= 768 && window.innerWidth > 768) {
+  //   plane.position.y = canvasW / 15000
+  //   plane1.position.y = canvasW / 15000
+  //   plane2.position.y = canvasW / 15000
 
-    plane.position.x = -canvasW / -20000
-    plane1.position.x = plane.position.x - 0.4
-    plane2.position.x = plane1.position.x - 0.4
-  }
+  //   plane.position.x = -canvasW / -20000
+  //   plane1.position.x = plane.position.x - 0.4
+  //   plane2.position.x = plane1.position.x - 0.4
+  // }
 
   window.addEventListener('mousedown', onMouseDown)
   window.addEventListener('mouseup', onMouseUp)
