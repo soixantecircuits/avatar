@@ -13,12 +13,12 @@
       </svg>
     </div>
 
-    <div v-if='camStore.cameraOpen' class='h-5/6 layer-text'>
+    <div v-if='camStore.cameraOpen' class='layer-text'>
       <div class='ping-animation lg:text-3xl text-xl font-black text-center low-highlight layer-text md: mt-24 lg:mt-16 xl:mt-20' @click='camStore.initializeStartPage()'>
         Move the // Light !
       </div>
 
-      <div class='w-full absolute bottom-0 layer-text' ref='cvsContainer'> </div>
+      <div class='height-85 w-full absolute bottom-0 layer-text' ref='cvsContainer'> </div>
 
       <div class='w-full h-1/5 absolute bottom-0 flex justify-center filter-bar layer-text'>
         <!-- <div class='flex flex-row flex-grow justify-end space-x-5'>
