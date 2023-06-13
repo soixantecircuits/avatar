@@ -62,7 +62,7 @@ export default {
     }
 
     const filteredImages = computed(() => {
-      return images.value.filter(image => image.name !== '.emptyFolderPlaceholder');
+      return images.value.filter(image => image.name !== '.emptyFolderPlaceholder')
     })
 
     onMounted(() => {
