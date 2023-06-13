@@ -30,22 +30,34 @@ export default {
     const camStore = useCameraStore()
     const images = ref([])
 
+    let selectedImageIDs = [];
+
     async function readFromDatabase() {
       const { data, error } = await supabase
         .storage
-        .from('images')
-        .list('', { limit: 8 })
+        .from('gallery')
+        .list('', { limit: 1000 })
 
       if (error) {
         console.log(error)
       } else {
-        const shuffledData = data.sort(() => Math.random() - 0.5).slice(0, 8)
+        const availableImages = data.filter(image => !selectedImageIDs.includes(image.id))
+        const shuffledData = shuffleArray(availableImages).slice(0, 7)
+        selectedImageIDs = shuffledData.map(image => image.id)
         images.value = shuffledData
       }
     }
 
+    function shuffleArray (array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]
+      }
+      return array
+    }
+
     function getURL (imagename) {
-      const url = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/images/' + imagename
+      const url = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/gallery/' + imagename
       return url
     }
 

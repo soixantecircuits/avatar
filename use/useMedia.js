@@ -3,6 +3,8 @@ import { useCameraStore } from '~~/store'
 
 import { animate, canvashader } from './useShader'
 
+import supabase from '~/plugins/supabase'
+
 const stream = ref(null)
 const img = ref(null)
 
@@ -57,7 +59,7 @@ function getCanvas (video) {
   }
 }
 
-function captureImg (video) {
+async function captureImg (video) {
   const camStore = useCameraStore()
 
   if (camStore.cameraOpen) {
@@ -70,6 +72,31 @@ function captureImg (video) {
     img.src = canvas.toDataURL('image/png')
 
     camStore.imgStored = img.src
+
+    const date = new Date()
+    const day = date.getDate()
+    const month = date.getMonth() + 1
+    const year = date.getFullYear()
+    const hour = date.getHours()
+    const minutes = date.getMinutes()
+    const seconds = date.getSeconds()
+    const time = day + '-' + month + '-' + year + '-' + hour + '-' + minutes + '-' + seconds
+
+    const image = camStore.imgStored
+    const blob = await fetch(image).then(r => r.blob())
+
+    if (camStore.displayInGallery) {
+      const { data, error } = await supabase
+        .storage
+        .from('gallery')
+        .upload('your-picture' + '-' + time + '.png', blob)
+
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('success')
+      }
+    }
   }
 }
 

@@ -30,7 +30,7 @@ export const useCameraStore = defineStore('CameraStore', {
 
     darkMode: false,
 
-    displayInGallery: false
+    displayInGallery: true
 
   }),
 
