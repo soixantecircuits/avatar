@@ -32,6 +32,9 @@ export default {
 
     onMounted(() => {
       setViewHeight()
+      window.addEventListener('resize', () => {
+        setViewHeight()
+      })
     })
 
     return {
