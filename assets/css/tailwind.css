@@ -6,9 +6,15 @@
   body {
     color: white;
     font-family: 'Rubik', sans-serif;
+    height: -webkit-fill-available;
   }
   ::selection {
     background: transparent;
+  }
+
+  html{
+    scroll-behavior: smooth;
+    height: -webkit-fill-available;
   }
 }
 
