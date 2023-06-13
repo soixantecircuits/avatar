@@ -18,9 +18,9 @@
         Move the // Light !
       </div>
 
-      <div class='w-full height-85 absolute bottom-0 layer-text' ref='cvsContainer'> </div>
+      <div class='absolute bottom-0 w-full height-85 layer-text' ref='cvsContainer'> </div>
 
-      <div class='w-full h-1/5 absolute bottom-0 flex justify-center filter-bar layer-text'>
+      <div class='absolute bottom-0 w-full h-1/5 flex justify-center filter-bar layer-text'>
         <!-- <div class='flex flex-row flex-grow justify-end space-x-5'>
         <div class='filter-names'>RGB</div>
         <div class='filter-names'>Pixelight</div>
