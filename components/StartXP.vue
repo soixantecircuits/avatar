@@ -37,9 +37,11 @@ export default {
       if (clickedCheckbox === 'show') {
         showInGallery.value = true
         hideInGallery.value = false
+        camStore.displayInGallery = true
       } else if (clickedCheckbox === 'hide') {
         showInGallery.value = false
         hideInGallery.value = true
+        camStore.displayInGallery = false
       }
     }
 

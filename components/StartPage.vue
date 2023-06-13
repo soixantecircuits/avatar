@@ -39,7 +39,6 @@ export default {
       if (error) {
         console.log(error)
       } else {
-        // Shuffle the images array to randomize the order
         const shuffledData = data.sort(() => Math.random() - 0.5).slice(0, 8)
         images.value = shuffledData
       }
