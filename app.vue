@@ -9,7 +9,6 @@
 
 <script>
 import { useCameraStore } from './store'
-import { onMounted } from '@vue/runtime-core'
 import icon from './static/icon.png'
 
 export default {
@@ -24,12 +23,6 @@ export default {
         return 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#4c1d95] to-[#000000]'
       }
     }
-
-    onMounted(() => {
-      document.ontouchstart = function (e) {
-        e.preventDefault()
-      }
-    })
     return {
       camStore,
       getBackgroundClasses
