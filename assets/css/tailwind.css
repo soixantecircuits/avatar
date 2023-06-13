@@ -7,6 +7,9 @@
     color: white;
     font-family: 'Rubik', sans-serif;
   }
+  ::selection {
+    background: transparent;
+  }
 }
 
 @layer components {
