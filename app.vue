@@ -26,7 +26,7 @@ export default {
     }
 
     function setViewHeight () {
-      const vh = window.innerHeight * 0.95
+      const vh = window.innerHeight
       document.getElementById('NuxtPage').style.height = `${vh}px`
     }
 
