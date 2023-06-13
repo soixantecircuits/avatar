@@ -13,7 +13,7 @@
       </svg>
     </div>
 
-    <div v-if='camStore.cameraOpen' class='h-5/6 layer-text'>
+    <div v-if='camStore.cameraOpen' class='h-screen layer-text'>
       <div class='ping-animation lg:text-3xl text-xl font-black text-center low-highlight layer-text md: mt-24 lg:mt-16 xl:mt-20' @click='camStore.initializeStartPage()'>
         Move the // Light !
       </div>
