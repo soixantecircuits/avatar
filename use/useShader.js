@@ -343,11 +343,10 @@ function onTouchEvent (event) {
   const distance = -cameraShader.position.z / dir.z
   const pos = cameraShader.position.clone().add(dir.multiplyScalar(distance))
 
-  // Clamp the position of groupSlash within the frame boundaries
   const minX = -0.5
   const maxX = 0.21
-  const minY = -0.15
-  const maxY = 0.03
+  const minY = -0.1
+  const maxY = 0.1
 
   // Clamp the x and y position of groupSlash within the boundaries
   pos.x = Math.max(minX, Math.min(maxX, pos.x))
