@@ -18,7 +18,7 @@
         Move the // Light !
       </div>
 
-      <div class='w-full absolute bottom-0 layer-text' ref='cvsContainer'> </div>
+      <div class='w-full h-5/6 absolute bottom-0 layer-text' ref='cvsContainer'> </div>
 
       <div class='w-full h-1/5 absolute bottom-0 flex justify-center filter-bar layer-text'>
         <!-- <div class='flex flex-row flex-grow justify-end space-x-5'>
