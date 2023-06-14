@@ -184,7 +184,7 @@
   @media (max-width: 1024px) {
     .image1 {
       position: relative;
-      left: 100%;
+      left: 45%;
       top: 50px;
       z-index: 10;
       width: 100px;
