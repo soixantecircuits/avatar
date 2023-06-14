@@ -10,7 +10,7 @@ Nuxt3 app that uses Three.js library
 
 In progress 🚧 🖇
 
-Test App : https://avatar-test.netlify.app/
+Test App : https://avatar-soixante-circuits.netlify.app/
 
 ## Setup
 
