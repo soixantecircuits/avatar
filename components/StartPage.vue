@@ -30,9 +30,9 @@ export default {
     const camStore = useCameraStore()
     const images = ref([])
 
-    let selectedImageIDs = [];
+    let selectedImageIDs = []
 
-    async function readFromDatabase() {
+    async function readFromDatabase () {
       const { data, error } = await supabase
         .storage
         .from('gallery')
@@ -41,7 +41,10 @@ export default {
       if (error) {
         console.log(error)
       } else {
-        const availableImages = data.filter(image => !selectedImageIDs.includes(image.id))
+        const availableImages = data
+          .filter(image => !selectedImageIDs.includes(image.id))
+          .filter(image => image.name !== '.emptyFolderPlaceholder')
+
         const shuffledData = shuffleArray(availableImages).slice(0, 7)
         selectedImageIDs = shuffledData.map(image => image.id)
         images.value = shuffledData
