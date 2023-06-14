@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class='h-screen layer-text'>
-      <img :src='img' class='image absolute bottom-0 w-full height-85 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text' />
+  <div class='h-5/6 overflow-hidden' >
+    <div class='height-85 layer-text'>
+      <img :src='img' class='image absolute bottom-0 w-full h-5/6 bg-[#0C0C0C] flex flex-col justify-center items-center layer-text' />
       </div>
       <div class='layer-text w-full h-1/5 space-y-5 absolute bottom-0 flex flex-col justify-center items-center filter-bar py-30'>
         <button class='flex flex-col justify-center items-center' @click='camStore.goToShare()'>
@@ -39,6 +39,7 @@ export default {
     onMounted(() => {
       document.querySelector('.image').src = camStore.imgStored
       document.querySelector('.image').style.objectFit = 'cover'
+      document.querySelector('.image').style.objectPosition = 'center'
     })
 
     return {
