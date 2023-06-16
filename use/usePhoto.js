@@ -5,8 +5,17 @@ function downloadImage () {
 
   const data = camStore.imgStored
 
+  const date = new Date()
+  const day = date.getDate()
+  const month = date.getMonth() + 1
+  const year = date.getFullYear()
+  const hour = date.getHours()
+  const minutes = date.getMinutes()
+  const seconds = date.getSeconds()
+  const time = day + '-' + month + '-' + year + '-' + hour + '-' + minutes + '-' + seconds
+
   const link = document.createElement('a')
-  link.download = 'your-picture.png'
+  link.download = 'your-picture' + '-' + time + '.png'
   link.href = data
   link.click()
 }
