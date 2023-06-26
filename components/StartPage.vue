@@ -36,7 +36,7 @@ export default {
       const { data, error } = await supabase
         .storage
         .from('gallery')
-        .list('', { limit: 1000 })
+        .list('validated-gallery/', { limit: 1000 })
 
       if (error) {
         console.log(error)
@@ -60,7 +60,7 @@ export default {
     }
 
     function getURL (imagename) {
-      const url = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/gallery/' + imagename
+      const url = 'https://piuidgbfculczkpeswnb.supabase.co/storage/v1/object/public/gallery/validated-gallery/' + imagename
       return url
     }
 
