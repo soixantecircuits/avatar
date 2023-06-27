@@ -8,17 +8,17 @@
     <email-photo-shoot v-if='!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && camStore.isStartMail & !camStore.isStartQR & !camStore.isStartShareMedia' />
     <qr-photo-shoot v-if='!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & camStore.isStartQR & !camStore.isStartShareMedia' />
     <share-social-media v-if='!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR & camStore.isStartShareMedia' />
-    <div
-    class='absolute bg-violet bottom-0 pointer-events-none'
+    <img
+    :src='cursor'
+    class='absolute bottom-0 pointer-events-none'
+
     :style='{
       left: `${x - 75}px`,
       top: `${y - 75}px`,
       width: `150px`,
       height: `150px`,
-      borderRadius: `50%`,
       filter: `blur(4rem)`
     }'>
-    </div>
 </div>
 </template>
 
@@ -30,6 +30,8 @@ import StartXP from '~~/components/StartXP.vue'
 import PhotoShoot from '~~/components/PhotoShoot.vue'
 import VerifPhotoShoot from '~~/components/VerifPhotoShoot.vue'
 import SharePhotoShoot from '~~/components/SharePhotoShoot.vue'
+
+import cursor from '~/assets/cursor.png'
 
 import { useMouse } from '@vueuse/core'
 
@@ -47,7 +49,8 @@ export default {
     return {
       camStore,
       x,
-      y
+      y,
+      cursor
     }
   }
 }
