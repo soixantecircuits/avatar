@@ -9,13 +9,13 @@
     <qr-photo-shoot v-if='!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & camStore.isStartQR & !camStore.isStartShareMedia' />
     <share-social-media v-if='!camStore.isStartPage && !camStore.isStartXp && !camStore.isStartShoot && !camStore.isStartVerif&& !camStore.isStartShare && !camStore.isStartMail & !camStore.isStartQR & camStore.isStartShareMedia' />
     <div
-    class='absolute bg-violet bottom-0 rounded-full blur-3xl pointer-events-none'
+    class='absolute bg-violet bottom-0 pointer-events-none'
     :style='{
       left: `${x - 75}px`,
       top: `${y - 75}px`,
       width: `150px`,
       height: `150px`,
-      borderRadius: `100%`,
+      borderRadius: `50%`
     }'>
     </div>
 </div>
