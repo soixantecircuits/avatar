@@ -187,7 +187,11 @@ function init (video) {
     groupSlash.position.z = -1
     // groupSlash.scale.y *= -1
     // streatch vertically the slash on mobile
-    if (window.innerWidth < 768) {
+    // if (window.innerWidth < 768) {
+    //   groupSlash.scale.set(0.00125, 0.0004, 0.0004)
+    // }
+
+    if (window.innerWidth < 1024 && window.innerHeight > window.innerWidth) {
       groupSlash.scale.set(0.00125, 0.0004, 0.0004)
     }
 
@@ -321,11 +325,7 @@ function onMouseMove (event) {
     pos.x = Math.max(minX, Math.min(maxX, pos.x))
     pos.y = Math.max(minY, Math.min(maxY, pos.y))
 
-    if (window.innerWidth >= 1024) {
-      groupSlash.scale.set(0.0004, 0.0004, 0.0004)
-    } else {
-      groupSlash.scale.set(0.000625, 0.0002, 0.0002)
-    }
+    groupSlash.scale.set(0.0004, 0.0004, 0.0004)
     groupSlash.position.copy(pos)
   }
 }
@@ -365,7 +365,7 @@ async function animate (raf) {
   if (camStore.cameraOpen) {
     raf = requestAnimationFrame(animate)
 
-    if (window.innerWidth >= 768) {
+    if (window.innerWidth >= 1024) {
       // make the planes animate in conitnuous loop like a band one after the other
       plane.position.x += 0.0005
       plane1.position.x += 0.0005
