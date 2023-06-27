@@ -13,10 +13,10 @@
     class='absolute bottom-0 pointer-events-none'
 
     :style='{
-      left: `${x - 150}px`,
-      top: `${y - 150}px`,
-      width: `300px`,
-      height: `300px`
+      left: `${x - 250}px`,
+      top: `${y - 250}px`,
+      width: `500px`,
+      height: `500px`
       }'>
 </div>
 </template>
@@ -30,7 +30,7 @@ import PhotoShoot from '~~/components/PhotoShoot.vue'
 import VerifPhotoShoot from '~~/components/VerifPhotoShoot.vue'
 import SharePhotoShoot from '~~/components/SharePhotoShoot.vue'
 
-import cursor from '~/assets/cursor2.png'
+import cursor from '~/assets/cursor.png'
 
 import { useMouse } from '@vueuse/core'
 
