@@ -13,30 +13,22 @@ const cvsContainer = ref(null)
 function startCamera (video) {
   const camStore = useCameraStore()
   if (!camStore.cameraOpen) {
-    const getUserMedia =
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia
+    navigator.mediaDevices.getUserMedia({
+      audio: false,
+      video: {
+        width: { min: 1280 },
+        height: { min: 720 }
+      }
+    }).then(stream => {
+      camStore.cameraOpen = true
 
-    if (getUserMedia) {
-      getUserMedia.call(navigator, {
-        audio: false,
-        video: {
-          width: { min: 1280 },
-          height: { min: 720 }
-        }
-      }, (stream) => {
-        camStore.cameraOpen = true
-        video.srcObject = stream
-        video.play();
-        stream.value = stream
-      }, (err) => {
+      video.srcObject = stream
+      video.play()
+      stream.value = stream
+    })
+      .catch(err => {
         console.log(err)
-      });
-    } else {
-      console.log('getUserMedia is not supported.')
-    }
+      })
   }
 }
 
