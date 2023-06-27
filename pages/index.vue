@@ -17,8 +17,7 @@
       top: `${y - 75}px`,
       width: `150px`,
       height: `150px`,
-      WebkitBackdropFilter: `blur(10px)`,
-      backdropFilter: `blur(10px)`
+      WebkitFilter: `blur(55px)`,
     }'>
 </div>
 </template>
