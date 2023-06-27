@@ -12,6 +12,10 @@ const cvsContainer = ref(null)
 
 function startCamera (video) {
   const camStore = useCameraStore()
+  video.setAttribute('playsinline', '')
+  video.setAttribute('muted', '')
+  video.setAttribute('autoplay', '')
+
   if (!camStore.cameraOpen) {
     navigator.mediaDevices.getUserMedia({
       audio: false,
