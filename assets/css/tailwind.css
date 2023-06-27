@@ -261,7 +261,7 @@
   }
   
 
-  @media (min-width: 481px) and (max-width: 1023px) and (orientation: portrait) {
+  @media (min-width: 481px) and (max-width: 1023px) and (orientation: portrait) or (min-width: 1024px) and (orientation: portrait) {
     .image1 {
       position: relative;
       left: 45%;
