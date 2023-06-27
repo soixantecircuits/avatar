@@ -30,7 +30,7 @@ import PhotoShoot from '~~/components/PhotoShoot.vue'
 import VerifPhotoShoot from '~~/components/VerifPhotoShoot.vue'
 import SharePhotoShoot from '~~/components/SharePhotoShoot.vue'
 
-import cursor from '~/assets/cursor.png'
+import cursor from '~/assets/cursor2.png'
 
 import { useMouse } from '@vueuse/core'
 
