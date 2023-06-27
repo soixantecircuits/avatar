@@ -215,7 +215,7 @@ function init (video) {
   const canvasW = canvashader.width
   const canvasH = canvashader.height
 
-  if (window.innerWidth >= 768) {
+  if (window.innerWidth >= 1024) {
     // Plane with image texture the text on top
     planeGeometry = new THREE.PlaneGeometry(1, 1, 1)
     planeMaterial = new THREE.MeshBasicMaterial({
@@ -265,7 +265,7 @@ function init (video) {
     scene.add(plane2)
   }
 
-  if (window.innerHeight <= 768 && window.innerWidth > 768) {
+  if (window.innerHeight <= 768 && window.innerWidth >= 1024) {
     plane.position.y = canvasW / 10000
     plane1.position.y = canvasW / 10000
     plane2.position.y = canvasW / 10000
