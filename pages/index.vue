@@ -13,12 +13,11 @@
     class='absolute bottom-0 pointer-events-none'
 
     :style='{
-      left: `${x - 75}px`,
-      top: `${y - 75}px`,
-      width: `150px`,
-      height: `150px`,
-      WebkitFilter: `blur(55px)`,
-    }'>
+      left: `${x - 150}px`,
+      top: `${y - 150}px`,
+      width: `300px`,
+      height: `300px`
+      }'>
 </div>
 </template>
 
