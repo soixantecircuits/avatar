@@ -321,7 +321,11 @@ function onMouseMove (event) {
     pos.x = Math.max(minX, Math.min(maxX, pos.x))
     pos.y = Math.max(minY, Math.min(maxY, pos.y))
 
-    groupSlash.scale.set(0.0004, 0.0004, 0.0004)
+    if (window.innerWidth >= 1024) {
+      groupSlash.scale.set(0.0004, 0.0004, 0.0004)
+    } else {
+      groupSlash.scale.set(0.000625, 0.0002, 0.0002)
+    }
     groupSlash.position.copy(pos)
   }
 }
