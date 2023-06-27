@@ -15,7 +15,9 @@
       width: `150px`,
       height: `150px`,
       borderRadius: `100%`,
-    }'>
+    }'
+      v-if='!(/iPhone|iPad|iPod/i.test(navigator.userAgent))'>
+      >
     </div>
 </div>
 </template>
