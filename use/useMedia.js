@@ -15,6 +15,7 @@ function startCamera (video) {
   video.setAttribute('playsinline', '')
   video.setAttribute('muted', '')
   video.setAttribute('autoplay', '')
+  video.autoplay = true
 
   if (!camStore.cameraOpen) {
     navigator.mediaDevices.getUserMedia({

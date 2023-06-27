@@ -60,6 +60,7 @@ export default {
     video.setAttribute('muted', '')
     video.setAttribute('autoplay', '')
     video.setAttribute('playsinline', '')
+    video.autoplay = true
 
     const getBackgroundClasses = () => {
       if (camStore.darkMode === true) {
