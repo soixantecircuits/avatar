@@ -15,7 +15,8 @@
       top: `${y - 75}px`,
       width: `150px`,
       height: `150px`,
-      borderRadius: `50%`
+      borderRadius: `50%`,
+      filter: `blur(50px)`
     }'>
     </div>
 </div>
