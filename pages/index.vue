@@ -16,7 +16,7 @@
       width: `150px`,
       height: `150px`,
       borderRadius: `50%`,
-      filter: `blur(50px)`
+      filter: `blur(4rem)`
     }'>
     </div>
 </div>
