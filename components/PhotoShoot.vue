@@ -57,6 +57,9 @@ export default {
     const camStore = useCameraStore()
 
     const video = document.createElement('video')
+    video.setAttribute('muted', '')
+    video.setAttribute('autoplay', '')
+    video.setAttribute('playsinline', '')
 
     const getBackgroundClasses = () => {
       if (camStore.darkMode === true) {
