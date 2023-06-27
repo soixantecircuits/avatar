@@ -14,6 +14,7 @@
       top: `${y - 75}px`,
       width: `150px`,
       height: `150px`,
+      borderRadius: `100%`,
     }'>
     </div>
 </div>
