@@ -14,12 +14,8 @@
     </div>
 
     <div v-if='camStore.cameraOpen' class='h-5/6 layer-text'>
-<<<<<<< HEAD
       <div class='move-light ping-animation lg:text-3xl text-xl font-black text-center low-highlight layer-text'
       @click='camStore.initializeStartPage()'>
-=======
-      <div class='move-light ping-animation lg:text-3xl text-xl font-black text-center low-highlight layer-text' @click='camStore.initializeStartPage()'>
->>>>>>> AVTR-TEST
         Move the // Light !
       </div>
 
