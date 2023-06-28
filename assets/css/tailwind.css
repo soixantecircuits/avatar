@@ -92,7 +92,13 @@
   .move-light {
     margin-top: 5%;
   }
-  
+
+  @media (min-width: 481px) and (max-width: 1024px){
+    .move-light {
+      margin-top: 15%;
+    }
+  }
+
   @keyframes ping {
     0% {
       transform: scale(1);
