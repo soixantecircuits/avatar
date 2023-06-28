@@ -186,10 +186,6 @@ function init (video) {
     groupSlash.position.y = 0
     groupSlash.position.z = -1
     // groupSlash.scale.y *= -1
-    // streatch vertically the slash on mobile
-    // if (window.innerWidth < 768) {
-    //   groupSlash.scale.set(0.00125, 0.0004, 0.0004)
-    // }
 
     if (window.innerWidth < 1024 && window.innerHeight > window.innerWidth) {
       groupSlash.scale.set(0.00125, 0.0004, 0.0004)

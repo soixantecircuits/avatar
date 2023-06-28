@@ -88,6 +88,10 @@
   .ping-animation {
     animation: ping 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
   }
+
+  .move-light {
+    margin-top: 5%;
+  }
   
   @keyframes ping {
     0% {
