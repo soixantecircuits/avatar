@@ -109,8 +109,8 @@ function init (video) {
 
   bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
   bloomPass.threshold = 0
-  bloomPass.strength = 4
-  bloomPass.radius = 1.3
+  bloomPass.strength = 3
+  bloomPass.radius = 1
   bloomPass.exposure = 1
   bloomComposer.addPass(bloomPass)
   bloomComposer.renderToScreen = false
