@@ -45,7 +45,7 @@
         </div>
         </div>
       <div class='text-3xl font-semibold'>
-        Terminé
+        Partagez votre photo avec vos amis
       </div>
     </div>
 

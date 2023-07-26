@@ -6,7 +6,7 @@
         <img :src='img' class='h-full w-full image rounded-lg flex lg:object-cover lg:object-left object-center object-cover' />
       </div>
       <div class='flex justify-center text-3xl font-semibold'>
-        Terminé
+        Partagez votre photo avec vos amis
       </div>
     </div>
 
