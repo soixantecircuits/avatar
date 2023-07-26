@@ -6,7 +6,7 @@
         <img :src='img' class='h-full w-full bg-image image rounded-lg flex lg:object-cover lg:object-left object-center object-cover' />
         <div class='relative h-full w-full flex justify-center items-center space-y-4'>
           <div class='space-y-4 w-4/6'>
-          <button class='button drop-shadow-md' @click='camStore.goToShare()'>
+          <button class='button drop-shadow-md w-full flex flex-row justify-end' @click='camStore.goToShare()'>
             <img :src=crossIcon alt='cross' class='w-12 h-12'/>
           </button>
         <div class='flex flex-col lg:items-center space-y-5 z-40 drop-shadow-2xl'>
