@@ -39,7 +39,7 @@
     <a href="https://www.soixantecircuits.fr" target="_blank" rel="noopener noreferrer" class="">
       <div class="flex flex-col space-y-1">
         <div class="logo-title dark:text-violet">Powered By</div>
-        <img :src="changeLogoImage()" alt="logo" class="w-20 h-10">
+        <img :src="changeLogoImage()" alt="logo" class="w-25 h-10">
       </div>
     </a>
   </div>
