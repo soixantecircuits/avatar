@@ -38,7 +38,7 @@
   }
 
   .low-highlight {
-    background: linear-gradient(to bottom, transparent 50%, #5C64EC 50%);
+    background: linear-gradient(to bottom, transparent 50%, #543BED 50%);
   }
   .title {
     @apply text-8xl font-black;
@@ -62,7 +62,7 @@
   }
 
   .button-color {
-    background-color: #5C64EC;
+    background-color: #543BED;
   }
 
   .button-color:hover {
