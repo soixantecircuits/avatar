@@ -1,12 +1,12 @@
 <template>
   <div class="w-full flex py-5 px-5 justify-between layer-header">
-    <div class="flex relative cursor-pointer flex flex-row items-center space-x-5">
+    <div class="flex relative cursor-pointer flex flex-row items-center space-x-5 button-container">
       <button @click="camStore.initializeMediaUI()">
       <img :src="changeHomeIcon()" alt="Home" class="w-6 h-6">
     </button>
 
     <label class="relative cursor-pointer flex">
-    <input checked type="checkbox" class=" sr-only peer" @change="toggleDarkMode">
+    <input checked type="checkbox" class=" button-container sr-only peer" @change="toggleDarkMode">
       <div class="w-11 h-6 bg-white
         peer-focus:outline-none
         peer-focus:ring-4
