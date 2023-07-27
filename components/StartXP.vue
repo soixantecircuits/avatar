@@ -33,10 +33,8 @@ export default {
     function handleCheckboxChange (value) {
       if (value === 'show') {
         camStore.displayInGallery = true
-        console.log('show')
       } else {
         camStore.displayInGallery = false
-        console.log('hide')
       }
     }
 

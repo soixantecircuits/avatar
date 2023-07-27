@@ -95,7 +95,6 @@ async function captureImg (video) {
         .storage
         .from('gallery')
         .upload('your-picture' + '-' + time + '.png', blob)
-      console.log('image uploaded to gallery')
 
       if (error) {
         console.log(error)
