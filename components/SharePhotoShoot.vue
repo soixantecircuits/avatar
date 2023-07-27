@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class=' flex flex-col space-y-2'>
+    <div class=' flex flex-col space-y-2  button-container'>
 
         <button @click='camStore.goToMail()'>
           <img :src=emailIcone alt='email'>

@@ -89,6 +89,10 @@
     animation: ping 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
   }
 
+  .button-container button:hover {
+    transform: scale(1.2); /* You can adjust the scale value to control the zoom effect */
+  }
+
   @media (min-width: 1024px) {
     .move-light {
       margin-top:5%;
